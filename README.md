@@ -1,10 +1,10 @@
 # LAIG 2020/2021
 
-## Group T0xG0y
+## Group T03G10
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Diogo Rosário    | 201806582 | up201806582@fe.up.pt |
+| Henrique Ribeiro | 201806529 | up201806529@fe.up.pt |
 
 ----
 
