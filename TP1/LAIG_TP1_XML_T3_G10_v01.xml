@@ -229,6 +229,69 @@
                 <leaf type="cylinder" height="0.5" topRadius="1" bottomRadius="1" stacks="20" slices="20"/> <!--center of the wheel-->
             </descendants>
         </node>
+
+        <node id="Body">         
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.0" y="0.5" z="0.0" />
+            </transformations>
+
+            <descendants>
+                <noderef id="Chassis" />
+                <noderef id="Cabin" />
+                <noderef id="Chimney" />
+            </descendants>
+        </node>
+
+        <node id="Chassis">
+            <material id="null"/> 
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <descendants>
+                <leaf type="cylinder" height="8" topRadius="4" bottomRadius="4" stacks="20" slices="4"/> <!--center of the wheel-->
+            </descendants>
+        </node>
+
+        <node id="Cabin">
+            <material id="null"/> 
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.0" y="4.5" z="2.0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="4" topRadius="4" bottomRadius="4" stacks="20" slices="4"/> <!--center of the wheel-->
+            </descendants>
+        </node>
+
+         <node id="Chimney">
+            <material id="null"/> 
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-1.0" y="4.5" z="-2.0" />
+                <rotation axis="xx" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/> <!--center of the wheel-->
+            </descendants>
+        </node>
     </nodes>
 </lsf>
 
