@@ -51,10 +51,18 @@ class MyTriangle extends CGFobject {
         t
         */
 
+		var c = Math.sqrt(Math.pow(x1-x3,2)+Math.pow(y1-y3,2));
+		var b = Math.sqrt(Math.pow(x3-x2,2)+Math.pow(y3-y2,2));
+		var a = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+
+		var cosA = (a*a - b*b + c*c)/(2*a*c);
+
+		var sinA = Math.sqrt(1-cosA*cosA);
+
 		this.texCoords = [
 			0, 0,
-			0, 1,
-			1, 0
+			a, 0,
+			c*cosA, c*sinA
 		]
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
