@@ -214,7 +214,7 @@ class MySceneGraph {
         var referenceIndex = nodeNames.indexOf("reference");
 
         // Get root of the scene.
-        if(rootIndex == -1)
+        if (rootIndex == -1)
             return "No root id defined for scene.";
 
         var rootNode = children[rootIndex];
@@ -225,7 +225,7 @@ class MySceneGraph {
         this.idRoot = id;
 
         // Get axis length        
-        if(referenceIndex == -1)
+        if (referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         var refNode = children[referenceIndex];
@@ -245,7 +245,45 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        //this.onXMLMinorError("To do: Parse views and create cameras.");
+        var children = viewsNode.children;
+
+        this.perspective = [];
+        this.ortho = [];
+
+
+
+        var perspective;
+
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].nodeName == 'perspective') {
+                var id, near, far, angle;
+                id = this.reader.getString(perspective, 'id');
+                near = this.reader.getFloat(perspective, 'near');
+                far = this.reader.getFloat(perspective, 'far');
+                angle = this.reader.getFloat(perspective, 'angle');
+
+                var perspectiveChildren = children[perspectiveIndex].children;
+                var perspectiveChildrenArray = [];
+                for (let i = 0; i < perspectiveChildren.length; i++) {
+                    perspectiveChildrenArray.push(perspectiveChildren[i].nodeName);
+                }
+
+                var fromIndex = perspectiveChildrenArray.indexOf('from');
+                var toIndex = perspectiveChildrenArray.indexOf('to');
+                var fromPosX,fromPosY,fromPosZ;
+                var toPosX,toPosY,toPosZ;
+                fromPosX = this.reader.getFloat(perspectiveChildren[fromIndex],'x');
+                fromPosY = this.reader.getFloat(perspectiveChildren[fromIndex],'y');
+                fromPosZ = this.reader.getFloat(perspectiveChildren[fromIndex],'z');
+                toPosX = this.reader.getFloat(perspectiveChildren[toIndex],'x');
+                toPosY = this.reader.getFloat(perspectiveChildren[toIndex],'y');
+                toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
+                
+            }
+        }
+
+
         return null;
     }
 
@@ -313,7 +351,7 @@ class MySceneGraph {
             }
             else {
                 attributeNames.push(...["enable", "position", "ambient", "diffuse", "specular"]);
-                attributeTypes.push(...["boolean","position", "color", "color", "color"]);
+                attributeTypes.push(...["boolean", "position", "color", "color", "color"]);
             }
 
             // Get id of the current light.
@@ -377,7 +415,7 @@ class MySceneGraph {
         var children = texturesNode.children;
 
         this.textures = [];
-        
+
         // Any number of texture.
         for (var i = 0; i < children.length; i++) {
 
@@ -448,7 +486,7 @@ class MySceneGraph {
    * Parses the <nodes> block.
    * @param {nodes block element} nodesNode
    */
-  parseNodes(nodesNode) {
+    parseNodes(nodesNode) {
         var children = nodesNode.children;
 
         this.nodes = [];
@@ -498,7 +536,7 @@ class MySceneGraph {
     }
 
 
-    parseBoolean(node, name, messageError){
+    parseBoolean(node, name, messageError) {
         var boolVal = true;
         boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false)))
@@ -596,9 +634,9 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
+
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
+
         //this.nodes[this.idRoot].display()
     }
 }
