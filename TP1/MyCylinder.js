@@ -20,52 +20,44 @@ class MyCylinder extends CGFobject {
      * TODO: DEFINE TEXTURE COORDINATES
      */
     initBuffers() {
-        var minRadius = this.bottomRadius;
-        if(this.topRadius<this.bottomRadius)
-            minRadius=this.topRadius;
-        radiusDiff = Math.abs(this.bottomRadius-this.topRadius);
+        
+
         this.vertices = [];
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
         
-        var i = 0;
+        
+        
+        var radiusDiff = (this.bottomRadius-this.topRadius);
 
-        for(; i <= this.slices;i++)
-        {
-            this.vertices.push(Math.cos(2 * Math.PI * i / this.slices)*minRadius+((this.stacks-j)/this.stacks*radiusDiff), j, Math.sin(2 * Math.PI * i / this.slices)*this.bottomRadius);
+
+        var ang = 2 * Math.PI / this.slices
+        for (var j = 0; j <= this.stacks; j++) {
+            for (var i = 0; i < this.slices; i += 1) {
+                this.vertices.push(
+                                    Math.sin(ang * i)*(this.bottomRadius-radiusDiff*(j/this.stacks)),
+                                    Math.cos(ang * i)*(this.bottomRadius-radiusDiff*(j/this.stacks)),
+                                    this.height*(j/this.stacks)
+                                   );
+                this.normals.push(Math.sin(2 * Math.PI * i / this.slices), Math.cos(2 * Math.PI * i / this.slices), radiusDiff/this.height);
+                this.texCoords.push((this.slices-i)/this.slices,(1-j)/this.stacks);
+            }
         }
 
-        //copiar a contrução mas mudar de cima para baixo
-
-        // for (; i <= this.slices; i += 1) {
-        //     for (var j = 0; j <= 1; j += 1) {
-        //         this.vertices.push(Math.cos(2 * Math.PI * i / this.slices), j, Math.sin(2 * Math.PI * i / this.slices));
-        //         this.normals.push(Math.cos(2 * Math.PI * i / this.slices), 0, Math.sin(2 * Math.PI * i / this.slices));
-        //         this.texCoords.push((this.slices-i)/this.slices,1-j);
-        //     }
-        // }
-        //var lastIndice = i;
-
-        for (var i = 0; i < this.slices * 2 - 1; i += 2) {
-            this.indices.push(i, i + 1, i + 3,
-                i + 2, i, i + 3,
-                i + 3, i + 1, i,
-                i + 3, i, i + 2);
-        }
-
-        // this.vertices.push(0, 0, 0,
-        //                    0, 1, 0);
-        // this.normals.push(0,-1,0,
-        //                   0,1,0);
-
-        // for (var i = 0; i < this.slices*2; i += 1) {
-        //     this.indices.push(i, lastIndice, i + 2,
-        //                       i + 2, lastIndice, i);
-        //     this.indices.push(i + 1, lastIndice + 1, i + 3,
-        //                       i + 3, lastIndice+1, i+1);
-        // }
-
+        this.enableNormalViz();
+    
+        for(var stack = 0; stack < this.stacks; stack++)
+        for (var slice = 0; slice < this.slices; slice++) { //Reverse side so switching indices[2] with indices[1] so its counter clock-wise
+            if (slice == this.slices - 1) {
+              this.indices.push(stack*this.slices+slice, stack*this.slices+slice + 1, stack*this.slices+slice + 1 - this.slices);
+              this.indices.push(stack*this.slices+slice, stack*this.slices+slice + this.slices, stack*this.slices+slice + 1);
+            }
+            else {
+              this.indices.push(stack*this.slices+slice,stack*this.slices+ slice + 1 + this.slices, stack*this.slices+slice + 1);
+              this.indices.push(stack*this.slices+slice,stack*this.slices+ slice + this.slices, stack*this.slices+slice + 1 + this.slices);
+            }
+          }
 
 
 
