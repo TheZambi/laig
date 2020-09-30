@@ -248,22 +248,22 @@ class MySceneGraph {
         //this.onXMLMinorError("To do: Parse views and create cameras.");
         var children = viewsNode.children;
 
-        this.perspective = [];
-        this.ortho = [];
-
-
+        this.cameras = [];
 
         var perspective;
+        var ortho;
+        var aux = [];
 
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName == 'perspective') {
+                perspective = children[i];
                 var id, near, far, angle;
                 id = this.reader.getString(perspective, 'id');
                 near = this.reader.getFloat(perspective, 'near');
                 far = this.reader.getFloat(perspective, 'far');
                 angle = this.reader.getFloat(perspective, 'angle');
 
-                var perspectiveChildren = children[perspectiveIndex].children;
+                var perspectiveChildren = children[i].children;
                 var perspectiveChildrenArray = [];
                 for (let i = 0; i < perspectiveChildren.length; i++) {
                     perspectiveChildrenArray.push(perspectiveChildren[i].nodeName);
@@ -279,10 +279,48 @@ class MySceneGraph {
                 toPosX = this.reader.getFloat(perspectiveChildren[toIndex],'x');
                 toPosY = this.reader.getFloat(perspectiveChildren[toIndex],'y');
                 toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
-                
+                this.aux.push(0,near,far,angle,vec3(fromPosX,fromPosY,fromPosZ),vec3(toPosX,toPosY,toPosZ));
+                this.cameras[id] = aux;
+            }
+            else if (children[i].nodeName == 'ortho') {
+                ortho = children[i];
+                var id, near, far, left, right, top,bottom;
+                id = this.reader.getString(ortho, 'id');
+                near = this.reader.getFloat(ortho, 'near');
+                far = this.reader.getFloat(ortho, 'far');
+                left = this.reader.getFloat(ortho, 'left');
+                right = this.reader.getFloat(ortho, 'right');
+                top = this.reader.getFloat(ortho, 'top');
+                bottom = this.reader.getFloat(ortho, 'bottom');
+               
+
+                var orthoChildren = children[i].children;
+                var orthoChildrenArray = [];
+                for (let i = 0; i < orthoChildren.length; i++) {
+                    orthoChildrenArray.push(orthoChildren[i].nodeName);
+                }
+
+                var fromIndex = perspectiveChildrenArray.indexOf('from');
+                var toIndex = perspectiveChildrenArray.indexOf('to');
+                var upIndex = perspectiveChildrenArray.indexOf('up');
+                var fromPosX,fromPosY,fromPosZ;
+                var toPosX,toPosY,toPosZ;
+                var upPosX,upPosY,upPosZ;
+                fromPosX = this.reader.getFloat(orthoChildren[fromIndex],'x');
+                fromPosY = this.reader.getFloat(orthoChildren[fromIndex],'y');
+                fromPosZ = this.reader.getFloat(orthoChildren[fromIndex],'z');
+                toPosX = this.reader.getFloat(orthoChildren[toIndex],'x');
+                toPosY = this.reader.getFloat(orthoChildren[toIndex],'y');
+                toPosZ = this.reader.getFloat(orthoChildren[toIndex],'z');
+                upPosX = this.reader.getFloat(orthoChildren[upIndex],'x');
+                upPosY = this.reader.getFloat(orthoChildren[upIndex],'y');
+                upPosZ = this.reader.getFloat(orthoChildren[upIndex],'z');
+                this.aux.push(1,near,far,left,right,top,bottom,vec3(fromPosX,fromPosY,fromPosZ),vec3(toPosX,toPosY,toPosZ),vec3(upPosX,upPosY,upPosZ));
+                this.cameras[id] = aux;
             }
         }
 
+        console.log(this.cameras);
 
         return null;
     }
