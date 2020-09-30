@@ -59,7 +59,12 @@ class MyCylinder extends CGFobject {
             }
           }
 
-
+          this.vertices.push(0,0,0);
+          this.vertices.push(0,0,this.height);
+          for(var slice = 0; slice <= this.slices ; slice++)
+          {
+              this.indices(slice,slice+1,this.slices*(this.stacks+1));
+          }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
