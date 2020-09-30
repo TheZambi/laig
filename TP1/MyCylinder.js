@@ -40,7 +40,12 @@ class MyCylinder extends CGFobject {
                     Math.cos(ang * i) * (this.bottomRadius - radiusDiff * (j / this.stacks)),
                     this.height * (j / this.stacks)
                 );
-                this.normals.push(Math.sin(2 * Math.PI * i / this.slices), Math.cos(2 * Math.PI * i / this.slices), radiusDiff / this.height);
+
+                var usedToNormalize = Math.sqrt((Math.sin(2 * Math.PI * i / this.slices)*Math.sin(2 * Math.PI * i / this.slices))
+                                                +Math.cos(2 * Math.PI * i / this.slices)*Math.cos(2 * Math.PI * i / this.slices)
+                                                +radiusDiff / this.height*radiusDiff / this.height);
+
+                this.normals.push(Math.sin(2 * Math.PI * i / this.slices)/usedToNormalize, Math.cos(2 * Math.PI * i / this.slices)/usedToNormalize, (radiusDiff / this.height)/usedToNormalize);
                 this.texCoords.push((this.slices - i) / this.slices, (1 - j) / this.stacks);
             }
         }
