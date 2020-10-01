@@ -505,8 +505,9 @@ class MySceneGraph {
 
         this.materials = [];
 
-        var grandChildren = [];
         var nodeNames = [];
+
+        var aux = [];
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -520,16 +521,63 @@ class MySceneGraph {
             var materialID = this.reader.getString(children[i], 'id');
             if (materialID == null)
                 return "no ID defined for material";
-
+            
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
                 return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
-        }
 
-        //this.log("Parsed materials");
+            var grandChildren = [];
+            grandChildren = children[i].children;
+
+
+            var grandChildrenArray = [];
+            for (let i = 0; i < grandChildren.length; i++) {
+                grandChildrenArray.push(grandChildren[i].nodeName);
+            }
+            var shininessIndex,ambientIndex,diffuseIndex,specularIndex,emissiveIndex;
+
+            shininessIndex = grandChildrenArray.indexOf("shininess");
+            ambientIndex = grandChildrenArray.indexOf("ambient");
+            diffuseIndex = grandChildrenArray.indexOf("diffuse");
+            specularIndex = grandChildrenArray.indexOf("specular");
+            emissiveIndex = grandChildrenArray.indexOf("emissive");
+            
+            var shininessRGBA = ["shininess"];
+            var ambientRGBA = ["ambient"];
+            var diffuseRGBA = ["diffuse"];
+            var specularRGBA = ["specular"];
+            var emissiveRGBA = ["emissive"];
+
+            shininessRGBA.push(this.reader.getFloat(grandChildren[shininessIndex],"value"))
+
+            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"r"));
+            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"g"));
+            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"b"));
+            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"a"));
+
+            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"r"));
+            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"g"));
+            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"b"));
+            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"a"));
+
+            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"r"));
+            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"g"));
+            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"b"));
+            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"a"));
+
+            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"r"));
+            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"g"));
+            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"b"));
+            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"a"));
+
+
+            aux.push(shininessRGBA,ambientRGBA,diffuseRGBA,specularRGBA,emissiveRGBA);
+            this.materials[materialID] = aux;
+            
+        }
+        console.log(this.materials);
+        this.log("Parsed materials");
         return null;
     }
 
