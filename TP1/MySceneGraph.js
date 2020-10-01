@@ -523,7 +523,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
             //Continue here
             this.onXMLMinorError("To do: Parse materials.");
@@ -543,7 +543,6 @@ class MySceneGraph {
         this.nodes = [];
 
         var grandChildren = [];
-        var grandgrandChildren = [];
         var nodeNames = [];
 
         // Any number of nodes.
@@ -575,14 +574,121 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
-            this.onXMLMinorError("To do: Parse nodes.");
-            // Transformations
-
+            //this.onXMLMinorError("To do: Parse nodes.");
             // Material
+
+            var aux = [];
+
+            aux.push(nodeID);
+
+            aux.push(this.reader.getString(grandChildren[materialIndex],"id"));
 
             // Texture
 
+            var textAmplification = grandChildren[textureIndex].children;
+            var textureAux = [];
+
+            textureAux.push(this.reader.getString(grandChildren[textureIndex],"id"));
+
+            textureAux.push(this.reader.getFloat(textAmplification[0],"afs"));
+            textureAux.push(this.reader.getFloat(textAmplification[0],"aft"));
+            aux.push(textureAux);
+
+            // Transformations
+
+            var transformations = grandChildren[transformationsIndex].children;
+            
+            var transformationAux = [];
+            for(let i = 0; i<transformations.length; i++)
+            {
+                var singleTransformation = [];
+
+                if(transformations[i].nodeName == "translation") // t
+                {
+                    singleTransformation.push("t");
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"x"));
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"y"));
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"z"));
+
+                }
+                else if(transformations[i].nodeName == "rotation") // r
+                {
+                    singleTransformation.push("r");
+                    singleTransformation.push(this.reader.getString(transformations[i],"axis"));
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"angle"));
+
+                }
+                else if(transformations[i].nodeName == "scale") // s
+                {
+                    singleTransformation.push("s");
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"sx"));
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"sy"));
+                    singleTransformation.push(this.reader.getFloat(transformations[i],"sz"));
+                }
+                transformationAux.push(singleTransformation);
+
+            }
+            aux.push(transformationAux);
+
             // Descendants
+
+            var descendants = grandChildren[descendantsIndex].children;
+
+            var descendantsParsed = [];
+
+            for(let i = 0; i<descendants.length; i++)
+            {
+                var descendantsAux = [];
+
+                if(descendants[i].nodeName=="noderef")
+                {
+                    descendantsAux.push("node");
+                    descendantsAux.push(this.reader.getString(descendants[i],"id"));
+                }
+                else if(descendants[i].nodeName=="leaf")
+                {
+                    descendantsAux.push("leaf");
+                    descendantsAux.push(this.reader.getString(descendants[i],"type"));
+                    switch(descendantsAux[1]){
+                        case "rectangle" :
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"x1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"y1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"x2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"y2"));
+                            break;
+                        case "sphere" :
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"stacks"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"radius"));
+                            break;
+                        case "triangle" :
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"x1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"y1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"x2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"y2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"x3"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"y3"));
+                            break;
+                        case "cylinder" :
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"stacks"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"topRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"bottomRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"height"));
+                            break;
+                        case "torus" :
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"loops"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"innerRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"outerRadius"));
+
+                    }
+                }
+                descendantsParsed.push(descendantsAux);
+            }
+            aux.push(descendantsParsed);
+
+            console.log("Parsed Nodes");
         }
     }
 
