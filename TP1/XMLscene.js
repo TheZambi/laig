@@ -19,6 +19,8 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
         this.sceneInited = false;
 
         this.enableTextures(true);
@@ -37,6 +39,7 @@ class XMLscene extends CGFscene {
         this.defaultAppearance=new CGFappearance(this);
 
         this.cameraList = [];
+        this.cameraNames = [];
         this.selectedCamera = -1;
         
     }
@@ -45,27 +48,24 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        this.interface.setActiveCamera(this.camera);
+        var auxCamera;
         for(var key in this.graph.cameras){
+            console.log(key);
             if(this.graph.cameras.hasOwnProperty(key)){
-                var auxCamera = this.graph.cameras[key];
+                auxCamera = this.graph.cameras[key];
                 if(auxCamera[0] == 0){ // 0 for perspective cameras
                     var cameraToPush = new CGFcamera(...auxCamera.slice(1));
                     this.cameraList.push(cameraToPush);
-                    console.log("perspective");
-                    console.log(cameraToPush);
+                    this.cameraNames.push(key);
                 }
                 else if(auxCamera[0] == 1){ // 1 for ortho cameras
                     var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));
                     this.cameraList.push(cameraToPush);
-
-                    console.log("ortho");
-                    console.log(cameraToPush);
+                    this.cameraNames.push(key);
                 }
             }
         }
-        
+        return;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
