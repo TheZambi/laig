@@ -623,11 +623,11 @@ class MySceneGraph {
             var descendantsIndex = nodeNames.indexOf("descendants");
 
             //this.onXMLMinorError("To do: Parse nodes.");
-            // Material
-
+            
             var aux = [];
 
-            aux.push(nodeID);
+            
+            // Material
 
             aux.push(this.reader.getString(grandChildren[materialIndex],"id"));
 
@@ -735,9 +735,12 @@ class MySceneGraph {
                 descendantsParsed.push(descendantsAux);
             }
             aux.push(descendantsParsed);
-
-            console.log("Parsed Nodes");
+            this.nodes[nodeID] = aux;
         }
+
+        console.log(this.nodes);
+
+        console.log("Parsed Nodes");
     }
 
 
