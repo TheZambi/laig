@@ -14,6 +14,18 @@ class MyRectangle extends CGFobject {
 		this.x2 = x2;
 		this.y1 = y1;
 		this.y2 = y2;
+		
+		if(x1>x2)
+			this.xNorm = 1;
+		else
+			this.xNorm = -1;
+
+		if(y1>y2)
+			this.yNorm = 1;
+		else
+			this.yNorm = -1;
+
+		this.totalNorm = this.xNorm*this.yNorm;
 
 		this.initBuffers();
 	}
@@ -34,10 +46,10 @@ class MyRectangle extends CGFobject {
 
 		//Facing Z positive
 		this.normals = [
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1
+			0, 0, this.totalNorm,
+			0, 0, this.totalNorm,
+			0, 0, this.totalNorm,
+			0, 0, this.totalNorm
 		];
 		
 		/*

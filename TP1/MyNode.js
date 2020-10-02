@@ -86,6 +86,7 @@ class MyNode {
             this.children[i].display();
         }
         for(let i = 0;i< this.leaves.length;i++){
+            console.log(this.id,this.leaves);
             this.leaves[i].display();
         }
 
