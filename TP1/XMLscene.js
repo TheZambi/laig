@@ -40,6 +40,7 @@ class XMLscene extends CGFscene {
 
         this.cameraList = [];
         this.cameraNames = [];
+        this.nodesList = [];
         this.selectedCamera = -1;
         
     }
@@ -50,7 +51,6 @@ class XMLscene extends CGFscene {
     initCameras() {
         var auxCamera;
         for(var key in this.graph.cameras){
-            console.log(key);
             if(this.graph.cameras.hasOwnProperty(key)){
                 auxCamera = this.graph.cameras[key];
                 if(auxCamera[0] == 0){ // 0 for perspective cameras
@@ -66,6 +66,16 @@ class XMLscene extends CGFscene {
             }
         }
         return;
+    }
+
+    initNodes(){
+        for(var key in this.graph.nodes){
+            if(this.graph.nodes.hasOwnProperty(key)){
+                var auxNode = this.graph.nodes[key];
+                var nodeToPush = new MyNode(this,key,auxNode);
+                this.nodesList.push(nodeToPush);
+            }
+        }
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -112,6 +122,7 @@ class XMLscene extends CGFscene {
 
         this.initLights();
         this.initCameras();
+        this.initNodes();
 
         this.sceneInited = true;
     }

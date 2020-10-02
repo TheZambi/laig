@@ -576,7 +576,6 @@ class MySceneGraph {
             this.materials[materialID] = aux;
             
         }
-        console.log(this.materials);
         this.log("Parsed materials");
         return null;
     }
@@ -737,10 +736,7 @@ class MySceneGraph {
             aux.push(descendantsParsed);
             this.nodes[nodeID] = aux;
         }
-
-        console.log(this.nodes);
-
-        console.log("Parsed Nodes");
+        this.log("Parsed Nodes");
     }
 
 
