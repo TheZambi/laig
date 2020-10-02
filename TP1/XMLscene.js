@@ -76,7 +76,26 @@ class XMLscene extends CGFscene {
                 this.nodesList.push(nodeToPush);
             }
         }
+
+
+        for(let i = 0;i< this.nodesList.length;i++){
+            if(this.nodesList[i].id == this.graph.idRoot && this.nodesList[i].visited == false){
+                this.addChildren(this.nodesList[i])
+            }
+        }
+    
     }
+
+    addChildren(node){
+        node.visited = true;
+        for(let i = 0;i< this.nodesList.length;i++){
+            if(node.childrenNames.includes(this.nodesList[i].id)){
+                node.children.push(this.nodesList[i]);
+                this.addChildren(this.nodesList[i]);
+            } 
+        }
+    }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -170,6 +189,10 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
+
+        if(this.nodesList[0] != null)
+            this.nodesList[0].display();
+        
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
