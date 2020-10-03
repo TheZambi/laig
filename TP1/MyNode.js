@@ -97,7 +97,7 @@ class MyNode {
             }
         }
 
-        
+
 
         this.scene.popMatrix();
     }
