@@ -55,7 +55,7 @@ class MyNode {
                     this.leaves.push(new MySphere(this.scene,...this.info[3][i].slice(2)));
                 }
                 else if(this.info[3][i][1] == "torus"){
-                    this.leaves.push(new MyTorus(this.scene,...this.info[3][i].slice(2)));
+                    //this.leaves.push(new MyTorus(this.scene,...this.info[3][i].slice(2)));
                 }
                 else if(this.info[3][i][1] == "triangle"){
                     this.leaves.push(new MyTriangle(this.scene,...this.info[3][i].slice(2)));
@@ -86,7 +86,6 @@ class MyNode {
             this.children[i].display();
         }
         for(let i = 0;i< this.leaves.length;i++){
-            console.log(this.id,this.leaves);
             this.leaves[i].display();
         }
 

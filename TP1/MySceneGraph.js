@@ -621,6 +621,7 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
+
             //this.onXMLMinorError("To do: Parse nodes.");
             
             var aux = [];
@@ -726,8 +727,8 @@ class MySceneGraph {
                         case "torus" :
                             descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
                             descendantsAux.push(this.reader.getFloat(descendants[i],"loops"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"innerRadius"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"outerRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"inner"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i],"outer"));
 
                     }
                 }

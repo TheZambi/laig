@@ -75,7 +75,7 @@
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
                 <translation x="0" y="1.0" z="1.0" />
-                <rotation axis="yy" angle="45" />
+                <rotation axis="y" angle="45" />
                 <scale sx="2" sy="1" sz="1" />
             </transformations>
 
@@ -100,7 +100,7 @@
             </texture>
 
             <transformations>
-                <rotation axis="xx" angle="90" />
+                <rotation axis="x" angle="90" />
             </transformations>
 
             <descendants>
@@ -109,6 +109,9 @@
         </node>
          <node id="Tractor">            
             <material id="null" />
+
+            <transformations>
+            </transformations>
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -124,6 +127,10 @@
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
+
+            <transformations>
+            </transformations>
+
             <descendants>
                 <noderef id="Wheel1" />
                 <noderef id="Wheel2" />
@@ -200,6 +207,9 @@
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
+            <transformations>
+            </transformations>
+
             <descendants>
                 <noderef id="Tire" />
                 <noderef id="Rim" />
@@ -210,8 +220,12 @@
             <material id="Rubber"/>
 
             <texture id="Tire">
-                <amplification afs="2.0" aft="2.0">
+                <amplification afs="2.0" aft="2.0"/>
             </texture>
+
+            <transformations>
+
+            </transformations>
 
             <descendants>
                 <leaf type="torus" inner="0.5" outer="2" slices="20" loops="20" />  <!-- tire -->
@@ -224,6 +238,9 @@
             <texture id="Rim">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
+
+            <transformations>
+            </transformations>
 
             <descendants>
                 <leaf type="cylinder" height="0.5" topRadius="1" bottomRadius="1" stacks="20" slices="20"/> <!--center of the wheel-->
@@ -255,6 +272,9 @@
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
+            <transformations>
+            </transformations>
+
             <descendants>
                 <leaf type="cylinder" height="8" topRadius="4" bottomRadius="4" stacks="20" slices="4"/> <!--center of the wheel-->
             </descendants>
@@ -285,7 +305,7 @@
 
             <transformations>
                 <translation x="-1.0" y="4.5" z="-2.0" />
-                <rotation axis="xx" angle="-90" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>

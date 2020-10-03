@@ -23,8 +23,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.cylinder = new MyCylinder(this,40,5,1,1,3);
-
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -176,7 +174,6 @@ class XMLscene extends CGFscene {
             // Draw axis
             this.axis.display();
 
-            this.cylinder.display();
 
             this.defaultAppearance.apply();
 
