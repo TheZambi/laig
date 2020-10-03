@@ -41,6 +41,8 @@
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="Vidral" path="./scenes/images/vidral.jpg" />
+        <texture id="Rim" path="./scenes/images/rocks.jpg" />
+
     </textures>
 
 
