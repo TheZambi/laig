@@ -187,7 +187,9 @@ class XMLscene extends CGFscene {
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
 
-        console.log(this.nodesList);
+        this.texStack = [];
+        this.matStack = [];
+
         this.sceneInited = true;
     }
 

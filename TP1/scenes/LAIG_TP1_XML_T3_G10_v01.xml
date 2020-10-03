@@ -220,7 +220,7 @@
         <node id="Tire">
             <material id="Rubber"/>
 
-            <texture id="Tire">
+            <texture id="clear">
                 <amplification afs="1.0" aft="1.0"/>
             </texture>
 
