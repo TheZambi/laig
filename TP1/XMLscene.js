@@ -40,6 +40,8 @@ class XMLscene extends CGFscene {
 
         this.cameraList = [];
         this.cameraNames = [];
+        this.materialsList = [];
+        this.texturesList = [];
         this.nodesList = [];
         this.selectedCamera = -1;
         
@@ -129,6 +131,44 @@ class XMLscene extends CGFscene {
         }
     }
 
+
+    initMaterials(){
+        for(var key in this.graph.materials){
+            if(this.graph.materials.hasOwnProperty(key)){
+                var auxMaterial = this.graph.materials[key];
+                var materialToPush = new CGFappearance(this);
+                materialToPush.setShininess(auxMaterial[0][1]);
+                materialToPush.setAmbient(...auxMaterial[1].slice(1));
+                materialToPush.setDiffuse(...auxMaterial[2].slice(1));
+                materialToPush.setSpecular(...auxMaterial[3].slice(1));
+                materialToPush.setEmission(...auxMaterial[4].slice(1));
+                this.materialsList[key] = materialToPush;
+            }
+        }
+    }
+
+    initTextures(){
+        for(var key in this.graph.textures){
+            if(this.graph.textures.hasOwnProperty(key)){
+                var auxTexture = this.graph.textures[key];
+                var textureToPush = new CGFtexture(this,auxTexture);
+                this.texturesList[key] = textureToPush;
+            }
+        }
+    }
+
+    addMaterialsToNodes(){
+        for(let i = 0;i<this.nodesList.length;i++){
+            this.nodesList[i].material = this.materialsList[this.nodesList[i].materialID];
+        }
+    }
+
+    addTexturesToNodes(){
+        for(let i = 0;i<this.nodesList.length;i++){
+            this.nodesList[i].texture = this.texturesList[this.nodesList[i].textureID];
+        }
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -142,13 +182,12 @@ class XMLscene extends CGFscene {
         this.initLights();
         this.initCameras();
         this.initNodes();
+        this.initMaterials();
+        this.initTextures();
+        this.addMaterialsToNodes();
+        this.addTexturesToNodes();
 
-        console.log(this.cameraList);
-        console.log(this.graph.materials);
-        console.log(this.graph.textures);
         console.log(this.nodesList);
-
-
         this.sceneInited = true;
     }
 

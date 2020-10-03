@@ -8,6 +8,8 @@ class MyNode {
         this.children = [];
         this.childrenNames = [];
         this.leaves = [];
+        this.texture = null;
+        this.material = null;
 
     
 		this.initBuffers();
