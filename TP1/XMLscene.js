@@ -19,7 +19,7 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 
         this.sceneInited = false;
 
@@ -143,6 +143,12 @@ class XMLscene extends CGFscene {
         this.initCameras();
         this.initNodes();
 
+        console.log(this.cameraList);
+        console.log(this.graph.materials);
+        console.log(this.graph.textures);
+        console.log(this.nodesList);
+
+
         this.sceneInited = true;
     }
 
@@ -173,7 +179,6 @@ class XMLscene extends CGFscene {
         if (this.sceneInited) {
             // Draw axis
             this.axis.display();
-
 
             this.defaultAppearance.apply();
 

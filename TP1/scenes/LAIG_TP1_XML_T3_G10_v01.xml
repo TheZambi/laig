@@ -74,9 +74,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <translation x="0" y="1.0" z="1.0" />
-                <rotation axis="y" angle="45" />
-                <scale sx="2" sy="1" sz="1" />
+                
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -96,7 +94,7 @@
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -125,66 +123,51 @@
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="Wheel1" />
-                <noderef id="Wheel2" />
-                <noderef id="Wheel3" />
-                <noderef id="Wheel4" />
+                <noderef id="leftBackWheel" />
+                <noderef id="rightBackWheel" />
+                <noderef id="leftFrontWheel" />
+                <noderef id="rightFrontWheel" />
             </descendants>
         </node>
-        <node id="Wheel1">  
+        <node id="leftBackWheel">  
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="3.5" y="0" z="1.5" />
-            </transformations>
-
-            <descendants>
-                <noderef id="StandardWheel" />
-            </descendants>
-        </node>
-        <node id="Wheel2">          
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-
-            <transformations>
-                <translation x="-3.5" y="0" z="1.5" />
+                <translation x="3" y="-3" z="1.5" />
             </transformations>
 
             <descendants>
                 <noderef id="StandardWheel" />
             </descendants>
         </node>
-        <node id="Wheel3">           
+        <node id="rightBackWheel">          
             <material id="null" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
+
             <transformations>
-                <translation x="3.5" y="0" z="-1.5" />
+                <translation x="-3.5" y="-3" z="1.5" />
             </transformations>
 
             <descendants>
                 <noderef id="StandardWheel" />
             </descendants>
         </node>
-        <node id="Wheel4">         
+        <node id="leftFrontWheel">           
             <material id="null" />
 
             <texture id="clear">
@@ -192,7 +175,22 @@
             </texture>
 
             <transformations>
-                <translation x="-3.5" y="0" z="-1.5" />
+                <translation x="3" y="-3" z="10" />
+            </transformations>
+
+            <descendants>
+                <noderef id="StandardWheel" />
+            </descendants>
+        </node>
+        <node id="rightFrontWheel">         
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-3.5" y="-3" z="10" />
             </transformations>
 
             <descendants>
@@ -204,10 +202,11 @@
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
+                <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>
@@ -220,11 +219,10 @@
             <material id="Rubber"/>
 
             <texture id="Tire">
-                <amplification afs="2.0" aft="2.0"/>
+                <amplification afs="1.0" aft="1.0"/>
             </texture>
 
             <transformations>
-
             </transformations>
 
             <descendants>
@@ -236,10 +234,11 @@
             <material id="Iron"/> 
 
             <texture id="Rim">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
+                <translation x="0" y="5" z="0" />
             </transformations>
 
             <descendants>
@@ -251,11 +250,11 @@
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="0.0" y="0.5" z="0.0" />
+                <translation x="0.0" y="5" z="0.0" />
             </transformations>
 
             <descendants>
@@ -273,6 +272,26 @@
             </texture>
 
             <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="licencePlate"/>
+                <noderef id="mainChassisBody"/> <!--center of the wheel-->
+            </descendants>
+        </node>
+
+        <node id="mainChassisBody">
+            <material id="null"/> 
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="-1" z="0"/>
+                <scale sx="1" sy="0.8" sz="1.5"/>
+                <rotation axis="z" angle="45" />
             </transformations>
 
             <descendants>
@@ -288,11 +307,29 @@
             </texture>
 
             <transformations>
-                <translation x="0.0" y="4.5" z="2.0" />
+                <translation x="0.0" y="2.95" z="0" />
+                <scale sx="1" sy="0.6" sz="1"/> 
+                <rotation axis="z" angle="45" />
             </transformations>
 
             <descendants>
                 <leaf type="cylinder" height="4" topRadius="4" bottomRadius="4" stacks="20" slices="4"/> <!--center of the wheel-->
+            </descendants>
+        </node>
+
+        <node id="licencePlate">
+            <material id="null"/> 
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-2" y="-3" z="12.1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="1"/> <!--center of the wheel-->
             </descendants>
         </node>
 
@@ -304,12 +341,12 @@
             </texture>
 
             <transformations>
-                <translation x="-1.0" y="4.5" z="-2.0" />
+                <translation x="-2.0" y="1.25" z="10" />
                 <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/> <!--center of the wheel-->
+                <leaf type="cylinder" height="2" topRadius="0.2" bottomRadius="0.2" stacks="20" slices="20"/> <!--center of the wheel-->
             </descendants>
         </node>
     </nodes>

@@ -507,11 +507,11 @@ class MySceneGraph {
 
         var nodeNames = [];
 
-        var aux = [];
+        
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
-
+            var aux = [];
             if (children[i].nodeName != "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
