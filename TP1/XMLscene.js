@@ -19,9 +19,9 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.sceneInited = false;
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
-        this.initCameras();
+        this.sceneInited = false;
 
         this.cylinder = new MyCylinder(this,40,5,1,1,3);
 
@@ -40,14 +40,64 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance=new CGFappearance(this);
 
+        this.cameraList = [];
+        this.cameraNames = [];
+        this.nodesList = [];
+        this.selectedCamera = -1;
+        
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        var auxCamera;
+        for(var key in this.graph.cameras){
+            if(this.graph.cameras.hasOwnProperty(key)){
+                auxCamera = this.graph.cameras[key];
+                if(auxCamera[0] == 0){ // 0 for perspective cameras
+                    var cameraToPush = new CGFcamera(...auxCamera.slice(1));
+                    this.cameraList.push(cameraToPush);
+                    this.cameraNames.push(key);
+                }
+                else if(auxCamera[0] == 1){ // 1 for ortho cameras
+                    var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));
+                    this.cameraList.push(cameraToPush);
+                    this.cameraNames.push(key);
+                }
+            }
+        }
+        return;
     }
+
+    initNodes(){
+        for(var key in this.graph.nodes){
+            if(this.graph.nodes.hasOwnProperty(key)){
+                var auxNode = this.graph.nodes[key];
+                var nodeToPush = new MyNode(this,key,auxNode);
+                this.nodesList.push(nodeToPush);
+            }
+        }
+
+
+        for(let i = 0;i< this.nodesList.length;i++){
+            if(this.nodesList[i].id == this.graph.idRoot && this.nodesList[i].visited == false){
+                this.addChildren(this.nodesList[i])
+            }
+        }
+    
+    }
+
+    addChildren(node){
+        node.visited = true;
+        for(let i = 0;i< this.nodesList.length;i++){
+            if(node.childrenNames.includes(this.nodesList[i].id)){
+                node.children.push(this.nodesList[i]);
+                this.addChildren(this.nodesList[i]);
+            } 
+        }
+    }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -92,6 +142,8 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(...this.graph.ambient);
 
         this.initLights();
+        this.initCameras();
+        this.initNodes();
 
         this.sceneInited = true;
     }
@@ -141,6 +193,10 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
+
+        if(this.nodesList[0] != null)
+            this.nodesList[0].display();
+        
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
