@@ -14,7 +14,7 @@
 
 - Everything is ready to finish the assignement without having to make many changes.
 - Makes use of multiple textures and materials.
-- Uses all primitive object exept for the triangle.
+- Uses all primitive object except for the triangle.
 - Creation of some detailed objecs.
 
 - Scene
