@@ -244,10 +244,11 @@
             </texture>
 
             <transformations>
+              <translation x="0" y="5" z="0.3" />
             </transformations>
 
             <descendants>
-                <leaf type="torus" inner="0.5" outer="2" slices="20" loops="20" />  <!-- tire -->
+                <leaf type="torus" inner="0.2" outer="1.1" slices="20" loops="20" />  <!-- tire -->
             </descendants>
         </node>
 
