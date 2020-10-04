@@ -73,7 +73,7 @@ class MyNode {
                 this.scene.texStack.push(this.texture);
                 this.texture.bind();
             }
-            else
+            else if(this.scene.texStack.length != 0)
                 this.scene.texStack[this.scene.texStack.length-1].unbind();
             
         }
@@ -98,6 +98,9 @@ class MyNode {
         if (this.textureID != "null") {
             if(this.textureID!="clear"){
                 this.scene.texStack.pop();
+                if(this.scene.texStack.length == 0){
+                    this.texture.unbind();
+                }
                 if (this.scene.texStack.length != 0) {
                     this.scene.texStack[this.scene.texStack.length - 1].bind();
                 }
