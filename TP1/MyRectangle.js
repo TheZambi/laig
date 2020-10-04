@@ -69,6 +69,8 @@ class MyRectangle extends CGFobject {
 			1, 0
 		]
 		this.primitiveType = this.scene.gl.TRIANGLES;
+		// this.enableNormalViz();
+
 		this.initGLBuffers();
 	}
 
