@@ -12,10 +12,14 @@
 
 ### [TP1 - Scene Graph](TP1)
 
-- (items briefly describing main strong points)
+- Everything is ready to finish the assignement without having to make many changes.
+- Makes use of multiple textures and materials.
+- Uses all primitive object exept for the triangle.
+- Creation of some detailed objecs.
+
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - A field of grass with a tractor on top.
+  - [Scene]TP1/scenes/LAIG_TP1_XML_T3_G10_v01.xml
 
 -----
 

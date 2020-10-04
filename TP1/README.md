@@ -4,17 +4,24 @@
 
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Diogo Rosário    | 201806582 | up201806582@fe.up.pt |
+| Henrique Ribeiro | 201806529 | up201806529@fe.up.pt |
 
 ----
 ## Project information
 
-- (items describing main strong points)
+- Everything is ready to finish the assignement without having to make many changes.
+- Makes use of multiple textures and materials.
+- Uses all primitive object exept for the triangle.
+- Creation of some detailed objecs.
+
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - A field of grass with a tractor on top.
+  - [Scene]./scenes/LAIG_TP1_XML_T3_G10_v01.xml
 ----
 ## Issues/Problems
 
-- (items describing unimplemented features, bugs, problems, etc.)
+- Parser still has little to none error verification;
+- Torus is not yet implemented;
+- Still not possible to change between cameras;
+
