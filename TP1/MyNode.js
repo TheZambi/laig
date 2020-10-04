@@ -68,9 +68,14 @@ class MyNode {
             this.material.apply();
         }
 
-        if (this.texture != null) {
-            this.scene.texStack.push(this.texture);
-            this.texture.bind();
+        if (this.textureID != null) {
+            if(this.textureID == "clear")
+                this.scene.texStack.push("clear");
+            else
+                this.scene.texStack.push(this.texture);
+
+            if(this.textureID != "clear")
+                this.texture.bind();
         }
 
         for (let i = 0; i < this.leaves.length; i++) {
@@ -82,17 +87,17 @@ class MyNode {
 
         if (this.material != null) {
             this.scene.matStack.pop();
-            if (this.scene.matStack.length != 0) {
+            if (this.scene.matStack.length != 0 ) {
                 this.scene.matStack[this.scene.matStack.length - 1].apply();
-                if (this.scene.texStack.length != 0) {
+                if (this.scene.texStack.length != 0  && this.scene.texStack[this.scene.texStack.length-1 != "clear"]) {
                     this.scene.texStack[this.scene.texStack.length - 1].bind();
                 }
             }
         }
 
-        if (this.texture != null) {
+        if (this.textureID != null) {
             this.scene.texStack.pop();
-            if (this.scene.texStack.length != 0) {
+            if (this.scene.texStack.length != 0 && this.scene.texStack[this.scene.texStack.length-1 != "clear"]) {
                 this.scene.texStack[this.scene.texStack.length - 1].bind();
             }
         }

@@ -190,6 +190,8 @@ class XMLscene extends CGFscene {
         this.texStack = [];
         this.matStack = [];
 
+        console.log(this.nodesList);
+
         this.sceneInited = true;
     }
 
