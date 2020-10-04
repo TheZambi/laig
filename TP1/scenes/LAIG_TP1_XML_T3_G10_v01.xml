@@ -42,6 +42,11 @@
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="Vidral" path="./scenes/images/vidral.jpg" />
         <texture id="Rim" path="./scenes/images/rocks.jpg" />
+        <texture id="Floor" path="./scenes/images/leaves.jpg" />
+
+        <texture id="cabinTop" path="./scenes/images/cabinRoof.png"/>
+        <texture id="cabinRed" path="./scenes/images/cabinRed.png"/>
+        <texture id="cabinWindow" path="./scenes/images/cabinWindow.png"/>
 
     </textures>
 
@@ -51,10 +56,10 @@
          requires a distinct "id". At least one material should be present. -->
         <material id="Material1">
             <shininess value="10" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="1" b="1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+            <emissive r="0.0" g="0.6" b="0.6" a="1.0" />
         </material>
         <material id="Iron"> 
             <shininess value="1.0" />
@@ -94,9 +99,9 @@
         </node>
         <node id="Floor">           
            
-            <material id="null" />
+            <material id="Material1" />
 
-            <texture id="clear">
+            <texture id="Floor">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -427,7 +432,7 @@
         <node id="rightSquareChassi">
             <material id="null"/> 
 
-            <texture id="clear">
+            <texture id="Rim">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -486,12 +491,12 @@
             </transformations>
 
             <descendants>
-                <noderef id="backSquareChassi"/>
-                <noderef id="frontSquareChassi"/>
-                <noderef id="leftSquareChassi"/>
-                <noderef id="rightSquareChassi"/>
-                <noderef id="topSquareChassi"/>
-                <noderef id="bottomSquareChassi"/>
+                <noderef id="backSquareCabin"/>
+                <noderef id="frontSquareCabin"/>
+                <noderef id="leftSquareCabin"/>
+                <noderef id="rightSquareCabin"/>
+                <noderef id="topSquareCabin"/>
+                <noderef id="bottomSquareCabin"/>
 
             </descendants>
         </node>
@@ -500,7 +505,7 @@
         <node id="backSquareCabin">
             <material id="null"/> 
 
-            <texture id="clear">
+            <texture id="cabinRed">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -515,7 +520,7 @@
         <node id="frontSquareCabin">
             <material id="null"/> 
 
-            <texture id="clear">
+            <texture id="cabinWindow">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -531,7 +536,7 @@
         <node id="leftSquareCabin">
             <material id="null"/> 
 
-            <texture id="clear">
+            <texture id="cabinRed">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -547,7 +552,7 @@
         <node id="rightSquareCabin">
             <material id="null"/> 
 
-            <texture id="clear">
+            <texture id="cabinRed">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -562,9 +567,9 @@
         </node>
 
         <node id="topSquareCabin">
-            <material id="null"/> 
+            <material id="Material1"/> 
 
-            <texture id="clear">
+            <texture id="cabinTop">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -579,9 +584,9 @@
         </node>
 
         <node id="bottomSquareCabin">
-            <material id="null"/> 
+            <material id="Material1"/> 
 
-            <texture id="clear">
+            <texture id="cabinTop">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
