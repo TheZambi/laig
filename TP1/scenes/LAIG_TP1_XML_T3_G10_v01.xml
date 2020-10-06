@@ -635,7 +635,7 @@
 
 
         <node id="Tree">
-            <material id="default"/> 
+            <material id="whiteMaterial"/> 
 
             <texture id="leaves">
                 <amplification afs="1.0" aft="1.0" />
@@ -657,7 +657,7 @@
         </node>
 
         <node id="treeTrunk">
-            <material id="whiteMaterial"/> 
+            <material id="null"/> 
 
             <texture id="wood">
                 <amplification afs="1.0" aft="1.0" />
@@ -673,7 +673,7 @@
         </node>
 
         <node id="leaf6">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -691,7 +691,7 @@
         </node>
 
         <node id="leaf5">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -709,7 +709,7 @@
         </node>
 
         <node id="leaf4">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -727,7 +727,7 @@
         </node>
 
         <node id="leaf3">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -745,7 +745,7 @@
         </node>
 
         <node id="leaf2">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -763,7 +763,7 @@
         </node>
 
         <node id="leaf1">
-            <material id="default"/> 
+            <material id="null"/> 
 
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -779,9 +779,9 @@
             </descendants>
         </node>
         <node id="standardLeaf">
-            <material id="whiteMaterial"/> 
+            <material id="null"/> 
 
-            <texture id="leaves">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -795,9 +795,9 @@
         </node>
 
         <node id="reversedLeaf">
-            <material id="whiteMaterial"/> 
+            <material id="null"/> 
 
-            <texture id="leaves">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 

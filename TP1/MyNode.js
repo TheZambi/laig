@@ -63,9 +63,11 @@ class MyNode {
         this.scene.multMatrix(this.transformations);
 
 
-        if (this.material != null) {
+        if (this.materialID != "null") {
             this.scene.matStack.push(this.material);
             this.material.apply();
+            if(this.scene.texStack.length!=0 && this.textureID == "null")
+                this.scene.texStack[this.scene.texStack.length-1].bind();
         }
 
         if (this.textureID != "null") {
@@ -74,8 +76,7 @@ class MyNode {
                 this.texture.bind();
             }
             else if(this.scene.texStack.length != 0)
-                this.scene.texStack[this.scene.texStack.length-1].unbind();
-            
+                this.scene.texStack[this.scene.texStack.length-1].unbind(); 
         }
 
         for (let i = 0; i < this.leaves.length; i++) {
@@ -85,7 +86,7 @@ class MyNode {
             this.children[i].display();
         }
 
-        if (this.material != null) {
+        if (this.materialID != "null") {
             this.scene.matStack.pop();
             if (this.scene.matStack.length != 0) {
                 this.scene.matStack[this.scene.matStack.length - 1].apply();
