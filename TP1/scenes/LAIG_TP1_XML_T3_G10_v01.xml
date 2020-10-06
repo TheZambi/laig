@@ -41,7 +41,6 @@
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="cabinTop" path="./scenes/images/cabinRoof.png"/>
-        <texture id="cabinRed" path="./scenes/images/cabinRed.png"/>
         <texture id="cabinWindow" path="./scenes/images/cabinWindow.png"/>
         <texture id="grass" path="./scenes/images/grass.jpg"/>
         <texture id="rim" path="./scenes/images/rim.png"/>
@@ -51,6 +50,10 @@
         <texture id="licensePlate" path="./scenes/images/licensePlate.png"/>
         <texture id="mainChimney" path="./scenes/images/mainChimney.png"/>
         <texture id="airFilter" path="./scenes/images/airFilter.png"/>
+        <texture id="leaves" path="./scenes/images/leaves.png"/>
+        <texture id="wood" path="./scenes/images/wood.png"/>
+
+
 
     </textures>
 
@@ -634,23 +637,29 @@
         <node id="Tree">
             <material id="default"/> 
 
-            <texture id="clear">
+            <texture id="leaves">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
+                <translation x="10" y="0" z="-15"/>
             </transformations>
 
             <descendants>
-                <noderef id="treeTrunk"/>
                 <noderef id="leaf1"/>
+                <noderef id="leaf2"/>
+                <noderef id="leaf3"/>
+                <noderef id="leaf4"/>
+                <noderef id="leaf5"/>
+                <noderef id="leaf6"/>
+                <noderef id="treeTrunk"/>
             </descendants>
         </node>
 
         <node id="treeTrunk">
-            <material id="default"/> 
+            <material id="whiteMaterial"/> 
 
-            <texture id="clear">
+            <texture id="wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -662,14 +671,107 @@
                 <leaf type="cylinder" height="20" topRadius="0" bottomRadius="1" stacks="20" slices="20"/>
             </descendants>
         </node>
-        <node id="leaf1">
+
+        <node id="leaf6">
             <material id="default"/> 
 
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
+                <rotation axis="y" angle="300"/>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="standardLeaf"/>
+            </descendants>
+        </node>
+
+        <node id="leaf5">
+            <material id="default"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="240"/>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="standardLeaf"/>
+            </descendants>
+        </node>
+
+        <node id="leaf4">
+            <material id="default"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="standardLeaf"/>
+            </descendants>
+        </node>
+
+        <node id="leaf3">
+            <material id="default"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="120"/>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="standardLeaf"/>
+            </descendants>
+        </node>
+
+        <node id="leaf2">
+            <material id="default"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="60"/>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="standardLeaf"/>
+            </descendants>
+        </node>
+
+        <node id="leaf1">
+            <material id="default"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="5" z="0"/>
+                <scale sx="8" sy="15" sz="1"/>
             </transformations>
 
             <descendants>
@@ -677,21 +779,37 @@
             </descendants>
         </node>
         <node id="standardLeaf">
-            <material id="default"/> 
+            <material id="whiteMaterial"/> 
 
-            <texture id="clear">
+            <texture id="leaves">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="0.8" y="0" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0" y3="1"/>
-                <leaf type="triangle" x1="0" y1="0" x2="0" y2="1" x3="1" y3="0"/>
+                <noderef id="reversedLeaf"/>
+                <leaf type="triangle" x1="0" y1="0" x3="0" y3="1" x2="1" y2="0"/>
             </descendants>
         </node>
+
+        <node id="reversedLeaf">
+            <material id="whiteMaterial"/> 
+
+            <texture id="leaves">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="-1" y1="0" x3="0" y3="1" x2="0" y2="0"/>
+            </descendants>
+        </node>
+
 
         
 
