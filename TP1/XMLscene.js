@@ -192,6 +192,10 @@ class XMLscene extends CGFscene {
 
         console.log(this.nodesList);
 
+        if(this.nodesList[0] != null)
+            this.nodesList[0].updateCoords();
+
+
         this.sceneInited = true;
     }
 

@@ -646,13 +646,13 @@
             </transformations>
 
             <descendants>
+                <noderef id="treeTrunk"/>
                 <noderef id="leaf1"/>
                 <noderef id="leaf2"/>
                 <noderef id="leaf3"/>
                 <noderef id="leaf4"/>
                 <noderef id="leaf5"/>
                 <noderef id="leaf6"/>
-                <noderef id="treeTrunk"/>
             </descendants>
         </node>
 

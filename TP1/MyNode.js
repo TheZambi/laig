@@ -118,4 +118,14 @@ class MyNode {
 
 
     }
+
+    updateCoords()
+    {
+        for (let i = 0; i < this.leaves.length; i++) {
+            this.leaves[i].updateCoords(this.textureAFS, this.textureAFT);
+        }
+        for (let i = 0; i < this.children.length; i++) {
+            this.children[i].updateCoords();
+        }
+    }
 }
