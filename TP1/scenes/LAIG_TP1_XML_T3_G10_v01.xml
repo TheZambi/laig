@@ -52,7 +52,9 @@
         <texture id="airFilter" path="./scenes/images/airFilter.png"/>
         <texture id="leaves" path="./scenes/images/leaves.png"/>
         <texture id="wood" path="./scenes/images/wood.png"/>
-
+        <texture id="tire" path="./scenes/images/tire.png"/>
+        <texture id="silo" path="./scenes/images/silo.png"/>
+        <texture id="siloSphere" path="./scenes/images/siloSphere.png"/>
 
 
     </textures>
@@ -103,6 +105,7 @@
             <descendants>
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
+                <noderef id="silo"/>
                 <!-- <noderef id="CubeChassi"/> -->
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
@@ -126,7 +129,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-20" y1="20" x2="20" y2="-20"/>
+                <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
             </descendants>
         </node>
          <node id="Tractor">            
@@ -242,9 +245,9 @@
         </node>
 
         <node id="Tire">
-            <material id="null"/>
+            <material id="whiteMaterial"/>
 
-            <texture id="clear">
+            <texture id="tire">
                 <amplification afs="1.0" aft="1.0"/>
             </texture>
 
@@ -253,7 +256,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="torus" inner="0.2" outer="1.1" slices="20" loops="20" />  <!-- tire -->
+                <leaf type="torus" inner="0.3" outer="1.1" slices="20" loops="20" />  <!-- tire -->
             </descendants>
         </node>
 
@@ -274,7 +277,7 @@
         </node>
 
         <node id="Body">         
-            <material id="null" />
+            <material id="whiteMaterial" />
 
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -367,7 +370,7 @@
             </texture>
 
             <transformations>
-                <translation x="-2.0" y="1.25" z="10" />
+                <translation x="-2.0" y="3.25" z="10" />
                 <rotation axis="x" angle="-90" />
             </transformations>
 
@@ -385,7 +388,7 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0" z="2" />
+                <translation x="0" y="0" z="-2" />
             </transformations>
 
             <descendants>
@@ -807,6 +810,92 @@
 
             <descendants>
                 <leaf type="triangle" x1="-1" y1="0" x3="0" y3="1" x2="0" y2="0"/>
+            </descendants>
+        </node>
+
+        <node id="silo">
+            <material id="whiteMaterial"/> 
+
+            <texture id="silo">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-20" y="0" z="-20"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="siloSphere"/>
+                <noderef id="sideTube"/>
+                <leaf type="cylinder" height="20" topRadius="6" bottomRadius="6" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="siloSphere">
+            <material id="null"/> 
+
+            <texture id="siloSphere">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="20"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" slices="20" stacks="10" radius="6"/>
+            </descendants>
+        </node>
+
+        <node id="sideTube">
+            <material id="null"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="6.5" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="connection"/>
+                <noderef id="cover"/>
+                <leaf type="cylinder" height="20" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="connection">
+            <material id="null"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-1" y="0" z="20"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.5" outer="1" slices="20" loops="20" />  <!-- tire -->
+            </descendants>
+        </node>
+
+        <node id="cover">
+            <material id="null"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="18"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="20" slices="20"/>
             </descendants>
         </node>
 

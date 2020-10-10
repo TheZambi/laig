@@ -48,7 +48,7 @@ class MyNode {
                 } else if (this.info[3][i][1] == "sphere") {
                     this.leaves.push(new MySphere(this.scene, ...this.info[3][i].slice(2)));
                 } else if (this.info[3][i][1] == "torus") {
-                    //this.leaves.push(new MyTorus(this.scene,...this.info[3][i].slice(2)));
+                    this.leaves.push(new MyTorus(this.scene,...this.info[3][i].slice(2)));
                 } else if (this.info[3][i][1] == "triangle") {
                     this.leaves.push(new MyTriangle(this.scene, ...this.info[3][i].slice(2)));
                 } else if (this.info[3][i][1] == "cylinder") {

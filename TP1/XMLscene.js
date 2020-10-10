@@ -19,6 +19,8 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
+        this.torus = new MyTorus(this,20,25,2,5)
+
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 
         this.sceneInited = false;
@@ -245,6 +247,7 @@ class XMLscene extends CGFscene {
 
         if(this.nodesList[0] != null)
             this.nodesList[0].display();
+
         
 
         this.popMatrix();
