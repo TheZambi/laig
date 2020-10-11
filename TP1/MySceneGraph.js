@@ -279,7 +279,7 @@ class MySceneGraph {
                 toPosX = this.reader.getFloat(perspectiveChildren[toIndex],'x');
                 toPosY = this.reader.getFloat(perspectiveChildren[toIndex],'y');
                 toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
-                aux.push(0,near,far,angle,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
+                aux.push(0,near,angle,far,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
                 this.cameras[id] = aux;
                 aux = [];
             }
@@ -327,7 +327,7 @@ class MySceneGraph {
                 if(upPosY == null){
                     upPosX = 0;
                 }
-                aux.push(1.0,near,far,left,right,top,bottom,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ),vec3.fromValues(upPosX,upPosY,upPosZ));
+                aux.push(1.0,left,right,bottom,top,near,far,vec4.fromValues(fromPosX,fromPosY,fromPosZ,1),vec4.fromValues(toPosX,toPosY,toPosZ,1),vec3.fromValues(upPosX,upPosY,upPosZ));
                 this.cameras[id] = aux;
                 aux = [];
             }

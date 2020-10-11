@@ -110,7 +110,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                
+                <translation x="0" y="-10" z="0" />
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
