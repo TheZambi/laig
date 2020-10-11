@@ -46,6 +46,7 @@ class XMLscene extends CGFscene {
         this.texturesList = [];
         this.nodesList = [];
         this.selectedCamera = -1;
+        this.lastCamera = -1;
         
     }
 
@@ -69,7 +70,24 @@ class XMLscene extends CGFscene {
                 }
             }
         }
+
+        this.interface.gui.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera');
         return;
+    }
+
+    updateCamera(){
+        if(this.selectedCamera != -1 && this.selectedCamera != this.lastCamera){
+            var index = -1;
+            for(let i = 0;i< this.cameraNames.length;i++){
+                if(this.selectedCamera == this.cameraNames[i]){
+                    index = i;
+                    break;
+                }
+            }
+            this.camera = this.cameraList[index];
+            this.interface.setActiveCamera(this.camera);
+            this.lastCamera = this.selectedCamera;
+        }
     }
 
     initNodes(){
@@ -192,7 +210,8 @@ class XMLscene extends CGFscene {
         this.texStack = [];
         this.matStack = [];
 
-        console.log(this.nodesList);
+        console.log(this.cameraList);
+        console.log(this.cameraNames);
 
         if(this.nodesList[0] != null)
             this.nodesList[0].updateCoords();
@@ -210,6 +229,8 @@ class XMLscene extends CGFscene {
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+        this.updateCamera();
 
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
