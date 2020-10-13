@@ -538,10 +538,24 @@ class MySceneGraph {
             var shininessIndex,ambientIndex,diffuseIndex,specularIndex,emissiveIndex;
 
             shininessIndex = grandChildrenArray.indexOf("shininess");
+            if (shininessIndex == -1)
+                return "no shininessIndex defined for material";
+
             ambientIndex = grandChildrenArray.indexOf("ambient");
+            if (ambientIndex == -1)
+                return "no ambientIndex defined for material";
+
             diffuseIndex = grandChildrenArray.indexOf("diffuse");
+            if (diffuseIndex == -1)
+                return "no diffuseIndex defined for material";
+
             specularIndex = grandChildrenArray.indexOf("specular");
+            if (specularIndex == -1)
+                return "no specularIndex defined for material";
+
             emissiveIndex = grandChildrenArray.indexOf("emissive");
+            if (emissiveIndex == -1)
+                return "no emissiveIndex defined for material";
             
             var shininessRGBA = ["shininess"];
             var ambientRGBA = ["ambient"];
@@ -549,28 +563,62 @@ class MySceneGraph {
             var specularRGBA = ["specular"];
             var emissiveRGBA = ["emissive"];
 
+            if(this.reader.getFloat(grandChildren[shininessIndex],"value")==null)
+                return "missin shininess value on a material";
+
             shininessRGBA.push(this.reader.getFloat(grandChildren[shininessIndex],"value"))
+            
+            var rVal = this.reader.getFloat(grandChildren[ambientIndex],"r");
+            var gVal = this.reader.getFloat(grandChildren[ambientIndex],"g");
+            var bVal = this.reader.getFloat(grandChildren[ambientIndex],"b");
+            var aVal = this.reader.getFloat(grandChildren[ambientIndex],"a");
 
-            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"r"));
-            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"g"));
-            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"b"));
-            ambientRGBA.push(this.reader.getFloat(grandChildren[ambientIndex],"a"));
+            if(rVal==null || gVal==null || bVal==null || aVal==null)
+                return "missing argument on ambient reflexion on a material";
+                
+            ambientRGBA.push(rVal);
+            ambientRGBA.push(gVal);
+            ambientRGBA.push(bVal);
+            ambientRGBA.push(aVal);
 
-            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"r"));
-            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"g"));
-            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"b"));
-            diffuseRGBA.push(this.reader.getFloat(grandChildren[diffuseIndex],"a"));
+            var rVal = this.reader.getFloat(grandChildren[diffuseIndex],"r");
+            var gVal = this.reader.getFloat(grandChildren[diffuseIndex],"g");
+            var bVal = this.reader.getFloat(grandChildren[diffuseIndex],"b");
+            var aVal = this.reader.getFloat(grandChildren[diffuseIndex],"a");
 
-            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"r"));
-            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"g"));
-            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"b"));
-            specularRGBA.push(this.reader.getFloat(grandChildren[specularIndex],"a"));
+            if(rVal==null || gVal==null || bVal==null || aVal==null)
+                return "missing argument for difuse reflexion on a material";
 
-            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"r"));
-            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"g"));
-            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"b"));
-            emissiveRGBA.push(this.reader.getFloat(grandChildren[emissiveIndex],"a"));
+            diffuseRGBA.push(rVal);
+            diffuseRGBA.push(gVal);
+            diffuseRGBA.push(bVal);
+            diffuseRGBA.push(aVal);
 
+            var rVal = this.reader.getFloat(grandChildren[specularIndex],"r");
+            var gVal = this.reader.getFloat(grandChildren[specularIndex],"g");
+            var bVal = this.reader.getFloat(grandChildren[specularIndex],"b");
+            var aVal = this.reader.getFloat(grandChildren[specularIndex],"a");
+
+            if(rVal==null || gVal==null || bVal==null || aVal==null)
+                return "missing argument for specular reflexion on a material";
+
+            specularRGBA.push(rVal);
+            specularRGBA.push(gVal);
+            specularRGBA.push(bVal);
+            specularRGBA.push(aVal);
+
+            var rVal = this.reader.getFloat(grandChildren[emissiveIndex],"r");
+            var gVal = this.reader.getFloat(grandChildren[emissiveIndex],"g");
+            var bVal = this.reader.getFloat(grandChildren[emissiveIndex],"b");
+            var aVal = this.reader.getFloat(grandChildren[emissiveIndex],"a");
+
+            if(rVal==null || gVal==null || bVal==null || aVal==null)
+                return "missing argument for emissive reflexion on a material";
+
+            emissiveRGBA.push(rVal);
+            emissiveRGBA.push(gVal);
+            emissiveRGBA.push(bVal);
+            emissiveRGBA.push(aVal);
 
             aux.push(shininessRGBA,ambientRGBA,diffuseRGBA,specularRGBA,emissiveRGBA);
             this.materials[materialID] = aux;
