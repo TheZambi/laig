@@ -875,15 +875,14 @@ class MySceneGraph {
         this.log("Parsed Nodes");
     }
 
-
     parseBoolean(node, name, messageError) {
-        var boolVal = true;
-        boolVal = this.reader.getBoolean(node, name);
-        if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false)))
-            this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
-
-        return boolVal || 1;
-    }
+        let boolVal = this.reader.getBoolean(node, name);
+        if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
+          this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
+            boolVal = true
+        }
+        return boolVal;
+      }
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node

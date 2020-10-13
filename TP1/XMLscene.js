@@ -131,14 +131,16 @@ class XMLscene extends CGFscene {
      */
     initLights() {
         var i = 0;
+        var lightName = [];
         // Lights index.
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
-
             if (this.graph.lights.hasOwnProperty(key)) {
+                lightName.push(key);
+
                 var graphLight = this.graph.lights[key];
 
                 this.lights[i].setPosition(...graphLight[1]);
@@ -147,41 +149,39 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
+                console.log(graphLight[0]+ "   " + key);
                 if (graphLight[0]){
+                    
                     this.lights[i].enable();
+                    this['light' + (i+1)] = true; 
                 }
                 else{
                     this.lights[i].disable();
+                    this['light' + (i+1)] = false; 
                 }
 
                 this.lights[i].update();
-                this.initLight(i,graphLight[0]);
-                
                 i++;
             }
         }
+        
 
         this.nLights = i;
-        for(let j = 1;j <= this.nLights;j++)
-            this.interface.gui.add(this,'light' + j).name('Display light '+ j).onChange(this.updateLights.bind(this));
+        for(let j = 1;j <= this.nLights;j++){
+            this.interface.gui.add(this,'light' + j).name(lightName[j-1]).onChange(this.updateLights.bind(this));
+        }
 
-    }
-
-    initLight(i,active){
-        if(active)
-            this['light' + i] = true;  
-        else
-            this['light' + i] = false;
     }
 
     updateLights(){
         for(let j = 1;j<=this.nLights;j++){
-            if(this['light' + j] == true)
-                this.lights[j].enable();
-            else
-                this.lights[j].disable();
 
-            this.lights[j].update();
+            if(this['light' + j] == true)
+                this.lights[j-1].enable();
+            else
+                this.lights[j-1].disable();
+
+            this.lights[j-1].update();
         }
         
     }
@@ -271,10 +271,10 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
-        }
+        // for (var i = 0; i < this.lights.length; i++) {
+        //     this.lights[i].setVisible(true);
+        //     this.lights[i].enable();
+        // }
 
         if (this.sceneInited) {
             // Draw axis
