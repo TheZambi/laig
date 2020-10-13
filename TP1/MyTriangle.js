@@ -84,9 +84,6 @@ class MyTriangle extends CGFobject {
 	
     updateCoords(afs, aft)
     {
-		console.log("afs ", afs);
-		console.log("aft ", aft);
-
 		this.texCoords=[];
 
 		this.texCoords = [
@@ -94,7 +91,6 @@ class MyTriangle extends CGFobject {
 			this.a, 0,
 			this.c*this.cosA/afs, this.c*this.sinA/aft
 		];
-		console.log(this.texCoords);
 
         this.updateTexCoordsGLBuffers();
     }

@@ -47,7 +47,14 @@ class XMLscene extends CGFscene {
         this.nodesList = [];
         this.selectedCamera = -1;
         this.lastCamera = -1;
-        
+        this.light1 = true;
+        this.light2 = true;
+        this.light3 = true;
+        this.light4 = true;
+        this.light5 = true;
+        this.light6 = true;
+        this.light7 = true;
+        this.light8 = true;
     }
 
     /**
@@ -86,7 +93,6 @@ class XMLscene extends CGFscene {
                 }
             }
             this.camera = this.cameraList[index];
-            console.log(this.camera);
             this.interface.setActiveCamera(this.camera);
             this.lastCamera = this.selectedCamera;
         }
@@ -141,16 +147,43 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
-                if (graphLight[0])
+                if (graphLight[0]){
                     this.lights[i].enable();
-                else
+                }
+                else{
                     this.lights[i].disable();
+                }
 
                 this.lights[i].update();
-
+                this.initLight(i,graphLight[0]);
+                
                 i++;
             }
         }
+
+        this.nLights = i;
+        for(let j = 1;j <= this.nLights;j++)
+            this.interface.gui.add(this,'light' + j).name('Display light '+ j).onChange(this.updateLights.bind(this));
+
+    }
+
+    initLight(i,active){
+        if(active)
+            this['light' + i] = true;  
+        else
+            this['light' + i] = false;
+    }
+
+    updateLights(){
+        for(let j = 1;j<=this.nLights;j++){
+            if(this['light' + j] == true)
+                this.lights[j].enable();
+            else
+                this.lights[j].disable();
+
+            this.lights[j].update();
+        }
+        
     }
 
 
@@ -211,9 +244,6 @@ class XMLscene extends CGFscene {
 
         this.texStack = [];
         this.matStack = [];
-
-        console.log(this.cameraList);
-        console.log(this.cameraNames);
 
         if(this.nodesList[0] != null)
             this.nodesList[0].updateCoords();
