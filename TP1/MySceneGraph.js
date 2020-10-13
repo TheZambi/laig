@@ -259,9 +259,20 @@ class MySceneGraph {
                 perspective = children[i];
                 var id, near, far, angle;
                 id = this.reader.getString(perspective, 'id');
+                if(id==null)
+                    return "camera has no id";
+
                 near = this.reader.getFloat(perspective, 'near');
+                if(near == null)
+                    return "camera " + id + " has no atribute near";
+
                 far = this.reader.getFloat(perspective, 'far');
+                if(far == null)
+                    return "camera " + id + " has no atribute far";
+
                 angle = this.reader.getFloat(perspective, 'angle');
+                if(angle == null)
+                    return "camera " + id + " has no atribute angle";
 
                 var perspectiveChildren = children[i].children;
                 var perspectiveChildrenArray = [];
@@ -270,15 +281,39 @@ class MySceneGraph {
                 }
 
                 var fromIndex = perspectiveChildrenArray.indexOf('from');
+                if(fromIndex == -1)
+                    return "no fromIndex on view " + id;
+
                 var toIndex = perspectiveChildrenArray.indexOf('to');
+                if(toIndex == -1)
+                    return "no toIndex on view " + id;
+
                 var fromPosX,fromPosY,fromPosZ;
                 var toPosX,toPosY,toPosZ;
                 fromPosX = this.reader.getFloat(perspectiveChildren[fromIndex],'x');
+                if(fromPosX==null)
+                    return "no x coord on 'from' on view " + id;
+
                 fromPosY = this.reader.getFloat(perspectiveChildren[fromIndex],'y');
+                if(fromPosY==null)
+                    return "no y coord on 'from' on view " + id;
+
                 fromPosZ = this.reader.getFloat(perspectiveChildren[fromIndex],'z');
+                if(fromPosZ==null)
+                    return "no z coord on 'from' on view " + id;
+
                 toPosX = this.reader.getFloat(perspectiveChildren[toIndex],'x');
+                if(toPosX==null)
+                    return "no x coord on 'to' on view " + id;
+
                 toPosY = this.reader.getFloat(perspectiveChildren[toIndex],'y');
+                if(toPosY==null)
+                    return "no y coord on 'to' on view " + id;
+
                 toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
+                if(toPosZ==null)
+                    return "no z coord on 'to' on view " + id;
+
                 aux.push(0,near,angle,far,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
                 this.cameras[id] = aux;
                 aux = [];
@@ -286,13 +321,34 @@ class MySceneGraph {
             else if (children[i].nodeName == 'ortho') {
                 ortho = children[i];
                 var id, near, far, left, right, top,bottom;
+
                 id = this.reader.getString(ortho, 'id');
+                if(id==null)
+                    return "camera has no id";
+
                 near = this.reader.getFloat(ortho, 'near');
+                if(near == null)
+                    return "camera " + id + " has no atribute near";
+
                 far = this.reader.getFloat(ortho, 'far');
+                if(far == null)
+                    return "camera " + id + " has no atribute far";
+
                 left = this.reader.getFloat(ortho, 'left');
+                if(left == null)
+                    return "camera " + id + " has no atribute left";
+
                 right = this.reader.getFloat(ortho, 'right');
+                if(right == null)
+                    return "camera " + id + " has no atribute right";
+
                 top = this.reader.getFloat(ortho, 'top');
+                if(top == null)
+                    return "camera " + id + " has no atribute top";
+
                 bottom = this.reader.getFloat(ortho, 'bottom');
+                if(bottom == null)
+                    return "camera " + id + " has no atribute bottom";
                
 
                 var orthoChildren = children[i].children;
@@ -302,22 +358,51 @@ class MySceneGraph {
                 }
 
                 var fromIndex = orthoChildrenArray.indexOf('from');
+                if(fromIndex == -1)
+                    return "no fromIndex on view " + id;
+
                 var toIndex = orthoChildrenArray.indexOf('to');
+                if(toIndex == -1)
+                    return "no toIndex on view " + id;
+
                 var upIndex = orthoChildrenArray.indexOf('up');
+                if(upIndex == -1)
+                    return "no upIndex on view " + id;
+
                 var fromPosX,fromPosY,fromPosZ;
                 var toPosX,toPosY,toPosZ;
                 var upPosX,upPosY,upPosZ;
                 fromPosX = this.reader.getFloat(orthoChildren[fromIndex],'x');
+                if(fromPosX==null)
+                    return "no x coord on 'from' on view " + id;
+
                 fromPosY = this.reader.getFloat(orthoChildren[fromIndex],'y');
+                if(fromPosY==null)
+                    return "no y coord on 'from' on view " + id;
+
                 fromPosZ = this.reader.getFloat(orthoChildren[fromIndex],'z');
+                if(fromPosZ==null)
+                    return "no z coord on 'from' on view " + id;
+
                 toPosX = this.reader.getFloat(orthoChildren[toIndex],'x');
+                if(toPosX==null)
+                    return "no x coord on 'to' on view " + id;
+
                 toPosY = this.reader.getFloat(orthoChildren[toIndex],'y');
+                if(toPosY==null)
+                    return "no y coord on 'to' on view " + id;
+
                 toPosZ = this.reader.getFloat(orthoChildren[toIndex],'z');
+                if(toPosZ==null)
+                    return "no z coord on 'to' on view " + id;
+
                 if(upIndex != -1){
                     upPosX = this.reader.getFloat(orthoChildren[upIndex],'x');
                     upPosY = this.reader.getFloat(orthoChildren[upIndex],'y');
                     upPosZ = this.reader.getFloat(orthoChildren[upIndex],'z');
                 }
+                else
+                    return 
                 if(upPosX == null){
                     upPosX = 0;
                 }
@@ -331,6 +416,8 @@ class MySceneGraph {
                 this.cameras[id] = aux;
                 aux = [];
             }
+            else
+                return "no camera corresponds to " + children[i].nodeName;
         }
 
         this.log("Parsed Views");
