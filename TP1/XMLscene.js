@@ -299,8 +299,6 @@ class XMLscene extends CGFscene {
         if(this.nodesList[0] != null)
             this.nodesList[0].display();
 
-        
-
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
