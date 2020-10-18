@@ -21,7 +21,7 @@ class XMLscene extends CGFscene {
 
         this.torus = new MyTorus(this,20,25,2,5)
 
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 60, 100), vec3.fromValues(0, 8, 0));
 
         this.sceneInited = false;
 
@@ -149,7 +149,6 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
-                console.log(graphLight[0]+ "   " + key);
                 if (graphLight[0]){
                     
                     this.lights[i].enable();

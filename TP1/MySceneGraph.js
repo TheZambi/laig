@@ -313,8 +313,8 @@ class MySceneGraph {
                 toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
                 if(toPosZ==null)
                     return "no z coord on 'to' on view " + id;
-
-                aux.push(0,near,angle,far,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
+                var newAngle = angle * DEGREE_TO_RAD;
+                aux.push(0,newAngle,near,far,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
                 this.cameras[id] = aux;
                 aux = [];
             }
