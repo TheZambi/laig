@@ -12,10 +12,12 @@
 
 ### [TP1 - Scene Graph](TP1)
 
-- Everything is ready to finish the assignement without having to make many changes.
 - Makes use of multiple textures and materials.
-- Uses all primitive object except for the triangle.
-- Creation of some detailed objecs.
+- Uses all primitive object.
+- Creation of some detailed objects.
+- Multiple cameras and lights.
+- Possibility to change cameras.
+- Possibility to turn on/off the lights.
 
 - Scene
   - A field of grass with a tractor on top.
