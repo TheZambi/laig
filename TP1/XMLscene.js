@@ -111,6 +111,14 @@ class XMLscene extends CGFscene {
         for(var key in this.graph.nodes){
             if(this.graph.nodes.hasOwnProperty(key)){
                 var auxNode = this.graph.nodes[key];
+                for(let values = 0; values < auxNode[3].length ; values++)
+                {
+                    if(auxNode[3][values][0]=="node")
+                        {
+                            if(!(this.graph.nodes.hasOwnProperty(auxNode[3][values][1])))
+                                this.graph.onXMLMinorError("descendant node " + auxNode[3][values][1] + " from parent node " + key + " does not exist.");
+                        }
+                }
                 var nodeToPush = new MyNode(this,key,auxNode);
                 this.nodesList.push(nodeToPush);
             }

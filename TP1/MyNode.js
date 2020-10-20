@@ -62,7 +62,6 @@ class MyNode {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformations);
 
-
         if (this.materialID != "null") {
             this.scene.matStack.push(this.material);
             this.material.apply();
