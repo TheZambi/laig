@@ -21,7 +21,7 @@ class XMLscene extends CGFscene {
 
         this.torus = new MyTorus(this,20,25,2,5)
 
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 60, 100), vec3.fromValues(0, 8, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
         this.sceneInited = false;
 
@@ -62,6 +62,7 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         var auxCamera;
+        console.log(this.graph.defaultCam);
         for(var key in this.graph.cameras){
             if(this.graph.cameras.hasOwnProperty(key)){
                 auxCamera = this.graph.cameras[key];
@@ -75,15 +76,23 @@ class XMLscene extends CGFscene {
                     this.cameraList.push(cameraToPush);
                     this.cameraNames.push(key);
                 }
+                if(key==this.graph.defaultCam){
+                    this.camera = this.cameraList[this.cameraList.length-1];
+                    this.selectedCamera = key;
+                    this.interface.setActiveCamera(this.camera);
+                    this.lastCamera = this.cameraList.length-1;
+                }
             }
         }
 
-        this.interface.gui.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera').onChange(this.updateCamera.bind(this));
 
+        var controller = this.interface.gui.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera');
+        controller.onChange(this.updateCamera.bind(this));
         return;
     }
 
     updateCamera(){
+        // console.log(this.selectedCamera);
         if(this.selectedCamera != -1 && this.selectedCamera != this.lastCamera){
             var index = -1;
             for(let i = 0;i< this.cameraNames.length;i++){
@@ -267,6 +276,8 @@ class XMLscene extends CGFscene {
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.updateLights();
 
         this.pushMatrix();
 

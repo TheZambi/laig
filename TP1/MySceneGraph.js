@@ -250,6 +250,9 @@ class MySceneGraph {
 
         this.cameras = [];
 
+        this.defaultCam = this.reader.getString(viewsNode, 'default');
+
+
         var perspective;
         var ortho;
         var aux = [];
@@ -259,19 +262,19 @@ class MySceneGraph {
                 perspective = children[i];
                 var id, near, far, angle;
                 id = this.reader.getString(perspective, 'id');
-                if(id==null)
+                if (id == null)
                     return "camera has no id";
 
                 near = this.reader.getFloat(perspective, 'near');
-                if(near == null)
+                if (near == null)
                     return "camera " + id + " has no atribute near";
 
                 far = this.reader.getFloat(perspective, 'far');
-                if(far == null)
+                if (far == null)
                     return "camera " + id + " has no atribute far";
 
                 angle = this.reader.getFloat(perspective, 'angle');
-                if(angle == null)
+                if (angle == null)
                     return "camera " + id + " has no atribute angle";
 
                 var perspectiveChildren = children[i].children;
@@ -281,75 +284,74 @@ class MySceneGraph {
                 }
 
                 var fromIndex = perspectiveChildrenArray.indexOf('from');
-                if(fromIndex == -1)
+                if (fromIndex == -1)
                     return "no fromIndex on view " + id;
 
                 var toIndex = perspectiveChildrenArray.indexOf('to');
-                if(toIndex == -1)
+                if (toIndex == -1)
                     return "no toIndex on view " + id;
 
-                var fromPosX,fromPosY,fromPosZ;
-                var toPosX,toPosY,toPosZ;
-                fromPosX = this.reader.getFloat(perspectiveChildren[fromIndex],'x');
-                if(fromPosX==null)
+                var fromPosX, fromPosY, fromPosZ;
+                var toPosX, toPosY, toPosZ;
+                fromPosX = this.reader.getFloat(perspectiveChildren[fromIndex], 'x');
+                if (fromPosX == null)
                     return "no x coord on 'from' on view " + id;
 
-                fromPosY = this.reader.getFloat(perspectiveChildren[fromIndex],'y');
-                if(fromPosY==null)
+                fromPosY = this.reader.getFloat(perspectiveChildren[fromIndex], 'y');
+                if (fromPosY == null)
                     return "no y coord on 'from' on view " + id;
 
-                fromPosZ = this.reader.getFloat(perspectiveChildren[fromIndex],'z');
-                if(fromPosZ==null)
+                fromPosZ = this.reader.getFloat(perspectiveChildren[fromIndex], 'z');
+                if (fromPosZ == null)
                     return "no z coord on 'from' on view " + id;
 
-                toPosX = this.reader.getFloat(perspectiveChildren[toIndex],'x');
-                if(toPosX==null)
+                toPosX = this.reader.getFloat(perspectiveChildren[toIndex], 'x');
+                if (toPosX == null)
                     return "no x coord on 'to' on view " + id;
 
-                toPosY = this.reader.getFloat(perspectiveChildren[toIndex],'y');
-                if(toPosY==null)
+                toPosY = this.reader.getFloat(perspectiveChildren[toIndex], 'y');
+                if (toPosY == null)
                     return "no y coord on 'to' on view " + id;
 
-                toPosZ = this.reader.getFloat(perspectiveChildren[toIndex],'z');
-                if(toPosZ==null)
+                toPosZ = this.reader.getFloat(perspectiveChildren[toIndex], 'z');
+                if (toPosZ == null)
                     return "no z coord on 'to' on view " + id;
                 var newAngle = angle * DEGREE_TO_RAD;
-                aux.push(0,newAngle,near,far,vec3.fromValues(fromPosX,fromPosY,fromPosZ),vec3.fromValues(toPosX,toPosY,toPosZ));
+                aux.push(0, newAngle, near, far, vec3.fromValues(fromPosX, fromPosY, fromPosZ), vec3.fromValues(toPosX, toPosY, toPosZ));
                 this.cameras[id] = aux;
                 aux = [];
-            }
-            else if (children[i].nodeName == 'ortho') {
+            } else if (children[i].nodeName == 'ortho') {
                 ortho = children[i];
-                var id, near, far, left, right, top,bottom;
+                var id, near, far, left, right, top, bottom;
 
                 id = this.reader.getString(ortho, 'id');
-                if(id==null)
+                if (id == null)
                     return "camera has no id";
 
                 near = this.reader.getFloat(ortho, 'near');
-                if(near == null)
+                if (near == null)
                     return "camera " + id + " has no atribute near";
 
                 far = this.reader.getFloat(ortho, 'far');
-                if(far == null)
+                if (far == null)
                     return "camera " + id + " has no atribute far";
 
                 left = this.reader.getFloat(ortho, 'left');
-                if(left == null)
+                if (left == null)
                     return "camera " + id + " has no atribute left";
 
                 right = this.reader.getFloat(ortho, 'right');
-                if(right == null)
+                if (right == null)
                     return "camera " + id + " has no atribute right";
 
                 top = this.reader.getFloat(ortho, 'top');
-                if(top == null)
+                if (top == null)
                     return "camera " + id + " has no atribute top";
 
                 bottom = this.reader.getFloat(ortho, 'bottom');
-                if(bottom == null)
+                if (bottom == null)
                     return "camera " + id + " has no atribute bottom";
-               
+
 
                 var orthoChildren = children[i].children;
                 var orthoChildrenArray = [];
@@ -358,67 +360,66 @@ class MySceneGraph {
                 }
 
                 var fromIndex = orthoChildrenArray.indexOf('from');
-                if(fromIndex == -1)
+                if (fromIndex == -1)
                     return "no fromIndex on view " + id;
 
                 var toIndex = orthoChildrenArray.indexOf('to');
-                if(toIndex == -1)
+                if (toIndex == -1)
                     return "no toIndex on view " + id;
 
                 var upIndex = orthoChildrenArray.indexOf('up');
-                if(upIndex == -1)
+                if (upIndex == -1)
                     return "no upIndex on view " + id;
 
-                var fromPosX,fromPosY,fromPosZ;
-                var toPosX,toPosY,toPosZ;
-                var upPosX,upPosY,upPosZ;
-                fromPosX = this.reader.getFloat(orthoChildren[fromIndex],'x');
-                if(fromPosX==null)
+                var fromPosX, fromPosY, fromPosZ;
+                var toPosX, toPosY, toPosZ;
+                var upPosX, upPosY, upPosZ;
+                fromPosX = this.reader.getFloat(orthoChildren[fromIndex], 'x');
+                if (fromPosX == null)
                     return "no x coord on 'from' on view " + id;
 
-                fromPosY = this.reader.getFloat(orthoChildren[fromIndex],'y');
-                if(fromPosY==null)
+                fromPosY = this.reader.getFloat(orthoChildren[fromIndex], 'y');
+                if (fromPosY == null)
                     return "no y coord on 'from' on view " + id;
 
-                fromPosZ = this.reader.getFloat(orthoChildren[fromIndex],'z');
-                if(fromPosZ==null)
+                fromPosZ = this.reader.getFloat(orthoChildren[fromIndex], 'z');
+                if (fromPosZ == null)
                     return "no z coord on 'from' on view " + id;
 
-                toPosX = this.reader.getFloat(orthoChildren[toIndex],'x');
-                if(toPosX==null)
+                toPosX = this.reader.getFloat(orthoChildren[toIndex], 'x');
+                if (toPosX == null)
                     return "no x coord on 'to' on view " + id;
 
-                toPosY = this.reader.getFloat(orthoChildren[toIndex],'y');
-                if(toPosY==null)
+                toPosY = this.reader.getFloat(orthoChildren[toIndex], 'y');
+                if (toPosY == null)
                     return "no y coord on 'to' on view " + id;
 
-                toPosZ = this.reader.getFloat(orthoChildren[toIndex],'z');
-                if(toPosZ==null)
+                toPosZ = this.reader.getFloat(orthoChildren[toIndex], 'z');
+                if (toPosZ == null)
                     return "no z coord on 'to' on view " + id;
 
-                if(upIndex != -1){
-                    upPosX = this.reader.getFloat(orthoChildren[upIndex],'x');
-                    upPosY = this.reader.getFloat(orthoChildren[upIndex],'y');
-                    upPosZ = this.reader.getFloat(orthoChildren[upIndex],'z');
-                }
-                else
-                    return 
-                if(upPosX == null){
+                if (upIndex != -1) {
+                    upPosX = this.reader.getFloat(orthoChildren[upIndex], 'x');
+                    upPosY = this.reader.getFloat(orthoChildren[upIndex], 'y');
+                    upPosZ = this.reader.getFloat(orthoChildren[upIndex], 'z');
+                } else
+                    return
+                if (upPosX == null) {
                     upPosX = 0;
                 }
-                if(upPosY == null){
+                if (upPosY == null) {
                     upPosX = 1;
                 }
-                if(upPosY == null){
+                if (upPosY == null) {
                     upPosX = 0;
                 }
-                aux.push(1.0,left,right,bottom,top,near,far,vec4.fromValues(fromPosX,fromPosY,fromPosZ,1),vec4.fromValues(toPosX,toPosY,toPosZ,1),vec3.fromValues(upPosX,upPosY,upPosZ));
+                aux.push(1.0, left, right, bottom, top, near, far, vec4.fromValues(fromPosX, fromPosY, fromPosZ, 1), vec4.fromValues(toPosX, toPosY, toPosZ, 1), vec3.fromValues(upPosX, upPosY, upPosZ));
                 this.cameras[id] = aux;
                 aux = [];
-            }
-            else
+            } else
                 return "no camera corresponds to " + children[i].nodeName;
         }
+
 
         this.log("Parsed Views");
 
@@ -486,8 +487,7 @@ class MySceneGraph {
             if (children[i].nodeName != "light") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
-            }
-            else {
+            } else {
                 attributeNames.push(...["enable", "position", "ambient", "diffuse", "specular"]);
                 attributeTypes.push(...["boolean", "position", "color", "color", "color"]);
             }
@@ -524,8 +524,7 @@ class MySceneGraph {
                         return aux;
 
                     global.push(aux);
-                }
-                else
+                } else
                     return "light " + attributeNames[i] + " undefined for ID = " + lightId;
             }
             this.lights[lightId] = global;
@@ -594,7 +593,7 @@ class MySceneGraph {
 
         var nodeNames = [];
 
-        
+
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -608,7 +607,7 @@ class MySceneGraph {
             var materialID = this.reader.getString(children[i], 'id');
             if (materialID == null)
                 return "no ID defined for material";
-            
+
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
                 return "ID must be unique for each material (conflict: ID = " + materialID + ")";
@@ -622,103 +621,103 @@ class MySceneGraph {
             for (let i = 0; i < grandChildren.length; i++) {
                 grandChildrenArray.push(grandChildren[i].nodeName);
             }
-            var shininessIndex,ambientIndex,diffuseIndex,specularIndex,emissiveIndex;
+            var shininessIndex, ambientIndex, diffuseIndex, specularIndex, emissiveIndex;
 
             shininessIndex = grandChildrenArray.indexOf("shininess");
             if (shininessIndex == -1)
-                return "no shininessIndex defined for material";
+                return "no shininessIndex defined for material " + materialID;
 
             ambientIndex = grandChildrenArray.indexOf("ambient");
             if (ambientIndex == -1)
-                return "no ambientIndex defined for material";
+                return "no ambientIndex defined for material " + materialID;
 
             diffuseIndex = grandChildrenArray.indexOf("diffuse");
             if (diffuseIndex == -1)
-                return "no diffuseIndex defined for material";
+                return "no diffuseIndex defined for material " + materialID;
 
             specularIndex = grandChildrenArray.indexOf("specular");
             if (specularIndex == -1)
-                return "no specularIndex defined for material";
+                return "no specularIndex defined for material " + materialID;
 
             emissiveIndex = grandChildrenArray.indexOf("emissive");
             if (emissiveIndex == -1)
-                return "no emissiveIndex defined for material";
-            
+                return "no emissiveIndex defined for material " + materialID;
+
             var shininessRGBA = ["shininess"];
             var ambientRGBA = ["ambient"];
             var diffuseRGBA = ["diffuse"];
             var specularRGBA = ["specular"];
             var emissiveRGBA = ["emissive"];
 
-            if(this.reader.getFloat(grandChildren[shininessIndex],"value")==null)
-                return "missin shininess value on a material";
+            if (this.reader.getFloat(grandChildren[shininessIndex], "value") == null)
+                return "missin shininess value on material " + materialID;
 
-            shininessRGBA.push(this.reader.getFloat(grandChildren[shininessIndex],"value"))
-            
-            var rVal = this.reader.getFloat(grandChildren[ambientIndex],"r");
-            var gVal = this.reader.getFloat(grandChildren[ambientIndex],"g");
-            var bVal = this.reader.getFloat(grandChildren[ambientIndex],"b");
-            var aVal = this.reader.getFloat(grandChildren[ambientIndex],"a");
+            shininessRGBA.push(this.reader.getFloat(grandChildren[shininessIndex], "value"))
 
-            if(rVal==null || gVal==null || bVal==null || aVal==null)
-                return "missing argument on ambient reflexion on a material";
-                
+            var rVal = this.reader.getFloat(grandChildren[ambientIndex], "r");
+            var gVal = this.reader.getFloat(grandChildren[ambientIndex], "g");
+            var bVal = this.reader.getFloat(grandChildren[ambientIndex], "b");
+            var aVal = this.reader.getFloat(grandChildren[ambientIndex], "a");
+
+            if (rVal == null || gVal == null || bVal == null || aVal == null)
+                return "missing argument on ambient reflexion on material " + materialID;
+
             ambientRGBA.push(rVal);
             ambientRGBA.push(gVal);
             ambientRGBA.push(bVal);
             ambientRGBA.push(aVal);
 
-            var rVal = this.reader.getFloat(grandChildren[diffuseIndex],"r");
-            var gVal = this.reader.getFloat(grandChildren[diffuseIndex],"g");
-            var bVal = this.reader.getFloat(grandChildren[diffuseIndex],"b");
-            var aVal = this.reader.getFloat(grandChildren[diffuseIndex],"a");
+            var rVal = this.reader.getFloat(grandChildren[diffuseIndex], "r");
+            var gVal = this.reader.getFloat(grandChildren[diffuseIndex], "g");
+            var bVal = this.reader.getFloat(grandChildren[diffuseIndex], "b");
+            var aVal = this.reader.getFloat(grandChildren[diffuseIndex], "a");
 
-            if(rVal==null || gVal==null || bVal==null || aVal==null)
-                return "missing argument for difuse reflexion on a material";
+            if (rVal == null || gVal == null || bVal == null || aVal == null)
+                return "missing argument for difuse reflexion on material " + materialID;
 
             diffuseRGBA.push(rVal);
             diffuseRGBA.push(gVal);
             diffuseRGBA.push(bVal);
             diffuseRGBA.push(aVal);
 
-            var rVal = this.reader.getFloat(grandChildren[specularIndex],"r");
-            var gVal = this.reader.getFloat(grandChildren[specularIndex],"g");
-            var bVal = this.reader.getFloat(grandChildren[specularIndex],"b");
-            var aVal = this.reader.getFloat(grandChildren[specularIndex],"a");
+            var rVal = this.reader.getFloat(grandChildren[specularIndex], "r");
+            var gVal = this.reader.getFloat(grandChildren[specularIndex], "g");
+            var bVal = this.reader.getFloat(grandChildren[specularIndex], "b");
+            var aVal = this.reader.getFloat(grandChildren[specularIndex], "a");
 
-            if(rVal==null || gVal==null || bVal==null || aVal==null)
-                return "missing argument for specular reflexion on a material";
+            if (rVal == null || gVal == null || bVal == null || aVal == null)
+                return "missing argument for specular reflexion on material " + materialID;
 
             specularRGBA.push(rVal);
             specularRGBA.push(gVal);
             specularRGBA.push(bVal);
             specularRGBA.push(aVal);
 
-            var rVal = this.reader.getFloat(grandChildren[emissiveIndex],"r");
-            var gVal = this.reader.getFloat(grandChildren[emissiveIndex],"g");
-            var bVal = this.reader.getFloat(grandChildren[emissiveIndex],"b");
-            var aVal = this.reader.getFloat(grandChildren[emissiveIndex],"a");
+            var rVal = this.reader.getFloat(grandChildren[emissiveIndex], "r");
+            var gVal = this.reader.getFloat(grandChildren[emissiveIndex], "g");
+            var bVal = this.reader.getFloat(grandChildren[emissiveIndex], "b");
+            var aVal = this.reader.getFloat(grandChildren[emissiveIndex], "a");
 
-            if(rVal==null || gVal==null || bVal==null || aVal==null)
-                return "missing argument for emissive reflexion on a material";
+            if (rVal == null || gVal == null || bVal == null || aVal == null)
+                return "missing argument for emissive reflexion on material " + materialID;
 
             emissiveRGBA.push(rVal);
             emissiveRGBA.push(gVal);
             emissiveRGBA.push(bVal);
             emissiveRGBA.push(aVal);
 
-            aux.push(shininessRGBA,ambientRGBA,diffuseRGBA,specularRGBA,emissiveRGBA);
+            aux.push(shininessRGBA, ambientRGBA, diffuseRGBA, specularRGBA, emissiveRGBA);
             this.materials[materialID] = aux;
-            
+
         }
         this.log("Parsed materials");
         return null;
     }
 
     /**
-   * Parses the <nodes> block.
-   * @param {nodes block element} nodesNode
-   */
+     * Parses the <nodes> block.
+     * @param {nodes block element} nodesNode
+     */
     parseNodes(nodesNode) {
         var children = nodesNode.children;
 
@@ -758,112 +757,130 @@ class MySceneGraph {
 
 
             //this.onXMLMinorError("To do: Parse nodes.");
-            
+
             var aux = [];
 
-            
+
             // Material
 
-            aux.push(this.reader.getString(grandChildren[materialIndex],"id"));
+            if(materialIndex!=-1)
+                aux.push(this.reader.getString(grandChildren[materialIndex], "id"));
+            else
+            {
+                this.onXMLMinorError("No material set for node " + nodeID + " setting white material as default.");
+            }
 
             // Texture
 
-            var textAmplification = grandChildren[textureIndex].children;
-            var textureAux = [];
+            if(textureIndex != -1){
+                var textAmplification = grandChildren[textureIndex].children;
+                var textureAux = [];
 
-            textureAux.push(this.reader.getString(grandChildren[textureIndex],"id"));
+                textureAux.push(this.reader.getString(grandChildren[textureIndex], "id"));
 
-            textureAux.push(this.reader.getFloat(textAmplification[0],"afs"));
-            textureAux.push(this.reader.getFloat(textAmplification[0],"aft"));
-            aux.push(textureAux);
+                textureAux.push(this.reader.getFloat(textAmplification[0], "afs"));
+                textureAux.push(this.reader.getFloat(textAmplification[0], "aft"));
+                aux.push(textureAux);
+            }
+            else  //if there is no texture, texture "clear" is set as default
+            {
+                this.onXMLMinorError("No texture set for node " + nodeID + " setting clear texture as default.");
+                var textureAux = [];
+                textureAux.push("clear");
+                textureAux.push(1.0,1.0);
+                aux.push(textureAux);
+            }
 
             // Transformations
 
-            var transformations = grandChildren[transformationsIndex].children;
-            
             var transformationAux = [];
-            for(let i = 0; i<transformations.length; i++)
-            {
-                var singleTransformation = [];
+            if (transformationsIndex != -1) {
+                var transformations = grandChildren[transformationsIndex].children;
 
-                if(transformations[i].nodeName == "translation") // t
-                {
-                    singleTransformation.push("t");
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"x"));
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"y"));
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"z"));
+                for (let i = 0; i < transformations.length; i++) {
+                    var singleTransformation = [];
+
+                    if (transformations[i].nodeName == "translation") // t
+                    {
+                        singleTransformation.push("t");
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "x"));
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "y"));
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "z"));
+
+                    } else if (transformations[i].nodeName == "rotation") // r
+                    {
+                        singleTransformation.push("r");
+                        singleTransformation.push(this.reader.getString(transformations[i], "axis"));
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "angle"));
+
+                    } else if (transformations[i].nodeName == "scale") // s
+                    {
+                        singleTransformation.push("s");
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "sx"));
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "sy"));
+                        singleTransformation.push(this.reader.getFloat(transformations[i], "sz"));
+                    }
+                    transformationAux.push(singleTransformation);
 
                 }
-                else if(transformations[i].nodeName == "rotation") // r
-                {
-                    singleTransformation.push("r");
-                    singleTransformation.push(this.reader.getString(transformations[i],"axis"));
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"angle"));
-
-                }
-                else if(transformations[i].nodeName == "scale") // s
-                {
-                    singleTransformation.push("s");
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"sx"));
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"sy"));
-                    singleTransformation.push(this.reader.getFloat(transformations[i],"sz"));
-                }
-                transformationAux.push(singleTransformation);
-
+            }
+            else{
+                this.onXMLMinorError("No transformation tag on node " + nodeID);
+                this.transformationAux=[];
             }
             aux.push(transformationAux);
 
             // Descendants
 
+            if(descendantsIndex==-1)
+                return "No descendants for node with id " + nodeID;
+
             var descendants = grandChildren[descendantsIndex].children;
 
             var descendantsParsed = [];
 
-            for(let i = 0; i<descendants.length; i++)
-            {
+
+            for (let i = 0; i < descendants.length; i++) {
                 var descendantsAux = [];
 
-                if(descendants[i].nodeName=="noderef")
-                {
+                if (descendants[i].nodeName == "noderef") {
                     descendantsAux.push("node");
-                    descendantsAux.push(this.reader.getString(descendants[i],"id"));
-                }
-                else if(descendants[i].nodeName=="leaf")
-                {
+                    descendantsAux.push(this.reader.getString(descendants[i], "id"));
+                } else if (descendants[i].nodeName == "leaf") {
                     descendantsAux.push("leaf");
-                    descendantsAux.push(this.reader.getString(descendants[i],"type"));
-                    switch(descendantsAux[1]){
-                        case "rectangle" :
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"x1"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"y1"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"x2"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"y2"));
+                    descendantsAux.push(this.reader.getString(descendants[i], "type"));
+                    switch (descendantsAux[1]) {
+                        case "rectangle":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "x1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "y1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "x2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "y2"));
                             break;
-                        case "sphere" :
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"stacks"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"radius"));
+                        case "sphere":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "stacks"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "radius"));
                             break;
-                        case "triangle" :
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"x1"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"y1"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"x2"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"y2"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"x3"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"y3"));
+                        case "triangle":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "x1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "y1"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "x2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "y2"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "x3"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "y3"));
                             break;
-                        case "cylinder" :
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"stacks"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"topRadius"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"bottomRadius"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"height"));
+                        case "cylinder":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "stacks"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "topRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "bottomRadius"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "height"));
                             break;
-                        case "torus" :
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"slices"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"loops"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"inner"));
-                            descendantsAux.push(this.reader.getFloat(descendants[i],"outer"));
+                        case "torus":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "slices"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "loops"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "inner"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "outer"));
 
                     }
                 }
@@ -878,11 +895,11 @@ class MySceneGraph {
     parseBoolean(node, name, messageError) {
         let boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
-          this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
+            this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
             boolVal = true
         }
         return boolVal;
-      }
+    }
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node
