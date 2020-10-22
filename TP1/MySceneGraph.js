@@ -575,6 +575,16 @@ class MySceneGraph {
             if (texturePath == null)
                 return "no Path defined for texture " + textureID;
 
+            //verifying if texture exists
+
+            var http = new XMLHttpRequest();
+            http.open('HEAD',texturePath,false);
+            http.send();
+
+            if(!(http.status === 200))
+                return "No texture found on path: " + texturePath;
+
+
             this.textures[textureID] = texturePath;
         }
 
