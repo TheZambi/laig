@@ -33,6 +33,10 @@ class MyTriangle extends CGFobject {
 		this.initBuffers();
 	}
 	
+	/**
+     * @method initBuffers
+     * Initializes the triangle buffers
+     */
 	initBuffers() {
 		this.vertices = [
 			this.x1, this.y1, 0,	//0
@@ -52,18 +56,6 @@ class MyTriangle extends CGFobject {
 			0, 0, 1,
 			0, 0, 1
 		];
-		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
-
-
 
 		this.texCoords = [
 			0, 1,
@@ -84,7 +76,12 @@ class MyTriangle extends CGFobject {
 		this.updateTexCoordsGLBuffers();
 	}
 
-	
+	/**
+     * @method updateCoords
+     * Updates the list of texture coordinates of the triangle
+	 * @param {integer} afs - Amplification on s axis
+	 * @param {integer} aft - Amplification on t axis
+     */
     updateCoords(afs, aft)
     {
 		this.texCoords=[];
