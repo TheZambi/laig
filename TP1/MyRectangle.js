@@ -88,10 +88,10 @@ class MyRectangle extends CGFobject {
     {
 		this.texCoords = [];
 		this.texCoords = [
-			0/afs, 1/aft,
-			1/afs, 1/aft,
+			0/afs, Math.abs(this.y2-this.y1)/aft,
+			Math.abs(this.x2-this.x1)/afs, Math.abs(this.y2-this.y1)/aft,
 			0/afs, 0/aft,
-			1/afs, 0/aft
+			Math.abs(this.x2-this.x1)/afs, 0/aft
 		];
 		this.updateTexCoords(this.texCoords);
     }

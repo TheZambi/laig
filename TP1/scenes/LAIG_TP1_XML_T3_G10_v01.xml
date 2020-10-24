@@ -139,7 +139,7 @@
             <material id="whiteMaterial" />
 
             <texture id="grass">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="80.0" aft="80.0" />
             </texture>
 
             <transformations>
@@ -368,7 +368,7 @@
             <material id="whiteMaterial"/> 
 
             <texture id="licensePlate">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="4.0" aft="1.0" />
             </texture>
 
             <transformations>
