@@ -20,11 +20,8 @@ class MyTriangle extends CGFobject {
 		this.y3 = y3;
 
 		this.a = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
-		console.log("a:" + this.a);
 		this.b = Math.sqrt(Math.pow(x3-x2,2)+Math.pow(y3-y2,2));
-		console.log("b:" + this.b);
 		this.c = Math.sqrt(Math.pow(x1-x3,2)+Math.pow(y1-y3,2));
-		console.log("c:" + this.a);
 
 		this.cosA = (this.a*this.a - this.b*this.b + this.c*this.c)/(2*this.a*this.c);
 

@@ -62,7 +62,6 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         var auxCamera;
-        console.log(this.graph.defaultCam);
         for(var key in this.graph.cameras){
             if(this.graph.cameras.hasOwnProperty(key)){
                 auxCamera = this.graph.cameras[key];
