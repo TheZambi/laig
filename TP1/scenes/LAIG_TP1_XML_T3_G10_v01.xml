@@ -44,6 +44,7 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
+        
         <light id="RedLight">            <!-- light identifier -->
             <enable value="false" />
             <!-- enable/disable -->
@@ -80,8 +81,9 @@
         <texture id="tire" path="./scenes/images/tire.png"/>
         <texture id="silo" path="./scenes/images/silo.png"/>
         <texture id="siloSphere" path="./scenes/images/siloSphere.png"/>
-
-
+        <texture id="door" path="./scenes/images/door.png"/>
+        <texture id="houseWall" path="./scenes/images/houseWall.png"/>
+        <texture id="houseRoof" path="./scenes/images/houseRoof.png"/>
     </textures>
 
 
@@ -100,6 +102,20 @@
             <specular r="1" g="1" b="1" a="1.0" />        <!-- specular reflection -->
             <diffuse r="1" g="1" b="1" a="1.0" />         <!-- diffuse reflection -->
             <ambient r="1" g="1" b="1" a="1.0" />         <!-- ambient reflection -->
+            <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
+        </material>
+        <material id="grass"> 
+            <shininess value="1.0" />
+            <specular r="0.4" g="0.6" b="0.4" a="1.0" />        <!-- specular reflection -->
+            <diffuse r="0.6" g="0.8" b="0.6" a="1.0" />         <!-- diffuse reflection -->
+            <ambient r="1" g="1" b="1" a="1.0" />         <!-- ambient reflection -->
+            <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
+        </material>
+        <material id="wood"> 
+            <shininess value="1.0" />
+            <specular r="0.6" g="0.4" b="0.3" a="1.0" />        <!-- specular reflection -->
+            <diffuse r="0.6" g="0.4" b="0.3" a="1.0" />         <!-- diffuse reflection -->
+            <ambient r="0.3" g="0.1" b="0" a="1.0" />         <!-- ambient reflection -->
             <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
         </material>
     </materials>
@@ -124,19 +140,19 @@
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
+                <noderef id="Tree"/>
+                <noderef id="House"/>
                 <!-- <noderef id="CubeChassi"/> -->
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-                <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
-
-                <noderef id="Tree"/>
+                <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. --> 
             </descendants>
         </node>
         <node id="Floor">           
            
-            <material id="whiteMaterial" />
+            <material id="grass" />
 
             <texture id="grass">
                 <amplification afs="80.0" aft="80.0" />
@@ -150,7 +166,201 @@
                 <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
             </descendants>
         </node>
-         <node id="Tractor">            
+        <node id="House">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="houseWall">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-20" y="0" z="20"/>
+                <rotation axis="y" angle="90"/>
+                <scale sx="1.5" sy="1.5" sz="1.5"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="houseFront"/>
+                <noderef id="houseRight"/>
+                <noderef id="houseLeft"/>
+                <noderef id="houseBack"/>
+                <noderef id="roof"/>
+            </descendants>
+        </node>
+        <node id="roof">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="houseRoof">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="roofFront"/>
+                <noderef id="roofRight"/>
+                <noderef id="roofLeft"/>
+                <noderef id="roofBack"/>
+            </descendants>
+        </node>
+        <node id="roofFront">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="10" z="0"/>
+                <rotation axis="x" angle="-39"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="10" y2="0" x3="5" y3="8"/>
+            </descendants>
+        </node>
+        <node id="roofLeft">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="10" z="0"/>
+                <rotation axis="y" angle="90"/>
+                <rotation axis="x" angle="39"/>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="-10" y1="0" x2="0" y2="0" x3="-5" y3="8"/>
+            </descendants>
+        </node>
+        <node id="roofRight">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="0" y="10" z="10"/>
+                <rotation axis="x" angle="-39"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="10" y2="0" x3="5" y3="8"/>
+            </descendants>
+        </node>
+        <node id="roofBack">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="10" z="-10"/>
+                <rotation axis="x" angle="39"/>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="-10" y1="0" x2="0" y2="0" x3="-5" y3="8"/>
+            </descendants>
+        </node>
+        <node id="houseFront">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="10.0" aft="10.0" />
+            </texture>
+
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="houseDoor"/>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseRight">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="10.0" aft="10.0" />
+            </texture>
+
+            <transformations>
+                <translation x="10" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseLeft">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="10.0" aft="10.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="10" y1="0" x2="0" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseBack">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="10.0" aft="10.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="-10"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="10" y1="0" x2="0" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseDoor">           
+            <material id="wood" />
+
+            <texture id="door">
+                <amplification afs="2.0" aft="5.0" />
+            </texture>
+
+            <transformations>
+                <translation x="4" y="0" z="0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="2" y2="5"/>
+            </descendants>
+        </node>
+        <node id="Tractor">            
             <material id="null" />
 
             <transformations>
@@ -360,7 +570,7 @@
             </transformations>
 
             <descendants>
-                <noderef id="CubeCabin"/> <!--center of the wheel-->
+                <noderef id="CubeCabin"/>
             </descendants>
         </node>
 
@@ -376,7 +586,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="1"/> <!--center of the wheel-->
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="1"/>
             </descendants>
         </node>
 
@@ -841,6 +1051,7 @@
             <transformations>
                 <translation x="-20" y="0" z="-20"/>
                 <rotation axis="x" angle="-90"/>
+                <scale sx="2" sy="2" sz= "2"/>
             </transformations>
 
             <descendants>
