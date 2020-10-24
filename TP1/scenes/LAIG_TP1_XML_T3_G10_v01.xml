@@ -12,6 +12,10 @@
             <from x="60" y="40" z="60" />
             <to x="0" y="0" z="0" />
         </perspective>
+        <perspective id="HouseView" near="0.1" far="500" angle="45">
+            <from x="10" y="10" z="30" />
+            <to x="-10" y="5" z="20" />
+        </perspective>
         <perspective id="TopView" near="0.1" far="500" angle="45">
             <from x="1" y="100" z="1" />
             <to x="0" y="0" z="0" />
@@ -44,7 +48,14 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
-        
+        <light id="FrontLight">            <!-- light identifier -->
+            <enable value="true" />
+            <!-- enable/disable -->
+            <position x="-3" y="18" z="30.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
         <light id="RedLight">            <!-- light identifier -->
             <enable value="false" />
             <!-- enable/disable -->
@@ -84,6 +95,7 @@
         <texture id="door" path="./scenes/images/door.png"/>
         <texture id="houseWall" path="./scenes/images/houseWall.png"/>
         <texture id="houseRoof" path="./scenes/images/houseRoof.png"/>
+        <texture id="houseWindow" path="./scenes/images/houseWindow.png"/>
     </textures>
 
 
@@ -212,7 +224,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="3.0" aft="3.0" />
             </texture>
 
             <transformations>
@@ -229,7 +241,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="3.0" aft="3.0" />
             </texture>
 
             <transformations>
@@ -248,7 +260,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="3.0" aft="3.0" />
             </texture>
 
             <transformations>
@@ -266,7 +278,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="3.0" aft="3.0" />
             </texture>
 
             <transformations>
@@ -310,7 +322,24 @@
             </transformations>
 
             <descendants>
+                <noderef id="houseWindowRight"/>
                 <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseWindowRight">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="houseWindow">
+                <amplification afs="4.0" aft="4.0" />
+            </texture>
+
+            <transformations>
+                <translation x="3" y="4" z="0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="4"/>
             </descendants>
         </node>
         <node id="houseLeft">           
@@ -326,7 +355,24 @@
             </transformations>
 
             <descendants>
+                <noderef id="houseWindowLeft"/>
                 <leaf type="rectangle" x1="10" y1="0" x2="0" y2="10"/>
+            </descendants>
+        </node>
+        <node id="houseWindowLeft">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="houseWindow">
+                <amplification afs="4.0" aft="4.0" />
+            </texture>
+
+            <transformations>
+                <translation x="7" y="4" z="-0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="-4" y2="4"/>
             </descendants>
         </node>
         <node id="houseBack">           
