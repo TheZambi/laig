@@ -1,4 +1,10 @@
 class MyNode {
+    /**
+     * @method constructor
+     * @param  {CGFscene} scene - MyScene object
+     * @param  {string} id - ID of the node
+     * @param  {Array} info - array with info about this node (materials, transformations, descendants and textures) 
+     */
     constructor(scene, id, info = []) {
         this.scene = scene;
         this.info = info;
@@ -14,6 +20,10 @@ class MyNode {
         this.initBuffers();
     }
 
+    /**
+     * @method initBuffers
+     * Initializes the node buffers
+     */
     initBuffers() {
         this.materialID = this.info[0];
 
@@ -58,6 +68,10 @@ class MyNode {
         }
     }
 
+    /**
+     * @method display
+     * displays this node and its descendants
+     */
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformations);
@@ -118,6 +132,10 @@ class MyNode {
 
     }
 
+    /**
+     * @method updateCoords
+     * updates nodes' descendants texture coordinates
+     */
     updateCoords()
     {
         for (let i = 0; i < this.leaves.length; i++) {

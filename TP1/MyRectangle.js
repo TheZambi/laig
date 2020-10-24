@@ -30,6 +30,10 @@ class MyRectangle extends CGFobject {
 		this.initBuffers();
 	}
 	
+	/**
+     * @method initBuffers
+     * Initializes the rectangle buffers
+     */
 	initBuffers() {
 		this.vertices = [
 			this.x1, this.y1, 0,	//0
@@ -84,6 +88,12 @@ class MyRectangle extends CGFobject {
 		this.updateTexCoordsGLBuffers();
 	}
 
+	/**
+     * @method updateCoords
+     * Updates the list of texture coordinates of the rectangle
+	 * @param {integer} afs - Amplification on s axis
+	 * @param {integer} aft - Amplification on t axis
+     */
 	updateCoords(afs, aft)
     {
 		this.texCoords = [];

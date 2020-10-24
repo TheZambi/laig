@@ -2,7 +2,11 @@ class MyCylinder extends CGFobject {
     /**
      * @method constructor
      * @param  {CGFscene} scene - MyScene object
-     * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+     * @param  {integer} stacks - number of divisions on Z axis (cylinder is on Z axis) 
+     * @param  {integer} slices - number of divisions on the bottom circle 
+     * @param  {integer} topRadius - radius of the top
+     * @param  {integer} bottomRadius -  radius of the bottom
+     * @param  {integer} height - height of the cylinder
      */
     constructor(scene, slices, stacks, topRadius, bottomRadius, height) {
         super(scene);
@@ -17,8 +21,7 @@ class MyCylinder extends CGFobject {
 
     /**
      * @method initBuffers
-     * Initializes the sphere buffers
-     * TODO: DEFINE TEXTURE COORDINATES
+     * Initializes the cylinder buffers
      */
     initBuffers() {
 
@@ -131,8 +134,4 @@ class MyCylinder extends CGFobject {
         this.initGLBuffers();
     }
 
-    updateCoords(afs, aft)
-    {
-        
-    }
 }

@@ -245,7 +245,6 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        //this.onXMLMinorError("To do: Parse views and create cameras.");
         var children = viewsNode.children;
 
         this.cameras = [];
@@ -258,6 +257,7 @@ class MySceneGraph {
         var aux = [];
 
         for (let i = 0; i < children.length; i++) {
+            //parses perspective cam
             if (children[i].nodeName == 'perspective') {
                 perspective = children[i];
                 var id, near, far, angle;
@@ -320,7 +320,8 @@ class MySceneGraph {
                 aux.push(0, newAngle, near, far, vec3.fromValues(fromPosX, fromPosY, fromPosZ), vec3.fromValues(toPosX, toPosY, toPosZ));
                 this.cameras[id] = aux;
                 aux = [];
-            } else if (children[i].nodeName == 'ortho') {
+            } //parses ortho cam
+             else if (children[i].nodeName == 'ortho') {
                 ortho = children[i];
                 var id, near, far, left, right, top, bottom;
 
@@ -600,11 +601,6 @@ class MySceneGraph {
         var children = materialsNode.children;
 
         this.materials = [];
-
-        var nodeNames = [];
-
-
-
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
             var aux = [];
@@ -765,14 +761,9 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
-
-            //this.onXMLMinorError("To do: Parse nodes.");
-
             var aux = [];
 
-
             // Material
-
             if(materialIndex!=-1)
                 aux.push(this.reader.getString(grandChildren[materialIndex], "id"));
             else
@@ -781,7 +772,6 @@ class MySceneGraph {
             }
 
             // Texture
-
             if(textureIndex != -1){
                 var textAmplification = grandChildren[textureIndex].children;
                 var textureAux = [];
@@ -802,7 +792,6 @@ class MySceneGraph {
             }
 
             // Transformations
-
             var transformationAux = [];
             if (transformationsIndex != -1) {
                 var transformations = grandChildren[transformationsIndex].children;
@@ -841,7 +830,6 @@ class MySceneGraph {
             aux.push(transformationAux);
 
             // Descendants
-
             if(descendantsIndex==-1)
                 return "No descendants for node with id " + nodeID;
 

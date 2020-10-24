@@ -4,6 +4,8 @@ class MyTorus extends CGFobject {
      * @param  {CGFscene} scene - MyScene object
      * @param  {integer} slices - number of slices around Y axis
      * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+     * @param  {integer} inner - inner radius of the torus
+     * @param  {integer} outer - outer radius of the torus
      */
     constructor(scene, slices, stacks, inner, outer) {
       super(scene);
@@ -17,8 +19,7 @@ class MyTorus extends CGFobject {
   
     /**
      * @method initBuffers
-     * Initializes the sphere buffers
-     * TODO: DEFINE TEXTURE COORDINATES
+     * Initializes the torus buffers
      */
     initBuffers() {
       this.vertices = [];
@@ -88,10 +89,5 @@ class MyTorus extends CGFobject {
       this.primitiveType = this.scene.gl.TRIANGLES;
       this.initGLBuffers();
     }
-  
-    updateCoords(afs, aft)
-      {
-          
-      }
   }
   

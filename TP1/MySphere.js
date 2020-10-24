@@ -4,6 +4,7 @@ class MySphere extends CGFobject {
    * @param  {CGFscene} scene - MyScene object
    * @param  {integer} slices - number of slices around Y axis
    * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+   * @param  {integer} radius - radius of the sphere
    */
   constructor(scene, slices, stacks, radius) {
     super(scene);
@@ -17,7 +18,6 @@ class MySphere extends CGFobject {
   /**
    * @method initBuffers
    * Initializes the sphere buffers
-   * TODO: DEFINE TEXTURE COORDINATES
    */
   initBuffers() {
     this.vertices = [];
@@ -72,20 +72,12 @@ class MySphere extends CGFobject {
 
         //--- Texture Coordinates
         this.texCoords.push(longitude/this.longDivs,latitude/this.latDivs); 
-        // May need some additional code also in the beginning of the function.
         
       }
       phi += phiInc;
     }
 
-
-
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
   }
-
-  updateCoords(afs, aft)
-    {
-        
-    }
 }
