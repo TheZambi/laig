@@ -9,7 +9,6 @@ class MyNode {
         this.scene = scene;
         this.info = info;
         this.id = id;
-        this.info = info;
         this.visited = false;
         this.children = [];
         this.childrenNames = [];

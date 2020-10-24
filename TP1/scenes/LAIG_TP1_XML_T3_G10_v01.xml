@@ -155,6 +155,7 @@
     </materials>
 
     <nodes>
+        
         <node id="Root">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
             <material id="whiteMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->

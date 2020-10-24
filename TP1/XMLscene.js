@@ -121,7 +121,7 @@ class XMLscene extends CGFscene {
                     if(auxNode[3][values][0]=="node")
                         {
                             if(!(this.graph.nodes.hasOwnProperty(auxNode[3][values][1])))
-                                this.graph.onXMLMinorError("descendant node " + auxNode[3][values][1] + " from parent node " + key + " does not exist.");
+                                this.graph.onXMLError("descendant node " + auxNode[3][values][1] + " from parent node " + key + " does not exist.");
                         }
                 }
                 var nodeToPush = new MyNode(this,key,auxNode);
@@ -337,9 +337,10 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-
-        if(this.nodesList[0] != null)
-            this.nodesList[0].display();
+        for(let i = 0; i < this.nodesList.length ; i++){
+            if(this.nodesList[i] != null && this.nodesList[i].id==this.graph.idRoot)
+                this.nodesList[i].display();
+        }
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
