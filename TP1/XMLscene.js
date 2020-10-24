@@ -67,12 +67,12 @@ class XMLscene extends CGFscene {
             if(this.graph.cameras.hasOwnProperty(key)){
                 auxCamera = this.graph.cameras[key];
                 if(auxCamera[0] == 0){ // 0 for perspective cameras
-                    var cameraToPush = new CGFcamera(...auxCamera.slice(1));
+                    var cameraToPush = new CGFcamera(...auxCamera.slice(1)); // unpacks the array since 1st position because its reserved for an id
                     this.cameraList.push(cameraToPush);
                     this.cameraNames.push(key);
                 }
                 else if(auxCamera[0] == 1){ // 1 for ortho cameras
-                    var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));
+                    var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));// unpacks the array since 1st position because its reserved for an id
                     this.cameraList.push(cameraToPush);
                     this.cameraNames.push(key);
                 }
@@ -91,6 +91,9 @@ class XMLscene extends CGFscene {
         return;
     }
 
+    /**
+     * Updates the current selected camera
+     */
     updateCamera(){
         // console.log(this.selectedCamera);
         if(this.selectedCamera != -1 && this.selectedCamera != this.lastCamera){
@@ -107,6 +110,9 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Intiializes all nodes and fills their respective descendants node
+     */
     initNodes(){
         for(var key in this.graph.nodes){
             if(this.graph.nodes.hasOwnProperty(key)){
@@ -124,7 +130,7 @@ class XMLscene extends CGFscene {
             }
         }
 
-
+        //fills children of all nodes since now they are all created
         for(let i = 0;i< this.nodesList.length;i++){
             if(this.nodesList[i].id == this.graph.idRoot && this.nodesList[i].visited == false){
                 this.addChildren(this.nodesList[i])
@@ -133,6 +139,10 @@ class XMLscene extends CGFscene {
     
     }
 
+    /**
+     * Fills node's descendant node
+     * @param {*} node - Node to fill 
+     */
     addChildren(node){
         node.visited = true;
         for(let i = 0;i< this.nodesList.length;i++){
@@ -183,12 +193,16 @@ class XMLscene extends CGFscene {
         
 
         this.nLights = i;
+        //Adds lights to the interface so we can turn them on and off
         for(let j = 1;j <= this.nLights;j++){
             this.interface.gui.add(this,'light' + j).name(lightName[j-1]).onChange(this.updateLights.bind(this));
         }
 
     }
 
+    /**
+     * updates the lights gui
+     */
     updateLights(){
         for(let j = 1;j<=this.nLights;j++){
 
@@ -202,7 +216,9 @@ class XMLscene extends CGFscene {
         
     }
 
-
+    /**
+     * Initializes the materials received from the parser
+     */
     initMaterials(){
         for(var key in this.graph.materials){
             if(this.graph.materials.hasOwnProperty(key)){
@@ -218,6 +234,9 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Initializes the textures received from the parser
+     */
     initTextures(){
         for(var key in this.graph.textures){
             if(this.graph.textures.hasOwnProperty(key)){
@@ -228,12 +247,18 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Fills material field of node
+     */
     addMaterialsToNodes(){
         for(let i = 0;i<this.nodesList.length;i++){
             this.nodesList[i].material = this.materialsList[this.nodesList[i].materialID];
         }
     }
 
+    /**
+     * Fills texture field of node
+     */
     addTexturesToNodes(){
         for(let i = 0;i<this.nodesList.length;i++){
             this.nodesList[i].texture = this.texturesList[this.nodesList[i].textureID];
