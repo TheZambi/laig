@@ -56,6 +56,14 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
+        <light id="TopLight">            <!-- light identifier -->
+            <enable value="false" />
+            <!-- enable/disable -->
+            <position x="0" y="50" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
         <light id="RedLight">            <!-- light identifier -->
             <enable value="false" />
             <!-- enable/disable -->
@@ -104,8 +112,15 @@
          requires a distinct "id". At least one material should be present. -->
         <material id="iron"> 
             <shininess value="1.0" />
-            <specular r="0.5" g="0.5" b="0.5" a="1.0" />        <!-- specular reflection -->
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />        <!-- specular reflection -->
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />         <!-- diffuse reflection -->
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />         <!-- ambient reflection -->
+            <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
+        </material>
+        <material id="tire"> 
+            <shininess value="1.0" />
+            <specular r="0" g="0" b="0" a="1.0" />        <!-- specular reflection -->
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />         <!-- diffuse reflection -->
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />         <!-- ambient reflection -->
             <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
         </material>
@@ -127,6 +142,13 @@
             <shininess value="1.0" />
             <specular r="0.6" g="0.4" b="0.3" a="1.0" />        <!-- specular reflection -->
             <diffuse r="0.6" g="0.4" b="0.3" a="1.0" />         <!-- diffuse reflection -->
+            <ambient r="0.3" g="0.1" b="0" a="1.0" />         <!-- ambient reflection -->
+            <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
+        </material>
+        <material id="roof"> 
+            <shininess value="1.0" />
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />        <!-- specular reflection -->
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />         <!-- diffuse reflection -->
             <ambient r="0.3" g="0.1" b="0" a="1.0" />         <!-- ambient reflection -->
             <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
         </material>
@@ -154,7 +176,6 @@
                 <noderef id="silo"/>
                 <noderef id="Tree"/>
                 <noderef id="House"/>
-                <!-- <noderef id="CubeChassi"/> -->
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
@@ -519,7 +540,7 @@
         </node>
 
         <node id="Tire">
-            <material id="whiteMaterial"/>
+            <material id="tire"/>
 
             <texture id="tire">
                 <amplification afs="1.0" aft="1.0"/>
@@ -934,7 +955,7 @@
         </node>
 
         <node id="treeTrunk">
-            <material id="null"/> 
+            <material id="wood"/> 
 
             <texture id="wood">
                 <amplification afs="1.0" aft="1.0" />
@@ -1088,7 +1109,7 @@
         </node>
 
         <node id="silo">
-            <material id="whiteMaterial"/> 
+            <material id="iron"/> 
 
             <texture id="silo">
                 <amplification afs="1.0" aft="1.0" />
@@ -1154,7 +1175,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="torus" inner="0.5" outer="1" slices="20" loops="20" />  <!-- tire -->
+                <leaf type="torus" inner="0.5" outer="1" slices="20" loops="20" /> 
             </descendants>
         </node>
 
