@@ -19,7 +19,7 @@
 
 - Scene
   - A field of grass with a tractor on top.
-  - [Scene]TP1/scenes/LAIG_TP1_XML_T3_G10_v01.xml
+  - [Scene](./TP1/scenes/LAIG_TP1_XML_T3_G10_v01.xml)
 
 -----
 
