@@ -89,7 +89,7 @@ class MyCylinder extends CGFobject {
                 Math.cos(ang * i) * this.bottomRadius,
                 0
             );
-            this.texCoords.push(Math.cos(ang * i) * 0.5 + 0.5, Math.sin(ang * i) * 0.5 + 0.5);
+            this.texCoords.push(Math.cos(ang * i) * 0.5 + 0.5, 1-(Math.sin(ang * i) * 0.5 + 0.5));
             
             this.normals.push(0, 0,-1);
         }
@@ -117,7 +117,7 @@ class MyCylinder extends CGFobject {
                 Math.cos(ang * i) * this.topRadius,
                 this.height
             );
-            this.texCoords.push(Math.cos(ang * i) * 0.5 + 0.5, Math.sin(ang * i) * 0.5 + 0.5);
+            this.texCoords.push(Math.cos(ang * i) * 0.5 + 0.5, 1-(Math.sin(ang * i) * 0.5 + 0.5));
             
             this.normals.push(0, 0, 1);
         }
