@@ -401,8 +401,7 @@ class MySceneGraph {
                     upPosX = this.reader.getFloat(orthoChildren[upIndex], 'x');
                     upPosY = this.reader.getFloat(orthoChildren[upIndex], 'y');
                     upPosZ = this.reader.getFloat(orthoChildren[upIndex], 'z');
-                } else
-                    return
+                }
                 if (upPosX == null) {
                     upPosX = 0;
                 }
