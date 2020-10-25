@@ -369,9 +369,7 @@ class MySceneGraph {
                     return "no toIndex on view " + id;
 
                 var upIndex = orthoChildrenArray.indexOf('up');
-                if (upIndex == -1)
-                    return "no upIndex on view " + id;
-
+                
                 var fromPosX, fromPosY, fromPosZ;
                 var toPosX, toPosY, toPosZ;
                 var upPosX, upPosY, upPosZ;
