@@ -10,7 +10,8 @@
 ----
 ## Project information
 
-- Everything is ready to finish the assignement without having to make many changes.
+- Everything is finished.
+- Parsing has a lot of error checking with helpful messages in case any error occurs.
 - Makes use of multiple textures and materials.
 - Uses all primitive object.
 - Creation of some detailed objects.
@@ -19,9 +20,7 @@
 - Possibility to turn on/off the lights.
 
 - Scene
-  - A field of grass with a farm.
+  - A field of grass with a small farm.
   - [Scene]./scenes/LAIG_TP1_XML_T3_G10_v01.xml
 ----
 ## Issues/Problems
-
-- Missing some node input verifications.

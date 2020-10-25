@@ -46,12 +46,17 @@ class MyTriangle extends CGFobject {
 		this.indices = [
 			0, 1, 2
 		];
+		
+		var Ux = this.x2-this.x1;
+		var Uy = this.y2-this.y1;
+		var Vx = this.x3-this.x1;
+		var Vy = this.y3-this.y1;
 
 		//Facing Z positive
 		this.normals = [
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1
+			0, 0, (Ux*Vy)-(Uy*Vx),
+			0, 0, (Ux*Vy)-(Uy*Vx),
+			0, 0, (Ux*Vy)-(Uy*Vx)
 		];
 
 		this.texCoords = [

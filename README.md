@@ -12,12 +12,10 @@
 
 ### [TP1 - Scene Graph](TP1)
 
+- Parsing verification.
 - Makes use of multiple textures and materials.
 - Uses all primitive object.
-- Creation of some detailed objects.
 - Multiple cameras and lights.
-- Possibility to change cameras.
-- Possibility to turn on/off the lights.
 
 - Scene
   - A field of grass with a tractor on top.
