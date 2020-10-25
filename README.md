@@ -18,7 +18,7 @@
 - Multiple cameras and lights.
 
 - Scene
-  - A field of grass with a tractor on top.
+  - A field of grass with a small farm on top.
   - [Scene](./TP1/scenes/LAIG_TP1_XML_T3_G10_v01.xml)
 
 -----
