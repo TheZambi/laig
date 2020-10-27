@@ -749,6 +749,7 @@ class MySceneGraph {
             }
             this.animations[animationID] = auxArray;
         }
+        console.log(this.animations);
         this.log("Parsed animations");
         return null;
     }
