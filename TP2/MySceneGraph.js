@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -20,6 +21,7 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+        console.log("Entrei no construtor.")
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -184,6 +186,17 @@ class MySceneGraph {
             if ((error = this.parseMaterials(nodes[index])) != null)
                 return error;
         }
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            this.onXMLMinorError("tag <animations> missing");
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse materials block
+            if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+        }
 
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
@@ -321,7 +334,7 @@ class MySceneGraph {
                 this.cameras[id] = aux;
                 aux = [];
             } //parses ortho cam
-             else if (children[i].nodeName == 'ortho') {
+            else if (children[i].nodeName == 'ortho') {
                 ortho = children[i];
                 var id, near, far, left, right, top, bottom;
 
@@ -369,7 +382,7 @@ class MySceneGraph {
                     return "no toIndex on view " + id;
 
                 var upIndex = orthoChildrenArray.indexOf('up');
-                
+
                 var fromPosX, fromPosY, fromPosZ;
                 var toPosX, toPosY, toPosZ;
                 var upPosX, upPosY, upPosZ;
@@ -576,10 +589,10 @@ class MySceneGraph {
             //verifying if texture exists
 
             var http = new XMLHttpRequest();
-            http.open('HEAD',texturePath,false);
+            http.open('HEAD', texturePath, false);
             http.send();
 
-            if(!(http.status === 200))
+            if (!(http.status === 200))
                 return "No texture found on path: " + texturePath;
 
 
@@ -587,6 +600,156 @@ class MySceneGraph {
         }
 
         this.log("Parsed textures");
+        return null;
+    }
+
+    /**
+     * Parses the <animations> node.
+     * @param {animations block element} animationSNode
+     */
+    parseAnimations(animationsNode) {
+        var children = animationsNode.children;
+
+        this.animations = [];
+        // Any number of animations.
+        for (var i = 0; i < children.length; i++) {
+            var auxArray = [];
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current material.
+            var animationID = this.reader.getString(children[i], 'id');
+            if (animationID == null)
+                return "no ID defined for animation";
+
+            // Checks for repeated IDs.
+            if (this.animations[animationID] != null)
+                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+
+            var grandChildren = [];
+            grandChildren = children[i].children;
+
+
+            for (let l = 0; l < grandChildren.length; l++) {
+                var instant = this.reader.getString(grandChildren[l], "instant");
+                var grandChildrenArray = [];
+                for (let j = 0; j < grandChildren[l].children.length; j++) {             
+                    // grandChildrenArray.push(grandChildren[i].nodeName);
+                    grandChildrenArray.push(grandChildren[l].children[j].nodeName);
+                }
+
+                var translationIndex = -1,
+                    rotationXIndex = -1,
+                    rotationYIndex = -1,
+                    rotationZIndex = -1,
+                    scaleIndex = -1;
+                for (let k = 0; k < grandChildrenArray.length; k++) {
+                    if (grandChildrenArray[k] == "translation") {
+                        translationIndex = k;
+                    }
+                    if (grandChildrenArray[k] == "scale") {
+                        scaleIndex = k;
+                    }
+                    if (grandChildrenArray[k] == "rotation") {
+                        var axis = this.reader.getString(grandChildren[l].children[k], "axis");
+                        if (axis == "x")
+                            rotationXIndex = k;
+                        if (axis == "y")
+                            rotationYIndex = k;
+                        if (axis == "z")
+                            rotationZIndex = k;
+                    }
+                }
+
+                if (translationIndex == -1)
+                    return "no translation defined for animation " + animationID;
+
+                if (scaleIndex == -1)
+                    return "no scale defined for animation " + animationID;
+
+                if (rotationXIndex == -1)
+                    return "no rotationX defined for animation " + animationID;
+
+                if (rotationYIndex == -1)
+                    return "no rotationY defined for animation " + animationID;
+
+                if (rotationZIndex == -1)
+                    return "no rotationZ defined for animation " + animationID;
+
+                var translationVals = ["translation"];
+                var rotationXVals = ["rotationX"];
+                var rotationYVals = ["rotationY"];
+                var rotationZVals = ["rotationZ"];
+                var scaleVals = ["scale"];
+
+
+                //Animation Translation
+                var aux = this.reader.getFloat(grandChildren[l].children[translationIndex], "x");
+                if (aux == null)
+                    return "missing X value on translation on animation " + animationID;
+
+                translationVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[translationIndex], "y");
+                if (aux == null)
+                    return "missing Y value on translation on animation " + animationID;
+
+                translationVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[translationIndex], "z");
+                if (aux == null)
+                    return "missing Z value on translation on animation " + animationID;
+
+                translationVals.push(aux);
+
+                //Animation Rotation
+                aux = this.reader.getFloat(grandChildren[l].children[rotationXIndex], "angle");
+                if (aux == null)
+                    return "missing angle value on rotationX on animation " + animationID;
+
+                rotationXVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[rotationYIndex], "angle");
+                if (aux == null)
+                    return "missing angle value on rotationY on animation " + animationID;
+
+                rotationYVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[rotationZIndex], "angle");
+                if (aux == null)
+                    return "missing angle value on rotationZ on animation " + animationID;
+
+                rotationZVals.push(aux);
+
+                //Animation Scale
+                var aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "x");
+                if (aux == null)
+                    return "missing X value on scale on animation " + animationID;
+
+                scaleVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "y");
+                if (aux == null)
+                    return "missing Y value on scale on animation " + animationID;
+
+                scaleVals.push(aux);
+
+                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "z");
+                if (aux == null)
+                    return "missing Z value on scale on animation " + animationID;
+
+                scaleVals.push(aux);
+
+                var keyframe = ["keyframe"];
+                keyframe.push(instant);
+                auxArray.push([keyframe, translationVals, rotationXVals, rotationYVals, rotationZVals, scaleVals]);
+            }
+            this.animations[animationID] = auxArray;
+        }
+        this.log("Parsed animations");
         return null;
     }
 
@@ -761,15 +924,14 @@ class MySceneGraph {
             var aux = [];
 
             // Material
-            if(materialIndex!=-1)
+            if (materialIndex != -1)
                 aux.push(this.reader.getString(grandChildren[materialIndex], "id"));
-            else
-            {
+            else {
                 this.onXMLMinorError("No material set for node " + nodeID + " setting white material as default.");
             }
 
             // Texture
-            if(textureIndex != -1){
+            if (textureIndex != -1) {
                 var textAmplification = grandChildren[textureIndex].children;
                 var textureAux = [];
 
@@ -778,13 +940,12 @@ class MySceneGraph {
                 textureAux.push(this.reader.getFloat(textAmplification[0], "afs"));
                 textureAux.push(this.reader.getFloat(textAmplification[0], "aft"));
                 aux.push(textureAux);
-            }
-            else  //if there is no texture, texture "clear" is set as default
+            } else //if there is no texture, texture "clear" is set as default
             {
                 this.onXMLMinorError("No texture set for node " + nodeID + " setting clear texture as default.");
                 var textureAux = [];
                 textureAux.push("clear");
-                textureAux.push(1.0,1.0);
+                textureAux.push(1.0, 1.0);
                 aux.push(textureAux);
             }
 
@@ -819,15 +980,14 @@ class MySceneGraph {
                     transformationAux.push(singleTransformation);
 
                 }
-            }
-            else{
+            } else {
                 this.onXMLMinorError("No transformation tag on node " + nodeID);
-                this.transformationAux=[];
+                this.transformationAux = [];
             }
             aux.push(transformationAux);
 
             // Descendants
-            if(descendantsIndex==-1)
+            if (descendantsIndex == -1)
                 return "No descendants for node with id " + nodeID;
 
             var descendants = grandChildren[descendantsIndex].children;
