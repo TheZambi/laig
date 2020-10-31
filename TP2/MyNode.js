@@ -75,6 +75,7 @@ class MyNode {
      * displays this node and its descendants
      */
     display() {
+        
         this.scene.pushMatrix();
         if(this.animation != null)
             this.animation.apply(this.scene);
