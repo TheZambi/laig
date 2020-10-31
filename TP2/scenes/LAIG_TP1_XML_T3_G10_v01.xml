@@ -157,7 +157,7 @@
     <animations>
         <!-- O bloco animations pode ser vazio, isto é, pode -->
         <!-- não ser declarada qualquer animação -->
-        <animation id="testAnimation" >
+        <animation id="moveTractor" >
             <keyframe instant="0">
                 <translation x="0" y="0" z="0" />
                 <rotation axis="x" angle="0" />
@@ -165,46 +165,24 @@
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
-            <keyframe instant="5">
-                <translation x="1" y="0" z="0" />
-                <rotation axis="x" angle="2" />
-                <rotation axis="y" angle="0" />
-                <rotation axis="z" angle="0" />
-                <scale x="1" y="1" z="1" />
-            </keyframe>
-        </animation>
-        <animation id="testAnimation2" >
-            <keyframe instant="1">
-                <translation x="0" y="0" z="0" />
+            <keyframe instant="3">
+                <translation x="0" y="0" z="20" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
-        </animation>
-        <animation id="testAnimation3" >
-            <keyframe instant="2">
-                <translation x="0" y="0" z="0" />
+            <keyframe instant="6">
+                <translation x="0" y="0" z="20" />
                 <rotation axis="x" angle="0" />
-                <rotation axis="y" angle="0" />
+                <rotation axis="y" angle="180" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
-        </animation>
-        <animation id="testAnimation4" >
-            <keyframe instant="0">
+            <keyframe instant="9">
                 <translation x="0" y="0" z="0" />
                 <rotation axis="x" angle="0" />
-                <rotation axis="y" angle="0" />
-                <rotation axis="z" angle="0" />
-                <scale x="1" y="1" z="1" />
-            </keyframe>
-        </animation>
-        <animation id="testAnimation5" >
-            <keyframe instant="0">
-                <translation x="0" y="0" z="0" />
-                <rotation axis="x" angle="0" />
-                <rotation axis="y" angle="0" />
+                <rotation axis="y" angle="180" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
@@ -224,8 +202,6 @@
             <transformations>
                 <translation x="0" y="-10" z="0" />
             </transformations>
-            
-            <animationref id = "testAnimation5"/>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
@@ -491,6 +467,8 @@
 
             <transformations>
             </transformations>
+
+            <animationref id="moveTractor"/>
 
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />

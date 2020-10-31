@@ -36,7 +36,8 @@ class AnimationKeyFrame{
                 this.rotationZ=keyframes[i][1];
             }
         }
-        this.rotations=[this.rotationX,this.rotationY,this.rotationZ];
+        this.rotation=[this.rotationX,this.rotationY,this.rotationZ];
+
     }
   
     

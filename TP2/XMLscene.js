@@ -19,7 +19,7 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.torus = new MyTorus(this,20,25,2,5)
+        this.torus = new MyTorus(this, 20, 25, 2, 5)
 
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
@@ -35,10 +35,10 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
-        this.defaultAppearance=new CGFappearance(this);
+        this.defaultAppearance = new CGFappearance(this);
 
         this.cameraList = [];
         this.cameraNames = [];
@@ -64,24 +64,24 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         var auxCamera;
-        for(var key in this.graph.cameras){
-            if(this.graph.cameras.hasOwnProperty(key)){
+        for (var key in this.graph.cameras) {
+            if (this.graph.cameras.hasOwnProperty(key)) {
                 auxCamera = this.graph.cameras[key];
-                if(auxCamera[0] == 0){ // 0 for perspective cameras
+                if (auxCamera[0] == 0) { // 0 for perspective cameras
                     var cameraToPush = new CGFcamera(...auxCamera.slice(1)); // unpacks the array since 1st position because its reserved for an id
                     this.cameraList.push(cameraToPush);
                     this.cameraNames.push(key);
                 }
-                else if(auxCamera[0] == 1){ // 1 for ortho cameras
+                else if (auxCamera[0] == 1) { // 1 for ortho cameras
                     var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));// unpacks the array since 1st position because its reserved for an id
                     this.cameraList.push(cameraToPush);
                     this.cameraNames.push(key);
                 }
-                if(key==this.graph.defaultCam){
-                    this.camera = this.cameraList[this.cameraList.length-1];
+                if (key == this.graph.defaultCam) {
+                    this.camera = this.cameraList[this.cameraList.length - 1];
                     this.selectedCamera = key;
                     this.interface.setActiveCamera(this.camera);
-                    this.lastCamera = this.cameraList.length-1;
+                    this.lastCamera = this.cameraList.length - 1;
                 }
             }
         }
@@ -95,12 +95,12 @@ class XMLscene extends CGFscene {
     /**
      * Updates the current selected camera
      */
-    updateCamera(){
+    updateCamera() {
         // console.log(this.selectedCamera);
-        if(this.selectedCamera != -1 && this.selectedCamera != this.lastCamera){
+        if (this.selectedCamera != -1 && this.selectedCamera != this.lastCamera) {
             var index = -1;
-            for(let i = 0;i< this.cameraNames.length;i++){
-                if(this.selectedCamera == this.cameraNames[i]){
+            for (let i = 0; i < this.cameraNames.length; i++) {
+                if (this.selectedCamera == this.cameraNames[i]) {
                     index = i;
                     break;
                 }
@@ -114,43 +114,41 @@ class XMLscene extends CGFscene {
     /**
      * Intiializes all nodes and fills their respective descendants node
      */
-    initNodes(){
-        for(var key in this.graph.nodes){
-            if(this.graph.nodes.hasOwnProperty(key)){
+    initNodes() {
+        for (var key in this.graph.nodes) {
+            if (this.graph.nodes.hasOwnProperty(key)) {
                 var auxNode = this.graph.nodes[key];
-                for(let values = 0; values < auxNode[3].length ; values++)
-                {
-                    if(auxNode[3][values][0]=="node")
-                        {
-                            if(!(this.graph.nodes.hasOwnProperty(auxNode[3][values][1])))
-                                this.graph.onXMLError("descendant node " + auxNode[3][values][1] + " from parent node " + key + " does not exist.");
-                        }
+                for (let values = 0; values < auxNode[3].length; values++) {
+                    if (auxNode[3][values][0] == "node") {
+                        if (!(this.graph.nodes.hasOwnProperty(auxNode[3][values][1])))
+                            this.graph.onXMLError("descendant node " + auxNode[3][values][1] + " from parent node " + key + " does not exist.");
+                    }
                 }
-                var nodeToPush = new MyNode(this,key,auxNode);
+                var nodeToPush = new MyNode(this, key, auxNode);
                 this.nodesList.push(nodeToPush);
             }
         }
 
         //fills children of all nodes since now they are all created
-        for(let i = 0;i< this.nodesList.length;i++){
-            if(this.nodesList[i].id == this.graph.idRoot && this.nodesList[i].visited == false){
+        for (let i = 0; i < this.nodesList.length; i++) {
+            if (this.nodesList[i].id == this.graph.idRoot && this.nodesList[i].visited == false) {
                 this.addChildren(this.nodesList[i])
             }
         }
-    
+
     }
 
     /**
      * Fills node's descendant node
      * @param {*} node - Node to fill 
      */
-    addChildren(node){
+    addChildren(node) {
         node.visited = true;
-        for(let i = 0;i< this.nodesList.length;i++){
-            if(node.childrenNames.includes(this.nodesList[i].id)){
+        for (let i = 0; i < this.nodesList.length; i++) {
+            if (node.childrenNames.includes(this.nodesList[i].id)) {
                 node.children.push(this.nodesList[i]);
                 this.addChildren(this.nodesList[i]);
-            } 
+            }
         }
     }
 
@@ -177,26 +175,26 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
-                if (graphLight[0]){
-                    
+                if (graphLight[0]) {
+
                     this.lights[i].enable();
-                    this['light' + (i+1)] = true; 
+                    this['light' + (i + 1)] = true;
                 }
-                else{
+                else {
                     this.lights[i].disable();
-                    this['light' + (i+1)] = false; 
+                    this['light' + (i + 1)] = false;
                 }
 
                 this.lights[i].update();
                 i++;
             }
         }
-        
+
 
         this.nLights = i;
         //Adds lights to the interface so we can turn them on and off
-        for(let j = 1;j <= this.nLights;j++){
-            this.interface.gui.add(this,'light' + j).name(lightName[j-1]).onChange(this.updateLights.bind(this));
+        for (let j = 1; j <= this.nLights; j++) {
+            this.interface.gui.add(this, 'light' + j).name(lightName[j - 1]).onChange(this.updateLights.bind(this));
         }
 
     }
@@ -204,25 +202,25 @@ class XMLscene extends CGFscene {
     /**
      * updates the lights gui
      */
-    updateLights(){
-        for(let j = 1;j<=this.nLights;j++){
+    updateLights() {
+        for (let j = 1; j <= this.nLights; j++) {
 
-            if(this['light' + j] == true)
-                this.lights[j-1].enable();
+            if (this['light' + j] == true)
+                this.lights[j - 1].enable();
             else
-                this.lights[j-1].disable();
+                this.lights[j - 1].disable();
 
-            this.lights[j-1].update();
+            this.lights[j - 1].update();
         }
-        
+
     }
 
     /**
      * Initializes the materials received from the parser
      */
-    initMaterials(){
-        for(var key in this.graph.materials){
-            if(this.graph.materials.hasOwnProperty(key)){
+    initMaterials() {
+        for (var key in this.graph.materials) {
+            if (this.graph.materials.hasOwnProperty(key)) {
                 var auxMaterial = this.graph.materials[key];
                 var materialToPush = new CGFappearance(this);
                 materialToPush.setShininess(auxMaterial[0][1]);
@@ -238,11 +236,11 @@ class XMLscene extends CGFscene {
     /**
      * Initializes the textures received from the parser
      */
-    initTextures(){
-        for(var key in this.graph.textures){
-            if(this.graph.textures.hasOwnProperty(key)){
+    initTextures() {
+        for (var key in this.graph.textures) {
+            if (this.graph.textures.hasOwnProperty(key)) {
                 var auxTexture = this.graph.textures[key];
-                var textureToPush = new CGFtexture(this,auxTexture);
+                var textureToPush = new CGFtexture(this, auxTexture);
                 this.texturesList[key] = textureToPush;
             }
         }
@@ -251,28 +249,28 @@ class XMLscene extends CGFscene {
     /**
      * Fills material field of node
      */
-    addMaterialsToNodes(){
-        for(let i = 0;i<this.nodesList.length;i++){
+    addMaterialsToNodes() {
+        for (let i = 0; i < this.nodesList.length; i++) {
             this.nodesList[i].material = this.materialsList[this.nodesList[i].materialID];
         }
     }
 
-    
+
     /**
      * Fills texture field of node
      */
-    addTexturesToNodes(){
-        for(let i = 0;i<this.nodesList.length;i++){
+    addTexturesToNodes() {
+        for (let i = 0; i < this.nodesList.length; i++) {
             this.nodesList[i].texture = this.texturesList[this.nodesList[i].textureID];
         }
     }
 
-     /**
-     * Initializes the animations received from the parser
-     */
-    initAnimations(){
-        for(var key in this.graph.animations){
-            if(this.graph.animations.hasOwnProperty(key)){
+    /**
+    * Initializes the animations received from the parser
+    */
+    initAnimations() {
+        for (var key in this.graph.animations) {
+            if (this.graph.animations.hasOwnProperty(key)) {
                 var auxAnimation = this.graph.animations[key];
                 var animationToPush = new Animation(auxAnimation);
                 this.animationsList[key] = animationToPush;
@@ -282,8 +280,8 @@ class XMLscene extends CGFscene {
     /**
      * Fills texture field of node
      */
-    addAnimationsToNodes(){
-        for(let i = 0;i<this.nodesList.length;i++){
+    addAnimationsToNodes() {
+        for (let i = 0; i < this.nodesList.length; i++) {
             this.nodesList[i].animation = this.animationsList[this.nodesList[i].animationID];
         }
     }
@@ -307,16 +305,23 @@ class XMLscene extends CGFscene {
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
         this.addAnimationsToNodes();
-        console.log(this.nodesList);
+
+        this.setUpdatePeriod(100);
 
         this.texStack = [];
         this.matStack = [];
 
-        if(this.nodesList[0] != null)
+        if (this.nodesList[0] != null)
             this.nodesList[0].updateCoords();
 
 
         this.sceneInited = true;
+    }
+
+    update(t) {
+        for (var key in this.animationsList) {
+            this.animationsList[key].update(t);
+        }
     }
 
     /**
@@ -354,18 +359,17 @@ class XMLscene extends CGFscene {
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
-        else
-        {
+        else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-        for(let i = 0; i < this.nodesList.length ; i++){
-            if(this.nodesList[i] != null && this.nodesList[i].id==this.graph.idRoot)
+        for (let i = 0; i < this.nodesList.length; i++) {
+            if (this.nodesList[i] != null && this.nodesList[i].id == this.graph.idRoot)
                 this.nodesList[i].display();
         }
 
