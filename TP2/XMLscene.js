@@ -44,7 +44,9 @@ class XMLscene extends CGFscene {
         this.cameraNames = [];
         this.materialsList = [];
         this.texturesList = [];
+        this.animationsList = [];
         this.nodesList = [];
+        this.animations
         this.selectedCamera = -1;
         this.lastCamera = -1;
         this.light1 = true;
@@ -255,12 +257,34 @@ class XMLscene extends CGFscene {
         }
     }
 
+    
     /**
      * Fills texture field of node
      */
     addTexturesToNodes(){
         for(let i = 0;i<this.nodesList.length;i++){
             this.nodesList[i].texture = this.texturesList[this.nodesList[i].textureID];
+        }
+    }
+
+     /**
+     * Initializes the animations received from the parser
+     */
+    initAnimations(){
+        for(var key in this.graph.animations){
+            if(this.graph.animations.hasOwnProperty(key)){
+                var auxAnimation = this.graph.animations[key];
+                var animationToPush = new Animation(auxAnimation);
+                this.animationsList[key] = animationToPush;
+            }
+        }
+    }
+    /**
+     * Fills texture field of node
+     */
+    addAnimationsToNodes(){
+        for(let i = 0;i<this.nodesList.length;i++){
+            this.nodesList[i].animation = this.animationsList[this.nodesList[i].animationID];
         }
     }
 
@@ -279,8 +303,11 @@ class XMLscene extends CGFscene {
         this.initNodes();
         this.initMaterials();
         this.initTextures();
+        this.initAnimations();
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
+        this.addAnimationsToNodes();
+        console.log(this.nodesList);
 
         this.texStack = [];
         this.matStack = [];

@@ -15,6 +15,7 @@ class MyNode {
         this.leaves = [];
         this.texture = null;
         this.material = null;
+        this.animation = null;
 
         this.initBuffers();
     }
@@ -25,6 +26,7 @@ class MyNode {
      */
     initBuffers() {
         this.materialID = this.info[0];
+        this.animationID = this.info[4];
 
         this.textureID = this.info[1][0];
         this.textureAFS = this.info[1][1];
@@ -65,6 +67,7 @@ class MyNode {
                 }
             }
         }
+
     }
 
     /**

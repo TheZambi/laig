@@ -21,7 +21,6 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
-        console.log("Entrei no construtor.")
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -743,13 +742,12 @@ class MySceneGraph {
 
                 scaleVals.push(aux);
 
-                var keyframe = ["keyframe"];
-                keyframe.push(instant);
-                auxArray.push([keyframe, translationVals, rotationXVals, rotationYVals, rotationZVals, scaleVals]);
+                var instantAux = ["instant"];
+                instantAux.push(instant);
+                auxArray.push([instantAux, translationVals, rotationXVals, rotationYVals, rotationZVals, scaleVals]);
             }
             this.animations[animationID] = auxArray;
         }
-        console.log(this.animations);
         this.log("Parsed animations");
         return null;
     }
@@ -920,6 +918,7 @@ class MySceneGraph {
             var transformationsIndex = nodeNames.indexOf("transformations");
             var materialIndex = nodeNames.indexOf("material");
             var textureIndex = nodeNames.indexOf("texture");
+            var animationIndex = nodeNames.indexOf("animationref");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
             var aux = [];
@@ -949,6 +948,7 @@ class MySceneGraph {
                 textureAux.push(1.0, 1.0);
                 aux.push(textureAux);
             }
+
 
             // Transformations
             var transformationAux = [];
@@ -994,7 +994,7 @@ class MySceneGraph {
             var descendants = grandChildren[descendantsIndex].children;
 
             var descendantsParsed = [];
-
+            
 
             for (let i = 0; i < descendants.length; i++) {
                 var descendantsAux = [];
@@ -1043,6 +1043,15 @@ class MySceneGraph {
                 descendantsParsed.push(descendantsAux);
             }
             aux.push(descendantsParsed);
+
+            var animationAux = [];
+            if(animationIndex != -1){
+                var animation;  
+                animation = grandChildren[animationIndex];
+                animationAux.push(this.reader.getString(animation,"id"));
+            }
+            aux.push(animationAux);
+
             this.nodes[nodeID] = aux;
         }
         this.log("Parsed Nodes");
