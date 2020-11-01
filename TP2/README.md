@@ -10,7 +10,6 @@
 ----
 ## Project information
 
-- Everything is finished.
 - Parsing has a lot of error checking with helpful messages in case any error occurs.
 - Makes use of multiple textures and materials.
 - Uses all primitive object.
@@ -18,6 +17,9 @@
 - Multiple cameras and lights.
 - Possibility to change cameras.
 - Possibility to turn on/off the lights.
+- Makes use of animation.
+- Error checking during animation parsing.
+
 
 - Scene
   - A field of grass with a small farm.

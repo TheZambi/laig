@@ -23,8 +23,13 @@
 
 -----
 
-### [TP2 - ...](TP2)
-- (items briefly describing main strong points)
+### [TP2 - Animations](TP2)
+- Possibility to create varius animations.
+- Small animation for the tractor.
+
+- Scene
+  - A field of grass with a small farm on top and a moving tractor.
+  - [Scene](./TP2/scenes/LAIG_TP1_XML_T3_G10_v01.xml)
 
 ----
 
