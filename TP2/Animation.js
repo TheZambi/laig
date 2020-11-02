@@ -16,6 +16,7 @@ class Animation {
 
     apply(scene) {
         scene.multMatrix(this.animationMatrix);
+        console.log(this.animationMatrix);
     }
 
     update(t) {
