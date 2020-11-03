@@ -16,6 +16,8 @@ class MyNode {
         this.texture = null;
         this.material = null;
         this.animation = null;
+        this.textSprites = [];
+        this.animSprites = [];
 
         this.initBuffers();
     }
@@ -64,10 +66,15 @@ class MyNode {
                     this.leaves.push(new MyTriangle(this.scene, ...this.info[3][i].slice(2)));
                 } else if (this.info[3][i][1] == "cylinder") {
                     this.leaves.push(new MyCylinder(this.scene, ...this.info[3][i].slice(2)));
+                } else if (this.info[3][i][1] == "spritetext") {
+                    this.textSprites.push(new MySpriteText(this.scene, ...this.info[3][i].slice(2)));
+                } else if (this.info[3][i][1] == "spriteanim") {
+                    this.animSprites.push(new MySpriteAnimation(this.scene, ...this.info[3][i].slice(2)));
                 }
             }
         }
-
+        if(this.id=="Floor")
+            console.log(this);
     }
 
     /**

@@ -2,7 +2,8 @@ class MySpriteAnimation {
     /**
      * @method constructor
      */
-    constructor(spriteSheetID, duration, startCell, endCell) {
+    constructor(scene, spriteSheetID, duration, startCell, endCell) {
+        this.scene = scene;
         this.spriteSheetID = spriteSheetID;
         this.spriteSheet = null;
         this.duration = duration;

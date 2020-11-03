@@ -256,6 +256,8 @@
             </transformations>
 
             <descendants>
+                <leaf type='spritetext' text='test text' />
+                <leaf type='spriteanim' ssid='teste' duration='1' startCell='0' endCell='1' />
                 <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
             </descendants>
         </node>

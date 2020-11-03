@@ -5,7 +5,7 @@ class MySpriteText {
      * @param text text to be displayed
      */
     constructor(scene, text) {
-        super(scene);
+       this.scene = scene;
         this.text = text;
     }
 }

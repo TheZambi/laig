@@ -1112,7 +1112,16 @@ class MySceneGraph {
                             descendantsAux.push(this.reader.getFloat(descendants[i], "loops"));
                             descendantsAux.push(this.reader.getFloat(descendants[i], "inner"));
                             descendantsAux.push(this.reader.getFloat(descendants[i], "outer"));
-
+                            break;
+                        case "spritetext":
+                            descendantsAux.push(this.reader.getString(descendants[i], "text"));
+                            break;
+                        case "spriteanim":
+                            descendantsAux.push(this.reader.getString(descendants[i], "ssid"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "duration"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "startCell"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "endCell"));
+                            break;
                     }
                 }
                 descendantsParsed.push(descendantsAux);
