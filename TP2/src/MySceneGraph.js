@@ -6,9 +6,10 @@ var VIEWS_INDEX = 1;
 var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+var SPRITESHEETS_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -173,6 +174,18 @@ class MySceneGraph {
             if ((error = this.parseTextures(nodes[index])) != null)
                 return error;
         }
+        // <spritSheets>
+        if ((index = nodeNames.indexOf("spritesheets")) == -1)
+            return "tag <spritesheets> missing";
+        else {
+            if (index != SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order");
+
+            //Parse spritesheets block
+            if ((error = this.parseSpriteSheets(nodes[index])) != null)
+                return error;
+        }
+
 
         // <materials>
         if ((index = nodeNames.indexOf("materials")) == -1)
@@ -186,8 +199,10 @@ class MySceneGraph {
                 return error;
         }
         // <animations>
-        if ((index = nodeNames.indexOf("animations")) == -1)
+        if ((index = nodeNames.indexOf("animations")) == -1){
             this.onXMLMinorError("tag <animations> missing");
+            NODES_INDEX--;
+        }
         else {
             if (index != ANIMATIONS_INDEX)
                 this.onXMLMinorError("tag <animations> out of order");
@@ -547,6 +562,66 @@ class MySceneGraph {
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");
+        return null;
+    }
+
+    /**
+     * Parses the <spriteSheest> block. 
+     * @param {spriteSheets block element} spriteSheetNodes
+     */
+    parseSpriteSheets(spriteSheetNodes) {
+
+        //For each spriteSheet in spriteSheet block, check ID, file path, sizeM and sizeN
+
+        var children = spriteSheetNodes.children;
+
+        this.spriteSheets = [];
+
+        // Any number of spriteSheets.
+        for (var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName != "spritesheet") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current spriteSheet.
+            var spriteSheetID = this.reader.getString(children[i], 'id');
+            if (spriteSheetID == null)
+                return "no ID defined for spriteSheet";
+
+            // Checks for repeated IDs.
+            if (this.spriteSheets[spriteSheetID] != null)
+                return "ID must be unique for each spriteSheet (conflict: ID = " + spriteSheetID + ")";
+
+            var spriteSheetPath = this.reader.getString(children[i], 'path');
+
+            if (spriteSheetPath == null)
+                return "no Path defined for spriteSheet " + spriteSheetID;
+
+            //verifying if spriteSheet exists
+
+            var http = new XMLHttpRequest();
+            http.open('HEAD', spriteSheetPath, false);
+            http.send();
+
+            if (!(http.status === 200))
+                return "No texture found on path: " + spriteSheetPath;
+
+
+            var sizeM = this.reader.getInteger(children[i], "sizeM");
+            if (sizeM == null)
+                return "missing sizeM value on spriteSheet " + spriteSheetID;
+
+            var sizeN = this.reader.getInteger(children[i], "sizeN");
+            if (sizeN == null)
+                return "missing sizeN value on spriteSheet " + spriteSheetID;
+
+            this.spriteSheets[spriteSheetID] = [new CGFtexture(this.scene,spriteSheetPath), sizeM, sizeN];
+
+        }
+        console.log(this.spriteSheets);
+        this.log("Parsed spriteSheets");
         return null;
     }
 

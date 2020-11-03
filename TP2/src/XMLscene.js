@@ -45,8 +45,9 @@ class XMLscene extends CGFscene {
         this.materialsList = [];
         this.texturesList = [];
         this.animationsList = [];
+        this.spriteSheetList = [];
         this.nodesList = [];
-        this.animations
+        // this.textSheet = new MySpriteSheet(,,);
         this.selectedCamera = -1;
         this.lastCamera = -1;
         this.light1 = true;
@@ -255,7 +256,6 @@ class XMLscene extends CGFscene {
         }
     }
 
-
     /**
      * Fills texture field of node
      */
@@ -272,8 +272,20 @@ class XMLscene extends CGFscene {
         for (var key in this.graph.animations) {
             if (this.graph.animations.hasOwnProperty(key)) {
                 var auxAnimation = this.graph.animations[key];
-                var animationToPush = new Animation(auxAnimation);
+                var animationToPush = new KeyFrameAnimation(auxAnimation);
                 this.animationsList[key] = animationToPush;
+            }
+        }
+    }
+    /**
+    * Initializes the spriteSheets received from the parser
+    */
+    initSpriteSheets() {
+        for (var key in this.graph.spriteSheets) {
+            if (this.graph.spriteSheets.hasOwnProperty(key)) {
+                var auxSpriteSheet = this.graph.spriteSheets[key];
+                var spriteSheetsToPush = new MySpriteSheet(...auxSpriteSheet);
+                this.spriteSheetList[key] = spriteSheetsToPush;
             }
         }
     }
@@ -302,6 +314,7 @@ class XMLscene extends CGFscene {
         this.initMaterials();
         this.initTextures();
         this.initAnimations();
+        this.initSpriteSheets(); 
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
         this.addAnimationsToNodes();
@@ -309,7 +322,7 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.texStack = [];
-        this.matStack = [];
+        this.matStack = [new CGFappearance(this)];
 
         if (this.nodesList[0] != null)
             this.nodesList[0].updateCoords();

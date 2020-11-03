@@ -108,11 +108,10 @@ class MyNode {
 
         if (this.materialID != "null") {
             this.scene.matStack.pop();
-            if (this.scene.matStack.length != 0) {
-                this.scene.matStack[this.scene.matStack.length - 1].apply();
-                if (this.scene.texStack.length != 0) {
-                    this.scene.texStack[this.scene.texStack.length - 1].bind();
-                }
+           
+            this.scene.matStack[this.scene.matStack.length - 1].apply();
+            if (this.scene.texStack.length != 0) {
+                this.scene.texStack[this.scene.texStack.length - 1].bind();
             }
         }
 

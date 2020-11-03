@@ -1,9 +1,11 @@
-class Animation {
+class KeyFrameAnimation extends Animation {
     /**
      * @method constructor
+     * @extends {Animation}
      * @param  {Array} keyframes - animation's keyframes
      */
     constructor(keyframes) {
+        super();
         this.keyFrames = [];
         this.animationMatrix = mat4.create();
         this.lastUpdate = 0;
@@ -16,7 +18,6 @@ class Animation {
 
     apply(scene) {
         scene.multMatrix(this.animationMatrix);
-        console.log(this.animationMatrix);
     }
 
     update(t) {
