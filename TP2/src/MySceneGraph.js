@@ -620,7 +620,6 @@ class MySceneGraph {
             this.spriteSheets[spriteSheetID] = [new CGFtexture(this.scene,spriteSheetPath), sizeM, sizeN];
 
         }
-        console.log(this.spriteSheets);
         this.log("Parsed spriteSheets");
         return null;
     }

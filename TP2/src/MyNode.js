@@ -73,8 +73,6 @@ class MyNode {
                 }
             }
         }
-        if(this.id=="Floor")
-            console.log(this);
     }
 
     /**

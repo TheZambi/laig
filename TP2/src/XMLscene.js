@@ -47,7 +47,7 @@ class XMLscene extends CGFscene {
         this.animationsList = [];
         this.spriteSheetList = [];
         this.nodesList = [];
-        // this.textSheet = new MySpriteSheet(,,);
+        this.textSheet = new MySpriteSheet(new CGFtexture('./scenes/textSheet.png'),16,16);
         this.selectedCamera = -1;
         this.lastCamera = -1;
         this.light1 = true;
