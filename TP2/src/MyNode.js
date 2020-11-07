@@ -110,6 +110,10 @@ class MyNode {
         for (let i = 0; i < this.children.length; i++) {
             this.children[i].display();
         }
+        for (let i = 0; i < this.textSprites.length; i++) {
+            this.textSprites[i].display();
+        }
+
 
         if (this.materialID != "null") {
             this.scene.matStack.pop();

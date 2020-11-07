@@ -231,6 +231,8 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
+                <leaf type='spritetext' text='test text' />
+                <leaf type='spriteanim' ssid='teste' duration='1' startCell='0' endCell='1' />
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
@@ -256,8 +258,6 @@
             </transformations>
 
             <descendants>
-                <leaf type='spritetext' text='test text' />
-                <leaf type='spriteanim' ssid='teste' duration='1' startCell='0' endCell='1' />
                 <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
             </descendants>
         </node>
