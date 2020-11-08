@@ -113,6 +113,9 @@ class MyNode {
         for (let i = 0; i < this.textSprites.length; i++) {
             this.textSprites[i].display();
         }
+        for (let i = 0; i < this.animSprites.length; i++) {
+            this.animSprites[i].display();
+        }
 
 
         if (this.materialID != "null") {

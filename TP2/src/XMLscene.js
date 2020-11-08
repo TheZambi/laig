@@ -47,6 +47,7 @@ class XMLscene extends CGFscene {
         this.animationsList = [];
         this.spriteSheetList = [];
         this.nodesList = [];
+        this.spriteAnims = [];
         this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./scenes/textSheet.png'),16,16);
         this.selectedCamera = -1;
         this.lastCamera = -1;
@@ -97,7 +98,6 @@ class XMLscene extends CGFscene {
      * Updates the current selected camera
      */
     updateCamera() {
-        // console.log(this.selectedCamera);
         if (this.selectedCamera != -1 && this.selectedCamera != this.lastCamera) {
             var index = -1;
             for (let i = 0; i < this.cameraNames.length; i++) {
@@ -137,6 +137,25 @@ class XMLscene extends CGFscene {
             }
         }
 
+        for (let i = 0; i < this.nodesList.length; i++) {
+            for(let j = 0; j < this.nodesList[i].animSprites.length; j++) {
+                this.nodesList[i].animSprites[j].spriteSheet = this.spriteSheetList[this.nodesList[i].animSprites[j].spriteSheetID];
+            }
+        }
+
+        this.initSpriteAnims();
+    }
+
+    /**
+     * Initializes the animated sprites
+     */
+    initSpriteAnims() {
+        for(let i = 0; i < this.nodesList.length; i++)
+            for(let j = 0; j < this.nodesList[i].animSprites.length; j++) {
+                this.spriteAnims.push(this.nodesList[i].animSprites[j]);
+                this.nodesList[i].animSprites[j].updateNSteps();
+                this.nodesList[i].animSprites[j].updateSpriteSheet();
+            }
     }
 
     /**
@@ -284,10 +303,11 @@ class XMLscene extends CGFscene {
         for (var key in this.graph.spriteSheets) {
             if (this.graph.spriteSheets.hasOwnProperty(key)) {
                 var auxSpriteSheet = this.graph.spriteSheets[key];
-                var spriteSheetsToPush = new MySpriteSheet(...auxSpriteSheet);
+                var spriteSheetsToPush = new MySpriteSheet(this,...auxSpriteSheet);
                 this.spriteSheetList[key] = spriteSheetsToPush;
             }
         }
+        
     }
     /**
      * Fills texture field of node
@@ -310,11 +330,11 @@ class XMLscene extends CGFscene {
 
         this.initLights();
         this.initCameras();
+        this.initSpriteSheets(); 
         this.initNodes();
         this.initMaterials();
         this.initTextures();
         this.initAnimations();
-        this.initSpriteSheets(); 
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
         this.addAnimationsToNodes();
@@ -334,6 +354,10 @@ class XMLscene extends CGFscene {
     update(t) {
         for (var key in this.animationsList) {
             this.animationsList[key].update(t);
+        }
+        for(let i=0; i< this.spriteAnims.length;i++)
+        {
+            this.spriteAnims[i].update(t);
         }
     }
 

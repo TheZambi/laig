@@ -618,7 +618,7 @@ class MySceneGraph {
                 return "missing sizeN value on spriteSheet " + spriteSheetID;
 
             this.spriteSheets[spriteSheetID] = [new CGFtexture(this.scene,spriteSheetPath), sizeM, sizeN];
-
+            
         }
         this.log("Parsed spriteSheets");
         return null;

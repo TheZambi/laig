@@ -22,9 +22,6 @@ class MySpriteText {
     display(){
         this.scene.pushMatrix();
 
-        this.scene.translate(0,10,0);
-        this.scene.scale(10,10,10);
-
         this.scene.translate(-(this.text.length/2),-0.5,0);
         this.defaultAppearance.apply();
         this.scene.setActiveShader(this.scene.textSheet.shader);

@@ -107,7 +107,7 @@
     </textures>
 
     <spritesheets>
-        <spritesheet id='teste' path='./scenes/images/airFilter.png' sizeM='5' sizeN='6' />
+        <spritesheet id='teste' path='./scenes/images/licensePlate.png' sizeM='3' sizeN='1' />
     </spritesheets>
 
 
