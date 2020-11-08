@@ -24,10 +24,6 @@ class MySpriteAnimation {
         }
     }
 
-    updateSpriteSheet()
-    {
-        this.defaultAppearance.setTexture(this.spriteSheet.texture);
-    }
 
     update(t)
     {
@@ -54,12 +50,16 @@ class MySpriteAnimation {
 
 
         this.defaultAppearance.apply();
+        this.spriteSheet.texture.bind();
+
         this.scene.setActiveShader(this.spriteSheet.shader);
     
         this.spriteSheet.activateCellP(this.currentCell);
         this.animBox.display();
 
         this.scene.setActiveShader(this.scene.defaultShader);
+        this.spriteSheet.texture.unbind();
+
         this.scene.popMatrix();
     }
 }

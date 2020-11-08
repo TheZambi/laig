@@ -9,7 +9,7 @@ class MySpriteText {
         this.text = text;
         this.textBox = [];
         this.defaultAppearance = new CGFappearance(this.scene);
-        this.defaultAppearance.setTexture(this.scene.textSheet.texture);
+        
         for(let i = 0;i< text.length;i++){
             this.textBox.push(new MyRectangle(this.scene, 0+i, 0, 1+i, 1));
         }
@@ -24,6 +24,7 @@ class MySpriteText {
 
         this.scene.translate(-(this.text.length/2),-0.5,0);
         this.defaultAppearance.apply();
+        this.scene.textSheet.texture.bind();
         this.scene.setActiveShader(this.scene.textSheet.shader);
     
         for(let i = 0;i<this.textBox.length;i++){
@@ -32,6 +33,7 @@ class MySpriteText {
         }
 
         this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.textSheet.texture.unbind();
         this.scene.popMatrix();
     }
 }

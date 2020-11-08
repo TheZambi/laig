@@ -154,7 +154,6 @@ class XMLscene extends CGFscene {
             for(let j = 0; j < this.nodesList[i].animSprites.length; j++) {
                 this.spriteAnims.push(this.nodesList[i].animSprites[j]);
                 this.nodesList[i].animSprites[j].updateNSteps();
-                this.nodesList[i].animSprites[j].updateSpriteSheet();
             }
     }
 
