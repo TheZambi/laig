@@ -1121,6 +1121,10 @@ class MySceneGraph {
                             descendantsAux.push(this.reader.getInteger(descendants[i], "startCell"));
                             descendantsAux.push(this.reader.getInteger(descendants[i], "endCell"));
                             break;
+                        case "plane":
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "npartsU"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "npartsV"));
+                            break;
                     }
                 }
                 descendantsParsed.push(descendantsAux);
