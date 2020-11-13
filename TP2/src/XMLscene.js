@@ -48,7 +48,6 @@ class XMLscene extends CGFscene {
         this.spriteSheetList = [];
         this.nodesList = [];
         this.spriteAnims = [];
-        this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./scenes/textSheet.png'),16,16);
         this.selectedCamera = -1;
         this.lastCamera = -1;
         this.light1 = true;
@@ -326,6 +325,8 @@ class XMLscene extends CGFscene {
         this.gl.clearColor(...this.graph.background);
 
         this.setGlobalAmbientLight(...this.graph.ambient);
+
+        this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./scenes/textSheet.png'),16,16);
 
         this.initLights();
         this.initCameras();

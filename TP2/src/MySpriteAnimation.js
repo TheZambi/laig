@@ -33,7 +33,6 @@ class MySpriteAnimation {
         }
         if(t-this.lastTime>=(this.duration*1000/this.nSteps))
         {  
-            console.log(t-this.lastTime + " : " + this.currentCell);
             this.lastTime=t;
             if(this.currentCell < this.spriteSheet.sizeM*this.spriteSheet.sizeN-1)
                 this.currentCell++;

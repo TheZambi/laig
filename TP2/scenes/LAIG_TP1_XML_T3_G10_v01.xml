@@ -231,9 +231,17 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
+                <leaf type='patch' npointsU='2' npointsV='3' npartsU='5' npartsV='5' >
+                    <controlpoint xx='0.5' yy='0' zz='-0.5'/> 
+                    <controlpoint xx='0.5' yy='1' zz='0'/> 
+                    <controlpoint xx='0.5' yy='0' zz='0.5'/>
+                    <controlpoint xx='-0.5' yy='0' zz='-0.5'/> 
+                    <controlpoint xx='-0.5' yy='1' zz='0'/>
+                    <controlpoint xx='-0.5' yy='0' zz='0.5'/>
+                </leaf>
+                <leaf type='plane' npartsU='3' npartsV='3'/>
                 <leaf type='spritetext' text='test text' />
                 <leaf type='spriteanim' ssid='teste' duration='1' startCell='0' endCell='1' />
-                <leaf type='plane' npartsU='3' npartsV='3'/>
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
@@ -243,7 +251,7 @@
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-                <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. --> 
+                <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
             </descendants>
         </node>
         <node id="Floor">           

@@ -14,6 +14,9 @@ class KeyFrameAnimation extends Animation {
         for (let i = 0; i < keyframes.length; i++)
             this.keyFrames.push(new AnimationKeyFrame(keyframes[i]));
         this.keyFrames.sort(compareAnimations);
+
+        this.lastTime = this.keyFrames[this.keyFrames.length-1].instant;
+        
     }
 
     apply(scene) {
@@ -27,8 +30,11 @@ class KeyFrameAnimation extends Animation {
         this.interpolationTime = t - this.lastUpdate;
         this.totalTime += this.interpolationTime;
 
-        this.interpolateKeyframes();
+        if(this.totalTime/1000 > this.lastTime){
+            this.totalTime = this.lastTime*1000;
+        }
 
+        this.interpolateKeyframes();
 
         this.lastUpdate = t;
         if (this.currentKeyFrame + 1 < this.keyFrames.length && this.totalTime / 1000 >= this.keyFrames[this.currentKeyFrame + 1].instant) {

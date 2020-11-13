@@ -72,7 +72,10 @@ class MyNode {
                     this.animSprites.push(new MySpriteAnimation(this.scene, ...this.info[3][i].slice(2)));
                 } else if (this.info[3][i][1] == "plane") {
                     this.leaves.push(new Plane(this.scene, ...this.info[3][i].slice(2)));
+                } else if (this.info[3][i][1] == "patch") {
+                    this.leaves.push(new Patch(this.scene, ...this.info[3][i].slice(2)));
                 }
+            
             }
         }
     }
@@ -107,8 +110,7 @@ class MyNode {
         }
 
         for (let i = 0; i < this.leaves.length; i++) {
-            console.log(this.leaves[i]);
-            this.leaves[i].display();
+                this.leaves[i].display();
         }
         for (let i = 0; i < this.children.length; i++) {
             this.children[i].display();

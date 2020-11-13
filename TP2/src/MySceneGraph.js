@@ -1125,6 +1125,34 @@ class MySceneGraph {
                             descendantsAux.push(this.reader.getInteger(descendants[i], "npartsU"));
                             descendantsAux.push(this.reader.getInteger(descendants[i], "npartsV"));
                             break;
+                        case "patch":
+                            let nPointsU = this.reader.getInteger(descendants[i], "npointsU");
+                            let npointsV = this.reader.getInteger(descendants[i], "npointsV");
+                            // descendantsAux.push(nPointsU);
+                            // descendantsAux.push(npointsV);
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "npartsU"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "npartsV"))
+                            let controlPointsU = [];
+                            let controlPointsV = [];
+                            for(let nChild = 0; nChild < descendants[i].children.length; nChild++ ){
+                                let auxPoints = [];
+                                let auxChild = descendants[i].children[nChild];
+                                
+                                auxPoints.push(this.reader.getFloat(auxChild, "xx"));
+                                auxPoints.push(this.reader.getFloat(auxChild, "yy"));
+                                auxPoints.push(this.reader.getFloat(auxChild, "zz"));
+                                auxPoints.push(1); //Weigth
+                                controlPointsV.push(auxPoints);
+                                if(controlPointsV.length == npointsV){
+                                    controlPointsU.push(controlPointsV);
+                                    controlPointsV = [];
+                                }
+                            }
+                            if(controlPointsU.length != nPointsU){
+                                this.onXMLMinorError("Missing control points on leaf type patch on " + nodeID);
+                            }
+                            descendantsAux.push(controlPointsU);
+                            break;
                     }
                 }
                 descendantsParsed.push(descendantsAux);
