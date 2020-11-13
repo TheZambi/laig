@@ -225,13 +225,14 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <translation x="0" y="-10" z="0" />
+                <!-- <translation x="0" y="-10" z="0" /> -->
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type='patch' npointsU='2' npointsV='3' npartsU='5' npartsV='5' >
+                <leaf type='defbarrel' base='1' middle='3' height='5' slices='10' stacks='10' />
+                <!-- <leaf type='patch' npointsU='2' npointsV='3' npartsU='5' npartsV='5' >
                     <controlpoint xx='0.5' yy='0' zz='-0.5'/> 
                     <controlpoint xx='0.5' yy='1' zz='0'/> 
                     <controlpoint xx='0.5' yy='0' zz='0.5'/>
@@ -246,7 +247,7 @@
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
                 <noderef id="Tree"/>
-                <noderef id="House"/>
+                <noderef id="House"/> -->
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->

@@ -75,6 +75,9 @@ class MyNode {
                 } else if (this.info[3][i][1] == "patch") {
                     this.leaves.push(new Patch(this.scene, ...this.info[3][i].slice(2)));
                 }
+                else if (this.info[3][i][1] == "defbarrel") {
+                    this.leaves.push(new Barrel(this.scene, ...this.info[3][i].slice(2)));
+                }
             
             }
         }

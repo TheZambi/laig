@@ -1153,6 +1153,13 @@ class MySceneGraph {
                             }
                             descendantsAux.push(controlPointsU);
                             break;
+                        case "defbarrel":
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "base"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "middle"));
+                            descendantsAux.push(this.reader.getFloat(descendants[i], "height"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "slices"));
+                            descendantsAux.push(this.reader.getInteger(descendants[i], "stacks"));
+                            break;
                     }
                 }
                 descendantsParsed.push(descendantsAux);
