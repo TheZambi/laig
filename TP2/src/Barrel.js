@@ -21,36 +21,38 @@ class Barrel extends CGFobject {
         let controlPoints = 
         [
             [
-                [-baseRadius, height, 0, 1],
-                [-middleRadius, height/2, 0, 1],
-                [-baseRadius, 0, 0, 1],
+                [0,baseRadius,0,1],
+                [baseRadius,baseRadius,0,1],
+                [baseRadius,0,0,1],
+                [baseRadius,-baseRadius,0,1],
+                [0,-baseRadius,0,1],
+                [-baseRadius,-baseRadius,0,1],
+                [-baseRadius,0,0,1],
+                [-baseRadius,baseRadius,0,1],
+                [0,baseRadius,0,1]
             ],
             [
-                [-baseRadius, height, -baseRadius, 1],
-                [-middleRadius, height/2, -middleRadius, 1],
-                [-baseRadius, 0, -baseRadius, 1],
+                [0,middleRadius,this.height/2,1],
+                [middleRadius,middleRadius,this.height/2,1],
+                [middleRadius,0,this.height/2,1],
+                [middleRadius,-middleRadius,this.height/2,1],
+                [0,-middleRadius,this.height/2,1],
+                [-middleRadius,-middleRadius,this.height/2,1],
+                [-middleRadius,0,this.height/2,1],
+                [-middleRadius,middleRadius,this.height/2,1],
+                [0,middleRadius,this.height/2,1]
             ],
             [
-                [baseRadius, height, -baseRadius, 1],
-                [middleRadius, height/2, -middleRadius, 1],
-                [baseRadius, 0, -baseRadius, 1],
+                [0,baseRadius,this.height,1],
+                [baseRadius,baseRadius,this.height,1],
+                [baseRadius,0,this.height,1],
+                [baseRadius,-baseRadius,this.height,1],
+                [0,-baseRadius,this.height,1],
+                [-baseRadius,-baseRadius,this.height,1],
+                [-baseRadius,0,this.height,1],
+                [-baseRadius,baseRadius,this.height,1],
+                [0,baseRadius,this.height,1]
             ],
-            [
-                [baseRadius, height, baseRadius, 1],
-                [middleRadius, height/2, middleRadius, 1],
-                [baseRadius, 0, baseRadius, 1],
-            ],
-            [
-                [-baseRadius, height, baseRadius, 1],
-                [-middleRadius, height/2, middleRadius, 1],
-                [-baseRadius, 0, baseRadius, 1],
-            ],
-            [
-                [-baseRadius, height, 0, 1],
-                [-middleRadius, height/2, 0, 1],
-                [-baseRadius, 0, 0, 1],
-            ],
-            
         ];
         this.degreeU = controlPoints.length-1; 
         this.degreeV = controlPoints[0].length-1; 
