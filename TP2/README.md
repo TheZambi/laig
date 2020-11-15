@@ -19,6 +19,8 @@
 - Possibility to turn on/off the lights.
 - Makes use of animation.
 - Error checking during animation parsing.
+- Can create text sprites and custom animation sprites.
+- Creating varius nurbs (plane, patch and barrel)
 
 
 - Scene
