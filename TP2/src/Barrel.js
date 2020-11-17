@@ -18,41 +18,36 @@ class Barrel extends CGFobject {
         this.slices = slices;
         this.stacks = stacks;
 
+        this.hBase = 4/3*this.baseRadius; 
+        this.hMiddle = 4/3*this.middleRadius;
+        this.H = 4/3*(this.middleRadius-this.baseRadius);
+
         let controlPoints = 
         [
             [
-                [0,baseRadius,0,1],
-                [baseRadius,baseRadius,0,1],
-                [baseRadius,0,0,1],
-                [baseRadius,-baseRadius,0,1],
-                [0,-baseRadius,0,1],
-                [-baseRadius,-baseRadius,0,1],
-                [-baseRadius,0,0,1],
-                [-baseRadius,baseRadius,0,1],
-                [0,baseRadius,0,1]
+                [-this.baseRadius,0,0,1],
+                [-this.baseRadius,this.hBase,0,1],
+                [this.baseRadius,this.hBase,0,1],
+                [this.baseRadius,0,0,1]
             ],
             [
-                [0,middleRadius,this.height/2,1],
-                [middleRadius,middleRadius,this.height/2,1],
-                [middleRadius,0,this.height/2,1],
-                [middleRadius,-middleRadius,this.height/2,1],
-                [0,-middleRadius,this.height/2,1],
-                [-middleRadius,-middleRadius,this.height/2,1],
-                [-middleRadius,0,this.height/2,1],
-                [-middleRadius,middleRadius,this.height/2,1],
-                [0,middleRadius,this.height/2,1]
+                [-this.baseRadius-this.H,0,this.H/(Math.sqrt(3)/3),1],
+                [-this.baseRadius-this.H,this.hMiddle,this.H/(Math.sqrt(3)/3),1],
+                [this.baseRadius+this.H,this.hMiddle,this.H/(Math.sqrt(3)/3),1],
+                [this.baseRadius+this.H,0,this.H/(Math.sqrt(3)/3),1]
             ],
             [
-                [0,baseRadius,this.height,1],
-                [baseRadius,baseRadius,this.height,1],
-                [baseRadius,0,this.height,1],
-                [baseRadius,-baseRadius,this.height,1],
-                [0,-baseRadius,this.height,1],
-                [-baseRadius,-baseRadius,this.height,1],
-                [-baseRadius,0,this.height,1],
-                [-baseRadius,baseRadius,this.height,1],
-                [0,baseRadius,this.height,1]
+                [-this.baseRadius-this.H,0,this.height-this.H/(Math.sqrt(3)/3),1],
+                [-this.baseRadius-this.H,this.hMiddle,this.height-this.H/(Math.sqrt(3)/3),1],
+                [this.baseRadius+this.H,this.hMiddle,this.height-this.H/(Math.sqrt(3)/3),1],
+                [this.baseRadius+this.H,0,this.height-this.H/(Math.sqrt(3)/3),1]
             ],
+            [
+                [-this.baseRadius,0,this.height,1],
+                [-this.baseRadius,this.hBase,this.height,1],
+                [this.baseRadius,this.hBase,this.height,1],
+                [this.baseRadius,0,this.height,1]
+            ]
         ];
         this.degreeU = controlPoints.length-1; 
         this.degreeV = controlPoints[0].length-1; 
@@ -71,6 +66,10 @@ class Barrel extends CGFobject {
 
     display() {
         this.object.display();
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI,0,0,1);
+        this.object.display();
+        this.scene.popMatrix();
     }
 
     updateCoords() {}

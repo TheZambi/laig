@@ -30,9 +30,11 @@ class KeyFrameAnimation extends Animation {
         this.interpolationTime = t - this.lastUpdate;
         this.totalTime += this.interpolationTime;
 
-        if(this.totalTime/1000 > this.lastTime){
-            this.totalTime = this.lastTime*1000;
+        if(this.currentKeyFrame<this.keyFrames.length-1 && this.totalTime/1000 > this.keyFrames[this.currentKeyFrame+1].instant){
+            this.totalTime = this.keyFrames[this.currentKeyFrame+1].instant*1000;
         }
+
+        console.log(this.totalTime);
 
         this.interpolateKeyframes();
 
