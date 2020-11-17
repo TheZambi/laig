@@ -21,7 +21,7 @@ class MySpriteSheet {
     }
 
     activateCellP(p){
-        this.shader.setUniformsValues({n:Math.floor(p/this.sizeN)});
+        this.shader.setUniformsValues({n:Math.floor(p/this.sizeM)});
         this.shader.setUniformsValues({m:p%this.sizeM});
     }
 }

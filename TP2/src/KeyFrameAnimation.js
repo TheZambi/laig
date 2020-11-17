@@ -34,7 +34,6 @@ class KeyFrameAnimation extends Animation {
             this.totalTime = this.keyFrames[this.currentKeyFrame+1].instant*1000;
         }
 
-        console.log(this.totalTime);
 
         this.interpolateKeyframes();
 

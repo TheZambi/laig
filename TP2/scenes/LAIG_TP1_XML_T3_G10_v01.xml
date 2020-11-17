@@ -107,7 +107,7 @@
     </textures>
 
     <spritesheets>
-        <spritesheet id='teste' path='./scenes/images/licensePlate.png' sizeM='3' sizeN='1' />
+        <spritesheet id='flyingBird' path='./scenes/images/flyingBird.png' sizeM='6' sizeN='2' />
     </spritesheets>
 
 
@@ -212,6 +212,22 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
+        <animation id="birdFlight" >
+         <keyframe instant="0">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="10">
+            <translation x="-15" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
     </animations>
 
     <nodes>
@@ -225,7 +241,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <!-- <translation x="0" y="-10" z="0" /> -->
+                <translation x="0" y="-10" z="0" />
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -241,8 +257,8 @@
                     <controlpoint xx='-0.5' yy='0' zz='0.5'/>
                 </leaf>
                 <leaf type='plane' npartsU='3' npartsV='3'/>
-                <leaf type='spritetext' text='test text' />
-                <leaf type='spriteanim' ssid='teste' duration='1' startCell='0' endCell='1' /> -->
+                <leaf type='spritetext' text='test text' /> -->
+                <noderef id="Bird"/>
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
@@ -269,6 +285,25 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
+            </descendants>
+        </node>
+        <node id="Bird">           
+           
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <animationref id="birdFlight"/>
+
+            <transformations>
+                <translation x="35" y="20" z="-40" /> 
+                <scale sx="5" sy="5" sz="1" />
+            </transformations>
+
+            <descendants>
+                <leaf type='spriteanim' ssid='flyingBird' duration='3' startCell='6' endCell='11' /> 
             </descendants>
         </node>
         <node id="House">           

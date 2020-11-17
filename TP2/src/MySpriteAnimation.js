@@ -34,7 +34,7 @@ class MySpriteAnimation {
         if(t-this.lastTime>=(this.duration*1000/this.nSteps))
         {  
             this.lastTime=t;
-            if(this.currentCell < this.spriteSheet.sizeM*this.spriteSheet.sizeN-1)
+            if(this.currentCell <= this.spriteSheet.sizeM*this.spriteSheet.sizeN-1)
                 this.currentCell++;
             else
                 this.currentCell=0;
@@ -46,7 +46,7 @@ class MySpriteAnimation {
 
     display(){
         this.scene.pushMatrix();
-
+        
 
         this.defaultAppearance.apply();
         this.spriteSheet.texture.bind();

@@ -91,10 +91,12 @@ class MyNode {
         
         this.scene.pushMatrix();
         
+        
         this.scene.multMatrix(this.transformations);
         
         if(this.animation != null)
             this.animation.apply(this.scene);
+            
 
         if (this.materialID != "null") {
             this.scene.matStack.push(this.material);
