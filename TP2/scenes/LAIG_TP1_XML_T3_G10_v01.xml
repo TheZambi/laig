@@ -104,6 +104,7 @@
         <texture id="houseWall" path="./scenes/images/houseWall.png"/>
         <texture id="houseRoof" path="./scenes/images/houseRoof.png"/>
         <texture id="houseWindow" path="./scenes/images/houseWindow.png"/>
+        <texture id="smoke" path="./scenes/images/smoke.png"/>
     </textures>
 
     <spritesheets>
@@ -170,35 +171,49 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
             <keyframe instant="3">
-                <translation x="0" y="0" z="20" />
+                <translation x="0" y="0" z="15" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
+            <keyframe instant="3.5">
+                <translation x="1.15" y="0" z="20,74" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="22.5" />
+                <rotation axis="z" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
             <keyframe instant="4">
-                <translation x="7.5" y="0" z="27.5" />
+                <translation x="4.4" y="0" z="25.6" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="45" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
             <keyframe instant="5">
-                <translation x="15" y="0" z="35" />
+                <translation x="15" y="0" z="30" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="90" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
             <keyframe instant="6">
-                <translation x="22.5" y="0" z="27.5" />
+                <translation x="25.6" y="0" z="25.6" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="135" />
                 <rotation axis="z" angle="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
+            <keyframe instant="6.5">
+                <translation x="26.75" y="0" z="20,74" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="157.5" />
+                <rotation axis="z" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
             <keyframe instant="7">
-                <translation x="30" y="0" z="20" />
+                <translation x="30" y="0" z="15" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="180" />
                 <rotation axis="z" angle="0" />
@@ -212,7 +227,7 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
-        <animation id="birdFlight" >
+        <animation id="birdFlight1" >
          <keyframe instant="0">
             <translation x="0" y="0" z="0" />
             <rotation axis="x" angle="0" />
@@ -228,6 +243,110 @@
             <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
+        <animation id="birdFlight2" >
+         <keyframe instant="2">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="12">
+            <translation x="-15" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+
+        <animation id="smokeAnim" >
+         <keyframe instant="0">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="2">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        <keyframe instant="4">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="6">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        <keyframe instant="8">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="10">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        <keyframe instant="12">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="14">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        <keyframe instant="16">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="18">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        <keyframe instant="20">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="22">
+            <translation x="-0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale x="2" y="3" z="2" />
+        </keyframe>
+        </animation>
+        
     </animations>
 
     <nodes>
@@ -258,7 +377,8 @@
                 </leaf>
                 <leaf type='plane' npartsU='3' npartsV='3'/>
                 <leaf type='spritetext' text='test text' /> -->
-                <noderef id="Bird"/>
+                <noderef id="Bird1"/>
+                <noderef id="Bird2"/>
                 <noderef id="Floor"/>
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
@@ -287,7 +407,7 @@
                 <leaf type="plane" npartsU='10' npartsV='10'/>
             </descendants>
         </node>
-        <node id="Bird">           
+        <node id="Bird1">           
            
             <material id="null" />
 
@@ -295,10 +415,29 @@
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
-            <animationref id="birdFlight"/>
+            <animationref id="birdFlight1"/>
 
             <transformations>
                 <translation x="35" y="20" z="-40" /> 
+                <scale sx="5" sy="5" sz="1" />
+            </transformations>
+
+            <descendants>
+                <leaf type='spriteanim' ssid='flyingBird' duration='1' startCell='6' endCell='11' /> 
+            </descendants>
+        </node>
+        <node id="Bird2">           
+           
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <animationref id="birdFlight2"/>
+
+            <transformations>
+                <translation x="35" y="25" z="-40" /> 
                 <scale sx="5" sy="5" sz="1" />
             </transformations>
 
@@ -433,6 +572,7 @@
 
             <descendants>
                 <noderef id="houseDoor"/>
+                <noderef id="houseName"/>
                 <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10"/>
             </descendants>
         </node>
@@ -532,6 +672,21 @@
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="2" y2="5"/>
+            </descendants>
+        </node>
+        <node id="houseName">           
+            <material id="wood" />
+
+            <texture id="door">
+                <amplification afs="2.0" aft="5.0" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="7" z="0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="spritetext" text="Casa LAIG"/>
             </descendants>
         </node>
         <node id="Tractor">            
@@ -779,7 +934,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="2" topRadius="0.2" bottomRadius="0.2" stacks="20" slices="20"/> <!--center of the wheel-->
+                <leaf type="cylinder" height="2" topRadius="0.2" bottomRadius="0.2" stacks="20" slices="20"/>
                 <noderef id="airFilter"/>
             </descendants>
         </node>
@@ -796,7 +951,91 @@
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="2" topRadius="0.3" bottomRadius="0.3" stacks="20" slices="20"/> <!--center of the wheel-->
+                <noderef id="smoke"/>
+                <leaf type="cylinder" height="2" topRadius="0.3" bottomRadius="0.3" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="smoke">
+            <material id="whiteMaterial"/> 
+
+            <animationref id="smokeAnim"/>
+
+            <texture id="smoke">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0.15" z="4"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
+                    <controlpoint xx='0' yy='0' zz='0'/> 
+                    <controlpoint xx='0' yy='0' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
+                    <controlpoint xx='-1' yy='1' zz='0'/> 
+                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
+                    <controlpoint xx='0' yy='2' zz='0'/> 
+                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                </leaf>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
+                    <controlpoint xx='0' yy='0' zz='0.3'/> 
+                    <controlpoint xx='0' yy='0' zz='0'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
+                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
+                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
+                    <controlpoint xx='-1' yy='1' zz='0'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
+                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                    <controlpoint xx='0' yy='2' zz='0'/> 
+                </leaf>
+                <noderef id="smoke2"/>
+            </descendants>
+        </node>
+        <node id="smoke2">
+            <material id="whiteMaterial"/> 
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.15" y="0" z="0.15"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
+                    <controlpoint xx='0' yy='0' zz='0'/> 
+                    <controlpoint xx='0' yy='0' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
+                    <controlpoint xx='-1' yy='1' zz='0'/> 
+                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
+                    <controlpoint xx='0' yy='2' zz='0'/> 
+                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                </leaf>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
+                    <controlpoint xx='0' yy='0' zz='0.3'/> 
+                    <controlpoint xx='0' yy='0' zz='0'/> 
+                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
+                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
+                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
+                    <controlpoint xx='-1' yy='1' zz='0'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
+                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
+                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                    <controlpoint xx='0' yy='2' zz='0'/> 
+                </leaf>
+                
             </descendants>
         </node>
 
