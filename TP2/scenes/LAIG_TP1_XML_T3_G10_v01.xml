@@ -33,7 +33,7 @@
 
 
     <illumination>
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           <!-- global ambient -->
+        <ambient r="0.6" g="0.6" b="0.6" a="1.0" />           <!-- global ambient -->
         <background r="0.1" g="0.7" b="1.0" a="1.0" />        <!-- background color -->
     </illumination>
 
@@ -43,7 +43,7 @@
         <light id="NormalLight">            <!-- light identifier -->
             <enable value="true" />
             <!-- enable/disable -->
-            <position x="10" y="12" z="9.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="12" y="9" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -280,11 +280,11 @@
             </texture>
 
             <transformations>
-                <rotation axis="x" angle="90" />
+                <scale sx="80" sy="0" sz = "80" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-40" y1="40" x2="40" y2="-40"/>
+                <leaf type="plane" npartsU='10' npartsV='10'/>
             </descendants>
         </node>
         <node id="Bird">           
@@ -303,7 +303,7 @@
             </transformations>
 
             <descendants>
-                <leaf type='spriteanim' ssid='flyingBird' duration='3' startCell='6' endCell='11' /> 
+                <leaf type='spriteanim' ssid='flyingBird' duration='1' startCell='6' endCell='11' /> 
             </descendants>
         </node>
         <node id="House">           

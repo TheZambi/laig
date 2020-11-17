@@ -20,7 +20,9 @@ class KeyFrameAnimation extends Animation {
     }
 
     apply(scene) {
+        //scene.pushMatrix();
         scene.multMatrix(this.animationMatrix);
+        //scene.popMatrix();
     }
 
     update(t) {
