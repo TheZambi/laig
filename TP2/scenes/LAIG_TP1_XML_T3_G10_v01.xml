@@ -227,6 +227,22 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
+        <animation id="wheels" >
+         <keyframe instant="0">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />                
+            <scale x="1" y="1" z="1" />
+        </keyframe>
+        <keyframe instant="10">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="3680" />
+            <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
         <animation id="birdFlight1" >
          <keyframe instant="0">
             <translation x="0" y="0" z="0" />
@@ -789,12 +805,15 @@
         <node id="StandardWheel">         
             <material id="null" />
 
+            <animationref id="wheels"/>
+            
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
                 <rotation axis="y" angle="90"/>
+                <translation x="0" y="5" z="0" />
             </transformations>
 
             <descendants>
@@ -811,7 +830,7 @@
             </texture>
 
             <transformations>
-              <translation x="0" y="5" z="0.3" />
+              <translation x="0" y="0" z="0.3" />
             </transformations>
 
             <descendants>
@@ -827,7 +846,6 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="5" z="0" />
             </transformations>
 
             <descendants>
@@ -866,7 +884,7 @@
 
             <descendants>
                 <noderef id="licencePlate"/>
-                <noderef id="mainChassisBody"/> <!--center of the wheel-->
+                <noderef id="mainChassisBody"/> 
             </descendants>
         </node>
 
@@ -883,7 +901,7 @@
             </transformations>
 
             <descendants>
-                <noderef id="CubeChassi"/> <!--center of the wheel-->
+                <noderef id="CubeChassi"/>
             </descendants>
         </node>
 
@@ -952,7 +970,8 @@
 
             <descendants>
                 <noderef id="smoke"/>
-                <leaf type="cylinder" height="2" topRadius="0.3" bottomRadius="0.3" stacks="20" slices="20"/>
+                <leaf type='defbarrel' base='0.2' middle='0.3' height='2' slices='10' stacks='10'/>
+                <!-- <leaf type="cylinder" height="2" topRadius="0.3" bottomRadius="0.3" stacks="20" slices="20"/> -->
             </descendants>
         </node>
 
