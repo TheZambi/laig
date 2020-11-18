@@ -382,17 +382,7 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <!-- <leaf type='defbarrel' base='1' middle='1.5' height='5' slices='10' stacks='10' />
-                <leaf type='patch' npointsU='2' npointsV='3' npartsU='5' npartsV='5' >
-                    <controlpoint xx='0.5' yy='0' zz='-0.5'/> 
-                    <controlpoint xx='0.5' yy='1' zz='0'/> 
-                    <controlpoint xx='0.5' yy='0' zz='0.5'/>
-                    <controlpoint xx='-0.5' yy='0' zz='-0.5'/> 
-                    <controlpoint xx='-0.5' yy='1' zz='0'/>
-                    <controlpoint xx='-0.5' yy='0' zz='0.5'/>
-                </leaf>
-                <leaf type='plane' npartsU='3' npartsV='3'/>
-                <leaf type='spritetext' text='test text' /> -->
+                
                 <noderef id="Bird1"/>
                 <noderef id="Bird2"/>
                 <noderef id="Floor"/>
@@ -991,28 +981,28 @@
 
             <descendants>
                 <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
-                    <controlpoint xx='0' yy='0' zz='0'/> 
-                    <controlpoint xx='0' yy='0' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
-                    <controlpoint xx='-1' yy='1' zz='0'/> 
-                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
-                    <controlpoint xx='0' yy='2' zz='0'/> 
-                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                    <controlpoint x='0' y='0' z='0'/> 
+                    <controlpoint x='0' y='0' z='0.3'/> 
+                    <controlpoint x='0.6' y='0.5' z='0'/> 
+                    <controlpoint x='0.6' y='0.5' z='0.3'/>  
+                    <controlpoint x='-1' y='1' z='0'/> 
+                    <controlpoint x='-1' y='1' z='0.3'/> 
+                    <controlpoint x='0.6' y='1.5' z='0'/> 
+                    <controlpoint x='0.6' y='1.5' z='0.3'/> 
+                    <controlpoint x='0' y='2' z='0'/> 
+                    <controlpoint x='0' y='2' z='0.3'/> 
                 </leaf>
                 <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
-                    <controlpoint xx='0' yy='0' zz='0.3'/> 
-                    <controlpoint xx='0' yy='0' zz='0'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
-                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
-                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
-                    <controlpoint xx='-1' yy='1' zz='0'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
-                    <controlpoint xx='0' yy='2' zz='0.3'/> 
-                    <controlpoint xx='0' yy='2' zz='0'/> 
+                    <controlpoint x='0' y='0' z='0.3'/> 
+                    <controlpoint x='0' y='0' z='0'/> 
+                    <controlpoint x='0.6' y='0.5' z='0.3'/>  
+                    <controlpoint x='0.6' y='0.5' z='0'/> 
+                    <controlpoint x='-1' y='1' z='0.3'/> 
+                    <controlpoint x='-1' y='1' z='0'/> 
+                    <controlpoint x='0.6' y='1.5' z='0.3'/> 
+                    <controlpoint x='0.6' y='1.5' z='0'/> 
+                    <controlpoint x='0' y='2' z='0.3'/> 
+                    <controlpoint x='0' y='2' z='0'/> 
                 </leaf>
                 <noderef id="smoke2"/>
             </descendants>
@@ -1031,28 +1021,28 @@
 
             <descendants>
                 <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
-                    <controlpoint xx='0' yy='0' zz='0'/> 
-                    <controlpoint xx='0' yy='0' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
-                    <controlpoint xx='-1' yy='1' zz='0'/> 
-                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
-                    <controlpoint xx='0' yy='2' zz='0'/> 
-                    <controlpoint xx='0' yy='2' zz='0.3'/> 
+                    <controlpoint x='0' y='0' z='0'/> 
+                    <controlpoint x='0' y='0' z='0.3'/> 
+                    <controlpoint x='0.6' y='0.5' z='0'/> 
+                    <controlpoint x='0.6' y='0.5' z='0.3'/>  
+                    <controlpoint x='-1' y='1' z='0'/> 
+                    <controlpoint x='-1' y='1' z='0.3'/> 
+                    <controlpoint x='0.6' y='1.5' z='0'/> 
+                    <controlpoint x='0.6' y='1.5' z='0.3'/> 
+                    <controlpoint x='0' y='2' z='0'/> 
+                    <controlpoint x='0' y='2' z='0.3'/> 
                 </leaf>
                 <leaf type='patch' npointsU='3' npointsV='2' npartsU='10' npartsV='10' >
-                    <controlpoint xx='0' yy='0' zz='0.3'/> 
-                    <controlpoint xx='0' yy='0' zz='0'/> 
-                    <controlpoint xx='0.6' yy='0.5' zz='0.3'/>  
-                    <controlpoint xx='0.6' yy='0.5' zz='0'/> 
-                    <controlpoint xx='-1' yy='1' zz='0.3'/> 
-                    <controlpoint xx='-1' yy='1' zz='0'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0.3'/> 
-                    <controlpoint xx='0.6' yy='1.5' zz='0'/> 
-                    <controlpoint xx='0' yy='2' zz='0.3'/> 
-                    <controlpoint xx='0' yy='2' zz='0'/> 
+                    <controlpoint x='0' y='0' z='0.3'/> 
+                    <controlpoint x='0' y='0' z='0'/> 
+                    <controlpoint x='0.6' y='0.5' z='0.3'/>  
+                    <controlpoint x='0.6' y='0.5' z='0'/> 
+                    <controlpoint x='-1' y='1' z='0.3'/> 
+                    <controlpoint x='-1' y='1' z='0'/> 
+                    <controlpoint x='0.6' y='1.5' z='0.3'/> 
+                    <controlpoint x='0.6' y='1.5' z='0'/> 
+                    <controlpoint x='0' y='2' z='0.3'/> 
+                    <controlpoint x='0' y='2' z='0'/> 
                 </leaf>
                 
             </descendants>

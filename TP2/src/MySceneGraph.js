@@ -1138,9 +1138,9 @@ class MySceneGraph {
                                 let auxPoints = [];
                                 let auxChild = descendants[i].children[nChild];
                                 
-                                auxPoints.push(this.reader.getFloat(auxChild, "xx"));
-                                auxPoints.push(this.reader.getFloat(auxChild, "yy"));
-                                auxPoints.push(this.reader.getFloat(auxChild, "zz"));
+                                auxPoints.push(this.reader.getFloat(auxChild, "x"));
+                                auxPoints.push(this.reader.getFloat(auxChild, "y"));
+                                auxPoints.push(this.reader.getFloat(auxChild, "z"));
                                 auxPoints.push(1); //Weigth
                                 controlPointsV.push(auxPoints);
                                 if(controlPointsV.length == npointsV){
