@@ -681,9 +681,9 @@
             </descendants>
         </node>
         <node id="houseName">           
-            <material id="wood" />
+            <material id="whiteMaterial" />
 
-            <texture id="door">
+            <texture id="null">
                 <amplification afs="2.0" aft="5.0" />
             </texture>
 
