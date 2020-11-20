@@ -105,6 +105,8 @@
         <texture id="houseRoof" path="./scenes/images/houseRoof.png"/>
         <texture id="houseWindow" path="./scenes/images/houseWindow.png"/>
         <texture id="smoke" path="./scenes/images/smoke.png"/>
+        <texture id="barnSides" path="./scenes/images/barnSides.png"/>
+        <texture id="barnRoof" path="./scenes/images/barnRoof.png"/>
     </textures>
 
     <spritesheets>
@@ -117,7 +119,7 @@
          requires a distinct "id". At least one material should be present. -->
         <material id="iron"> 
             <shininess value="1.0" />
-            <specular r="0.8" g="0.8" b="0.8" a="1.0" />        <!-- specular reflection -->
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />        smoke<!-- specular reflection -->
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />         <!-- diffuse reflection -->
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />         <!-- ambient reflection -->
             <emissive r="0.0" g="0.0" b="0.0" a="1-0" />        <!-- emissive component -->
@@ -402,7 +404,7 @@
            
             <material id="whiteMaterial"/>
 
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -419,7 +421,7 @@
            
             <material id="whiteMaterial" />
 
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -466,7 +468,7 @@
            
             <material id="null" />
 
-            <texture id="null">
+            <texture id="barnRoof">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -534,8 +536,8 @@
            
             <material id="whiteMaterial" />
 
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
+            <texture id="null">
+                <amplification afs="20.0" aft="20.0" />
             </texture>
 
             <transformations>
@@ -551,8 +553,8 @@
            
             <material id="whiteMaterial" />
 
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
+            <texture id="null">
+                <amplification afs="20.0" aft="20.0" />
             </texture>
 
             <transformations>
@@ -568,8 +570,8 @@
            
             <material id="whiteMaterial" />
 
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
+            <texture id="null">
+                <amplification afs="10.0" aft="20.0" />
             </texture>
 
             <transformations>
@@ -587,7 +589,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="10.0" aft="20.0" />
             </texture>
 
             <transformations>
@@ -605,7 +607,7 @@
             <material id="whiteMaterial" />
 
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="20.0" aft="20.0" />
             </texture>
 
             <transformations>
@@ -622,7 +624,7 @@
            
             <material id="whiteMaterial" />
 
-            <texture id="clear">
+            <texture id="barnSides">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
