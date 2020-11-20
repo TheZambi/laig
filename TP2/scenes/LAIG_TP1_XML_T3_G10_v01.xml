@@ -389,12 +389,182 @@
                 <noderef id="Tractor"/>
                 <noderef id="silo"/>
                 <noderef id="Tree"/>
+                <noderef id="Barn"/>
                 <noderef id="House"/>
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
                 <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
+            </descendants>
+        </node>
+        <node id="frontBarn">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="rightSideFrontBarn"/>
+                <noderef id="leftSideFrontBarn"/>
+                <noderef id="topFrontBarn"/>
+            </descendants>
+        </node>
+        <node id="topFrontBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="20" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="barnArch"/>    
+            </descendants>
+        </node>
+        <node id="barnArch">           
+           
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='15' npartsV='10' >
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='5' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                </leaf>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='15' npartsV='10' >
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='5' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/>
+                </leaf>
+            </descendants>
+        </node>
+        <node id="rightSideFrontBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="15" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="20"/>
+                <leaf type="rectangle" x1="10" y1="0" x2="0" y2="20"/>
+            </descendants>
+        </node>
+        <node id="leftSideFrontBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-15" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="20"/>
+                <leaf type="rectangle" x1="10" y1="0" x2="0" y2="20"/>
+            </descendants>
+        </node>
+        <node id="leftBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="25" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="30" y2="20"/>
+                <leaf type="rectangle" x1="30" y1="0" x2="0" y2="20"/>
+            </descendants>
+        </node>
+        <node id="rightBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-15" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="30" y1="0" x2="0" y2="20"/>
+                <leaf type="rectangle" x1="0" y1="0" x2="30" y2="20"/>
+            </descendants>
+        </node>
+        <node id="backBarn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="-30"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="0" x2="25" y2="20"/>
+                <leaf type="rectangle" x1="25" y1="0" x2="-15" y2="20"/>
+                <noderef id="barnArch"/>
+            </descendants>
+        </node>
+        <node id="Barn">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="frontBarn"/>
+                <noderef id="rightBarn"/>
+                <noderef id="leftBarn"/>
+                <noderef id="backBarn"/>
             </descendants>
         </node>
         <node id="Floor">           
@@ -406,7 +576,7 @@
             </texture>
 
             <transformations>
-                <scale sx="80" sy="0" sz = "80" />
+                <scale sx="100" sy="0" sz = "80" />
             </transformations>
 
             <descendants>
@@ -1297,7 +1467,7 @@
             </texture>
 
             <transformations>
-                <translation x="10" y="0" z="-15"/>
+                <translation x="-20" y="0" z="30"/>
             </transformations>
 
             <descendants>
