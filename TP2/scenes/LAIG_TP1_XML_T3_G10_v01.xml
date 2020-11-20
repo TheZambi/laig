@@ -107,6 +107,8 @@
         <texture id="smoke" path="./scenes/images/smoke.png"/>
         <texture id="barnSides" path="./scenes/images/barnSides.png"/>
         <texture id="barnRoof" path="./scenes/images/barnRoof.png"/>
+        <texture id="barrel" path="./scenes/images/barrel.png"/>
+        <texture id="hay" path="./scenes/images/hay.png"/>
     </textures>
 
     <spritesheets>
@@ -637,6 +639,100 @@
                 <noderef id="rightBarn"/>
                 <noderef id="leftBarn"/>
                 <noderef id="backBarn"/>
+                <noderef id="barrel1"/>
+                <noderef id="barrel2"/>
+                <noderef id="hay"/>
+            </descendants>
+        </node>
+        <node id="hay">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="hay">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="12" y="0" z="-25"/>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='3' npartsU='10' npartsV='10' >
+                    <controlpoint x='-5' y='0' z='-5'/> 
+                    <controlpoint x='0' y='0' z='-5'/> 
+                    <controlpoint x='5' y='0' z='-5'/> 
+                    <controlpoint x='-5' y='0' z='0'/>  
+                    <controlpoint x='0' y='30' z='0'/> 
+                    <controlpoint x='5' y='0' z='0'/> 
+                    <controlpoint x='-5' y='0' z='5'/> 
+                    <controlpoint x='0' y='0' z='5'/> 
+                    <controlpoint x='5' y='0' z='5'/> 
+                </leaf>
+            </descendants>
+        </node>
+        <node id="barrel1">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="barrel">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-12" y="0" z="-20"/>
+            </transformations>
+
+            <descendants>
+                <noderef id='barrel'/>
+            </descendants>
+        </node>
+        <node id="barrel2">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="barrel">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-12" y="0" z="-15"/>
+            </transformations>
+
+            <descendants>
+                <noderef id='barrel'/>
+            </descendants>
+        </node>
+        <node id="barrelCover">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="barrel">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="4.5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.5" topRadius="1" bottomRadius="1" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+        <node id="barrel">           
+           
+            <material id="whiteMaterial" />
+
+            <texture id="barrel">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type='defbarrel' base='1' middle='1.5' height='5' slices='10' stacks='10'/>
+                <noderef id='barrelCover'/>
             </descendants>
         </node>
         <node id="Floor">           

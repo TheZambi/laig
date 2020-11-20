@@ -4,7 +4,7 @@ class Animation {
      * @method constructor
      * @param  {Array} keyframes - animation's keyframes
      */
-    constructor() {
+    constructor(keyframes) {
         if (this.constructor == Animation) {
             throw new Error("Abstract classes can't be instantiated.");
           }
@@ -17,10 +17,6 @@ class Animation {
     update(t)
     {
         throw new Error("Method update must be instantiated")
-    }
-    interpolateKeyframes()
-    {
-        throw new Error("Method interpolateKeyframes must be instantiated")
     }
 }
 
