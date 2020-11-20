@@ -5,7 +5,7 @@ class KeyFrameAnimation extends Animation {
      * @param  {Array} keyframes - animation's keyframes
      */
     constructor(keyframes) {
-        super();
+        super(0,0);
         this.keyFrames = [];
         this.animationMatrix = mat4.create();
         this.lastUpdate = 0;
@@ -15,7 +15,9 @@ class KeyFrameAnimation extends Animation {
             this.keyFrames.push(new AnimationKeyFrame(keyframes[i]));
         this.keyFrames.sort(compareAnimations);
 
-        this.lastTime = this.keyFrames[this.keyFrames.length-1].instant;
+        this.endKeyFrame=this.keyFrames.length;
+
+        this.lastTime = this.keyFrames[this.endKeyFrame-1].instant;
         
     }
 
@@ -32,7 +34,7 @@ class KeyFrameAnimation extends Animation {
         this.interpolationTime = t - this.lastUpdate;
         this.totalTime += this.interpolationTime;
 
-        if(this.currentKeyFrame<this.keyFrames.length-1 && this.totalTime/1000 > this.keyFrames[this.currentKeyFrame+1].instant){
+        if(this.currentKeyFrame<this.endKeyFrame-1 && this.totalTime/1000 > this.keyFrames[this.currentKeyFrame+1].instant){
             this.totalTime = this.keyFrames[this.currentKeyFrame+1].instant*1000;
         }
 
@@ -40,7 +42,7 @@ class KeyFrameAnimation extends Animation {
         this.interpolateKeyframes();
 
         this.lastUpdate = t;
-        if (this.currentKeyFrame + 1 < this.keyFrames.length && this.totalTime / 1000 >= this.keyFrames[this.currentKeyFrame + 1].instant) {
+        if (this.currentKeyFrame + 1 < this.endKeyFrame && this.totalTime / 1000 >= this.keyFrames[this.currentKeyFrame + 1].instant) {
             this.currentKeyFrame++;
         }
     }
@@ -49,7 +51,7 @@ class KeyFrameAnimation extends Animation {
         var translations = [];
         var scales = [];
         var rotations = [];
-        if (this.currentKeyFrame + 1 < this.keyFrames.length) {
+        if (this.currentKeyFrame + 1 < this.endKeyFrame) {
             this.animationMatrix = mat4.create();
             var instant = this.keyFrames[this.currentKeyFrame + 1].instant - this.keyFrames[this.currentKeyFrame].instant;
             for (var i = 0; i < 3; i++) {

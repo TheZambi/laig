@@ -4,10 +4,12 @@ class Animation {
      * @method constructor
      * @param  {Array} keyframes - animation's keyframes
      */
-    constructor(keyframes) {
+    constructor(currentKeyFrame,endKeyFrame) {
         if (this.constructor == Animation) {
             throw new Error("Abstract classes can't be instantiated.");
           }
+        this.currentKeyFrame = currentKeyFrame;
+        this.endKeyFrame=endKeyFrame;
     }
 
     apply(scene)
