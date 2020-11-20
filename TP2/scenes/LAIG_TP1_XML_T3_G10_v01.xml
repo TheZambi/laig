@@ -428,7 +428,8 @@
             </transformations>
 
             <descendants>
-                <noderef id="barnArch"/>    
+                <noderef id="barnArch"/>  
+                <noderef id="barnRoof"/>  
             </descendants>
         </node>
         <node id="barnArch">           
@@ -440,6 +441,74 @@
             </texture>
 
             <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='15' npartsV='10' >
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='5' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                </leaf>
+                <leaf type='patch' npointsU='3' npointsV='2' npartsU='15' npartsV='10' >
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='5' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='-15' y='0' z='0'/>
+                </leaf>
+            </descendants>
+        </node>
+         <node id="barnRoof">           
+           
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='3' npartsU='15' npartsV='10' >
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                    <controlpoint x='-15' y='0' z='-15'/> 
+                    <controlpoint x='5' y='20' z='-15'/> 
+                    <controlpoint x='25' y='0' z='-15'/> 
+                    <controlpoint x='-15' y='0' z='-30'/> 
+                    <controlpoint x='5' y='20' z='-30'/> 
+                    <controlpoint x='25' y='0' z='-30'/> 
+                </leaf>
+                <leaf type='patch' npointsU='3' npointsV='3' npartsU='15' npartsV='10' >
+                    <controlpoint x='-15' y='0' z='-30'/> 
+                    <controlpoint x='5' y='20' z='-30'/> 
+                    <controlpoint x='25' y='0' z='-30'/> 
+                    <controlpoint x='-15' y='0' z='-15'/> 
+                    <controlpoint x='5' y='20' z='-15'/> 
+                    <controlpoint x='25' y='0' z='-15'/> 
+                    <controlpoint x='-15' y='0' z='0'/> 
+                    <controlpoint x='5' y='20' z='0'/> 
+                    <controlpoint x='25' y='0' z='0'/> 
+                </leaf>
+
+            </descendants>
+        </node>
+        <node id="barnArchReverse">           
+           
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="20" z="0"/>
             </transformations>
 
             <descendants>
@@ -546,7 +615,7 @@
             <descendants>
                 <leaf type="rectangle" x1="-15" y1="0" x2="25" y2="20"/>
                 <leaf type="rectangle" x1="25" y1="0" x2="-15" y2="20"/>
-                <noderef id="barnArch"/>
+                <noderef id="barnArchReverse"/>
             </descendants>
         </node>
         <node id="Barn">           
@@ -558,6 +627,7 @@
             </texture>
 
             <transformations>
+                <translation x="25" y="0" z="0"/>
             </transformations>
 
             <descendants>
