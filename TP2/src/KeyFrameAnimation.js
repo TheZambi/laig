@@ -21,20 +21,29 @@ class KeyFrameAnimation extends Animation {
         
     }
 
+    /**
+     * @method apply
+     * @param {CGFscene} scene - Reference to MyScene object
+     * Applies the animation's current transformations
+     */
     apply(scene) {
-        //scene.pushMatrix();
         scene.multMatrix(this.animationMatrix);
-        //scene.popMatrix();
     }
 
+    /**
+     * @method update
+     * @param {Integer} t - time after epoc
+     * Updates time to possibilitate the animation's interpolation
+     */
     update(t) {
         if (this.lastUpdate == 0) {
             this.lastUpdate = t;
         }
         this.interpolationTime = t - this.lastUpdate;
         this.totalTime += this.interpolationTime;
+        this.totalSeconds = this.totalTime/1000;
 
-        if(this.currentKeyFrame<this.endKeyFrame-1 && this.totalTime/1000 > this.keyFrames[this.currentKeyFrame+1].instant){
+        if(this.currentKeyFrame<this.endKeyFrame-1 && this.totalSeconds > this.keyFrames[this.currentKeyFrame+1].instant){
             this.totalTime = this.keyFrames[this.currentKeyFrame+1].instant*1000;
         }
 
@@ -42,11 +51,16 @@ class KeyFrameAnimation extends Animation {
         this.interpolateKeyframes();
 
         this.lastUpdate = t;
-        if (this.currentKeyFrame + 1 < this.endKeyFrame && this.totalTime / 1000 >= this.keyFrames[this.currentKeyFrame + 1].instant) {
+        if (this.currentKeyFrame + 1 < this.endKeyFrame && this.totalSeconds >= this.keyFrames[this.currentKeyFrame + 1].instant) {
             this.currentKeyFrame++;
         }
     }
 
+
+    /**
+     * @method interpolateKeyframes
+     * Updates the animation's current transformations using interpolated time to not skip any frames
+     */
     interpolateKeyframes() {
         var translations = [];
         var scales = [];
@@ -55,18 +69,19 @@ class KeyFrameAnimation extends Animation {
             this.animationMatrix = mat4.create();
             var instant = this.keyFrames[this.currentKeyFrame + 1].instant - this.keyFrames[this.currentKeyFrame].instant;
             for (var i = 0; i < 3; i++) {
-                if (this.totalTime / 1000 >= this.keyFrames[this.currentKeyFrame].instant) {
+                if (this.totalSeconds >= this.keyFrames[this.currentKeyFrame].instant) {
+                    var timePassed = (this.totalTime - this.keyFrames[this.currentKeyFrame].instant * 1000) / (instant * 1000);
                     //translations
                     var value = this.keyFrames[this.currentKeyFrame + 1].translation[i] - this.keyFrames[this.currentKeyFrame].translation[i];
-                    translations.push(value * (this.totalTime - this.keyFrames[this.currentKeyFrame].instant * 1000) / (instant * 1000) + this.keyFrames[this.currentKeyFrame].translation[i]);
+                    translations.push(value * timePassed + this.keyFrames[this.currentKeyFrame].translation[i]);
 
                     //scales
                     value = this.keyFrames[this.currentKeyFrame + 1].scale[i] - this.keyFrames[this.currentKeyFrame].scale[i];
-                    scales.push(value * (this.totalTime - this.keyFrames[this.currentKeyFrame].instant * 1000) / (instant * 1000) + this.keyFrames[this.currentKeyFrame].scale[i])
+                    scales.push(value * timePassed + this.keyFrames[this.currentKeyFrame].scale[i])
 
                     //rotations
                     value = this.keyFrames[this.currentKeyFrame + 1].rotation[i] - this.keyFrames[this.currentKeyFrame].rotation[i];
-                    rotations.push(value * (this.totalTime - this.keyFrames[this.currentKeyFrame].instant * 1000) / (instant * 1000) + this.keyFrames[this.currentKeyFrame].rotation[i])
+                    rotations.push(value * timePassed + this.keyFrames[this.currentKeyFrame].rotation[i])
                 }
             }
             mat4.translate(this.animationMatrix, this.animationMatrix, translations);

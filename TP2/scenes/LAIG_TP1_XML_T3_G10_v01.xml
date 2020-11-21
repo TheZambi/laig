@@ -1299,7 +1299,6 @@
             <descendants>
                 <noderef id="smoke"/>
                 <leaf type='defbarrel' base='0.2' middle='0.3' height='2' slices='10' stacks='10'/>
-                <!-- <leaf type="cylinder" height="2" topRadius="0.3" bottomRadius="0.3" stacks="20" slices="20"/> -->
             </descendants>
         </node>
 
