@@ -25,14 +25,14 @@ class MySpriteText {
         this.scene.translate(-(this.text.length/2),-0.5,0);
         this.defaultAppearance.apply();
         this.scene.textSheet.texture.bind();
-        this.scene.setActiveShader(this.scene.textSheet.shader);
+        this.scene.setActiveShaderSimple(this.scene.textSheet.shader);
     
         for(let i = 0;i<this.textBox.length;i++){
             this.scene.textSheet.activateCellP(this.getCharacterPosition(this.text[i]));
             this.textBox[i].display();
         }
 
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShaderSimple(this.scene.defaultShader);
         this.scene.textSheet.texture.unbind();
         this.scene.popMatrix();
     }

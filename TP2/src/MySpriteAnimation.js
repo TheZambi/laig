@@ -71,12 +71,12 @@ class MySpriteAnimation {
         this.defaultAppearance.apply();
         this.spriteSheet.texture.bind();
 
-        this.scene.setActiveShader(this.spriteSheet.shader);
+        this.scene.setActiveShaderSimple(this.spriteSheet.shader);
     
         this.spriteSheet.activateCellP(this.currentCell);
         this.animBox.display();
 
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShaderSimple(this.scene.defaultShader);
         this.spriteSheet.texture.unbind();
 
         this.scene.popMatrix();
