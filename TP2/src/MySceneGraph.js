@@ -798,19 +798,19 @@ class MySceneGraph {
                 rotationZVals.push(aux);
 
                 //Animation Scale
-                var aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "x");
+                var aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "sx");
                 if (aux == null)
                     return "missing X value on scale on animation " + animationID;
 
                 scaleVals.push(aux);
 
-                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "y");
+                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "sy");
                 if (aux == null)
                     return "missing Y value on scale on animation " + animationID;
 
                 scaleVals.push(aux);
 
-                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "z");
+                aux = this.reader.getFloat(grandChildren[l].children[scaleIndex], "sz");
                 if (aux == null)
                     return "missing Z value on scale on animation " + animationID;
 
@@ -1149,7 +1149,7 @@ class MySceneGraph {
                                 }
                             }
                             if(controlPointsU.length != nPointsU){
-                                this.onXMLMinorError("Missing control points on leaf type patch on " + nodeID);
+                                this.onXMLMinorError("Wrong number of control points on leaf type patch on " + nodeID);
                             }
                             descendantsAux.push(controlPointsU);
                             break;
