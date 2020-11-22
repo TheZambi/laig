@@ -326,7 +326,7 @@ class XMLscene extends CGFscene {
 
         this.setGlobalAmbientLight(...this.graph.ambient);
 
-        this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./scenes/textSheet.png'),16,16);
+        this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./src/textSheet.png'),16,16);
 
         this.initLights();
         this.initCameras();

@@ -10,7 +10,7 @@ class MySpriteSheet {
         this.texture = texture;
         this.sizeM = sizeM;
         this.sizeN = sizeN;
-        this.shader = new CGFshader(this.scene.gl,"./scenes/shaders/sprite.vert","./scenes/shaders/sprite.frag");
+        this.shader = new CGFshader(this.scene.gl,"./src/shaders/sprite.vert","./src/shaders/sprite.frag");
         this.shader.setUniformsValues({sizeN:this.sizeN});
         this.shader.setUniformsValues({sizeM:this.sizeM});
     }
