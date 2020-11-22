@@ -25,6 +25,6 @@
 
 - Scene
   - A field of grass with a small farm.
-  - [Scene](./scenes/LAIG_TP1_XML_T3_G10_v01.xml)
+  - [Scene](./scenes/LAIG_TP2_XML_T3_G10_v01.xml)
 ----
 ## Issues/Problems

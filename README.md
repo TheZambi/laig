@@ -31,7 +31,7 @@
 
 - Scene
   - A field of grass with a small farm on top and a moving tractor.
-  - [Scene](./TP2/scenes/LAIG_TP1_XML_T3_G10_v01.xml)
+  - [Scene](./TP2/scenes/LAIG_TP2_XML_T3_G10_v01.xml)
 
 ----
 
