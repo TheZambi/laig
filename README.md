@@ -24,7 +24,7 @@
 -----
 
 ### [TP2 - Animations](TP2)
-- Possibility to create varius animations.
+- Possibility to create various animations.
 - Small animation for the tractor.
 - Can create text spirites and sprite animations.
 - Can use nurbs (plane, barrel and patch)
