@@ -18,7 +18,7 @@ class MySpriteAnimation {
         this.currentCell=startCell;
         this.lastTime=0;
         this.nSteps=endCell-startCell;
-        this.animBox = new MyRectangle(this.scene, 0, 0, 1, 1);
+        this.animBox = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.defaultAppearance = new CGFappearance(this.scene);
         
     }
