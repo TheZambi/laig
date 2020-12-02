@@ -23,6 +23,8 @@ class XMLscene extends CGFscene {
 
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
+        this.gameBoard = new MyGameBoard(this);
+
         this.sceneInited = false;
 
         this.enableTextures(true);
@@ -405,10 +407,12 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-        for (let i = 0; i < this.nodesList.length; i++) {
-            if (this.nodesList[i] != null && this.nodesList[i].id == this.graph.idRoot)
-                this.nodesList[i].display();
-        }
+        // for (let i = 0; i < this.nodesList.length; i++) {
+        //     if (this.nodesList[i] != null && this.nodesList[i].id == this.graph.idRoot)
+        //         this.nodesList[i].display();
+        // }
+
+        this.gameBoard.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
