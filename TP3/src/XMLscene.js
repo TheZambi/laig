@@ -23,8 +23,6 @@ class XMLscene extends CGFscene {
 
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
-        this.gameBoard = new MyGameBoard(this);
-
         this.sceneInited = false;
 
         this.enableTextures(true);
@@ -42,6 +40,15 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
+
+        //TO REMOVE LATER
+        this.tileAppearence = new CGFappearance(this);
+        this.tileAppearence.loadTexture('./scenes/images/door.png');
+
+        this.gameBoard = new MyGameBoard(this);
+
+		this.setPickEnabled(true);
+
         this.cameraList = [];
         this.cameraNames = [];
         this.materialsList = [];
@@ -52,6 +59,7 @@ class XMLscene extends CGFscene {
         this.spriteAnims = [];
         this.selectedCamera = -1;
         this.lastCamera = -1;
+        this.currentPickIndex = 1;
         this.light1 = true;
         this.light2 = true;
         this.light3 = true;
@@ -61,6 +69,21 @@ class XMLscene extends CGFscene {
         this.light7 = true;
         this.light8 = true;
     }
+
+    logPicking() {
+		if (this.pickMode == false) {
+			if (this.pickResults != null && this.pickResults.length > 0) {
+				for (var i = 0; i < this.pickResults.length; i++) {
+					var obj = this.pickResults[i][0];
+					if (obj) {
+						var customId = this.pickResults[i][1];
+						console.log("Picked object: " + obj + ", with pick id " + customId);						
+					}
+				}
+				this.pickResults.splice(0, this.pickResults.length);
+			}
+		}
+	}
 
     /**
      * Initializes the scene cameras.
@@ -370,6 +393,11 @@ class XMLscene extends CGFscene {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
+
+		this.logPicking();
+        this.clearPickRegistration();
+        this.currentPickIndex = 1;
+
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
@@ -384,10 +412,7 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        // for (var i = 0; i < this.lights.length; i++) {
-        //     this.lights[i].setVisible(true);
-        //     this.lights[i].enable();
-        // }
+
 
         if (this.sceneInited) {
             // Draw axis
@@ -396,7 +421,8 @@ class XMLscene extends CGFscene {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            this.gameBoard.display();
+            //this.graph.displayScene();
         }
         else {
             // Show some "loading" visuals
@@ -407,13 +433,7 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-        // for (let i = 0; i < this.nodesList.length; i++) {
-        //     if (this.nodesList[i] != null && this.nodesList[i].id == this.graph.idRoot)
-        //         this.nodesList[i].display();
-        // }
-
-        this.gameBoard.display();
-
+        
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }

@@ -7,6 +7,24 @@ class MyPiece extends CGFobject {
         super(scene);
         this.tile = null;
         this.color = color;
+        this.piece = new MyCylinder(scene,20,20,0.5,0.5,0.5);
+        this.defaultAppearance = new CGFappearance(scene);
+        if(color == "green"){
+            this.defaultAppearance.setAmbient(0,1,0,1);
+            this.defaultAppearance.setDiffuse(0,1,0,1);
+            this.defaultAppearance.setSpecular(0,1,0,1);
+
+        }
+        else if(color == "orange"){
+            this.defaultAppearance.setAmbient(1,0.31,0,1);
+            this.defaultAppearance.setDiffuse(1,0.31,0,1);
+            this.defaultAppearance.setSpecular(1,0.31,0,1);
+        }
+        else{
+            this.defaultAppearance.setAmbient(0.47,0.32,0.66,1);
+            this.defaultAppearance.setDiffuse(0.47,0.32,0.66,1);
+            this.defaultAppearance.setSpecular(0.47,0.32,0.66,1);
+        }
 	}
 	
 	/**
@@ -36,6 +54,15 @@ class MyPiece extends CGFobject {
 
     display()
     {
+        if(!this.tile){
+            this.scene.registerForPick(this.scene.currentPickIndex, this);
+            this.scene.currentPickIndex++;
+        }
+        
+        //rotates piece to xz axis
+        this.defaultAppearance.apply();
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.piece.display();
 
     }
 

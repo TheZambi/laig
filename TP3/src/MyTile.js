@@ -9,8 +9,7 @@ class MyTile extends CGFobject {
         this.board = null;
         this.color = null;
         this.tile = new MyCylinder(scene,6,1,1,1,0.5);
-        this.defaultAppearance = new CGFappearance(this.scene);
-        this.defaultAppearance.loadTexture('./scenes/images/door.png');
+        this.defaultAppearance = scene.tileAppearence;
     }
 	
 	/**
@@ -50,6 +49,11 @@ class MyTile extends CGFobject {
     display()
     {
         // this.display();
+
+        if(!this.piece){
+            this.scene.registerForPick(this.scene.currentPickIndex, this);
+            this.scene.currentPickIndex++;
+        }
         
         this.defaultAppearance.apply();
         //Remove display and add clickable

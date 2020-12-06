@@ -1280,6 +1280,9 @@ class MySceneGraph {
 
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
 
-        //this.nodes[this.idRoot].display()
+        for (let i = 0; i < this.scene.nodesList.length; i++) {
+            if (this.scene.nodesList[i] != null && this.scene.nodesList[i].id == this.idRoot)
+                this.scene.nodesList[i].display();
+        }
     }
 }
