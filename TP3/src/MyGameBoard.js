@@ -21,7 +21,7 @@ class MyGameBoard extends CGFobject {
         for (let i = 0; i < this.boardLength.length; i++) {
             let aux = this.startDiagonal[i];
             for (let j = 0; j < this.boardLength[i]; j++)
-                this.board[[i, aux + j]] = new MyTile(this.scene);
+                this.board[[i, aux + j]] = new MyTile(this.scene,i, aux + j, this);
         }
     }
 
@@ -69,7 +69,7 @@ class MyGameBoard extends CGFobject {
     }
 
     movePiece(gamemove) {
-        gamemove.getTile().setPiece(gamemove.getColor());
+        gamemove.getTile().setPiece(gamemove.getPiece());
     }
 
 
@@ -80,6 +80,7 @@ class MyGameBoard extends CGFobject {
         this.scene.rotate(-Math.PI * 2.25 / 3, 0, 1, 0);
 
         //centers the board
+        this.scene.rotate(Math.PI, 0, 0, 1);
         this.scene.translate(-9, 0, 9.5);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
 
@@ -115,20 +116,26 @@ class MyGameBoard extends CGFobject {
         for(let i = 0;i<this.greenPieces.length;i++){
             this.row = (i%7);
             this.column = (i%6);
-            this.scene.pushMatrix();
-            this.scene.translate(-20+this.row,0,-12.5+this.column);
-            this.greenPieces[i].display();
-            this.scene.popMatrix();
+            if(!this.greenPieces[i].tile){
+                this.scene.pushMatrix();
+                this.scene.translate(-20+this.row,0,-12.5+this.column);
+                this.greenPieces[i].display();
+                this.scene.popMatrix();
+            }
 
-            this.scene.pushMatrix();
-            this.scene.translate(-20+this.row,0,-2.5+this.column);
-            this.orangePieces[i].display();
-            this.scene.popMatrix();
+            if(!this.orangePieces[i].tile){
+                this.scene.pushMatrix();
+                this.scene.translate(-20+this.row,0,-2.5+this.column);
+                this.orangePieces[i].display();
+                this.scene.popMatrix();
+            }
 
-            this.scene.pushMatrix();
-            this.scene.translate(-20+this.row,0,7.5+this.column);
-            this.purplePieces[i].display();
-            this.scene.popMatrix();
+            if(!this.purplePieces[i].tile){
+                this.scene.pushMatrix();
+                this.scene.translate(-20+this.row,0,7.5+this.column);
+                this.purplePieces[i].display();
+                this.scene.popMatrix();
+            }
         }
 
         

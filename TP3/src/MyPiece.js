@@ -58,12 +58,16 @@ class MyPiece extends CGFobject {
             this.scene.registerForPick(this.scene.currentPickIndex, this);
             this.scene.currentPickIndex++;
         }
+        else{
+            this.scene.clearPickRegistration();
+        }
         
         //rotates piece to xz axis
+        this.scene.pushMatrix();
         this.defaultAppearance.apply();
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.piece.display();
-
+        this.scene.popMatrix();
     }
 
     animate()

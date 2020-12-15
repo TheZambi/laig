@@ -45,7 +45,7 @@ class XMLscene extends CGFscene {
         this.tileAppearence = new CGFappearance(this);
         this.tileAppearence.loadTexture('./scenes/images/door.png');
 
-        this.gameBoard = new MyGameBoard(this);
+        this.orchestrator = new MyGameOrchestrator(this);
 
 		this.setPickEnabled(true);
 
@@ -76,8 +76,10 @@ class XMLscene extends CGFscene {
 				for (var i = 0; i < this.pickResults.length; i++) {
 					var obj = this.pickResults[i][0];
 					if (obj) {
-						var customId = this.pickResults[i][1];
-						console.log("Picked object: " + obj + ", with pick id " + customId);						
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);	
+                        this.orchestrator.parsePicking(obj);
+
 					}
 				}
 				this.pickResults.splice(0, this.pickResults.length);
@@ -421,7 +423,7 @@ class XMLscene extends CGFscene {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
-            this.gameBoard.display();
+            this.orchestrator.display();
             //this.graph.displayScene();
         }
         else {

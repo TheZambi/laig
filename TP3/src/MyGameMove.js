@@ -18,6 +18,11 @@ class MyGameMove{
         return this.piece;
     }
 
+    getColor()
+    {
+        return this.piece.color;
+    }
+
     animate()
     {
         this.piece.animate();
