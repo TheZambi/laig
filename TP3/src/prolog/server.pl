@@ -1,7 +1,7 @@
-:-use_module(library(sockets)).
-:-use_module(library(lists)).
-:-use_module(library(codesio)).
-:- include('alliances.pl')
+:- use_module(library(sockets)).
+:- use_module(library(lists)).
+:- use_module(library(codesio)).
+:- include('alliances.pl').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                        Server                                                   %%%%
@@ -107,6 +107,8 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
+parse_input(updateColorsWon([NewBoard,ColorsWon],Player,EvaluateAll), [NewColorsWon,L1,L2]) :- updateColorsWon([NewBoard,ColorsWon],NewColorsWon, Player, EvaluateAll, L1, L2).
+parse_input(choose_move(GameState,Player,BotDiff),Move) :- choose_move(GameState,Player,BotDiff,Move).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
