@@ -12,7 +12,7 @@ class MyGameOrchestrator {
         this.gameSequence = new MyGameSequence();
         this.gameboard = new MyGameBoard(scene);
         this.currentPlayer = 0;
-        this.colorsWon = [0, 0, 0];
+        this.colorsWon = [-1, -1, -1];
     }
 
     display() {

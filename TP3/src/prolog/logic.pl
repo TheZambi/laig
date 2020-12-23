@@ -159,7 +159,6 @@ updateColorsWon([Board, [OrangeWon, PurpleWon, GreenWon | _ ] | _ ],NewColorsWon
     NewColorsWon = [FinalOrangeWon,FinalPurpleWon,FinalGreenWon].
 
 updateColorsWon([Board, [OrangeWon, PurpleWon, GreenWon | _ ] | _ ],NewColorsWon, Player, 1, Length1, Length2):-
-
     checkOrange(OrangeWon,Player,Board,NewOrangeWon,Orange1Length),
     checkPurple(PurpleWon,Player,Board,NewPurpleWon,Purple1Length),
     checkGreen(GreenWon,Player,Board,NewGreenWon,Green1Length),
