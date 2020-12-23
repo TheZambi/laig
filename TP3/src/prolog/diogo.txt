@@ -1,0 +1,4 @@
+cd /usr/local/sicstus4.6.0/bin
+./sicstus
+consult('~/Desktop/FEUP/3Ano/LAIG/laig-t03-g10/TP3/src/prolog/server.pl').
+server.
