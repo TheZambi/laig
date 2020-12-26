@@ -82,7 +82,6 @@ class XMLscene extends CGFscene {
 					var obj = this.pickResults[i][0];
 					if (obj) {
                         var customId = this.pickResults[i][1];
-                        console.log(obj);
                         console.log("Picked object: " + obj + ", with pick id " + customId);	
                         this.orchestrator.parsePicking(obj);
 

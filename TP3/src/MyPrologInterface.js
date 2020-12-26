@@ -19,8 +19,17 @@ class MyPrologInterface {
     }
 
     requestColorsWon(requestString) {
-
         this.getPrologRequest(requestString, this.updateColors.bind(this.orchestrator));
+    }
+
+    requestBotMove(requestString){
+        this.getPrologRequest(requestString, this.botMove.bind(this.orchestrator));
+        console.log(requestString);
+    }
+
+
+    botMove(data){
+        this.parseBotMove(data.target.response.replace('[','').replace(']','').split(','));
     }
 
     //Handle the Reply

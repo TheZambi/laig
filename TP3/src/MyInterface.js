@@ -24,7 +24,11 @@ class MyInterface extends CGFinterface {
 
         this.initKeys();
 
+        this.gui.add(this.scene.orchestrator,'play').name("Start");
         this.gui.add(this.scene,'undo').name("Undo");
+        this.gui.add(this.scene.orchestrator, 'gameMode', this.scene.orchestrator.gameModes).name('Gamemode');
+        this.gui.add(this.scene.orchestrator, 'bot1Diff', this.scene.orchestrator.bot1Diffs).name('Bot 1 Difficulty');
+        this.gui.add(this.scene.orchestrator, 'bot2Diff', this.scene.orchestrator.bot2Diffs).name('Bot 2 Difficulty');
 
         return true;
     }

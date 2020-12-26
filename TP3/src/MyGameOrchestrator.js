@@ -12,20 +12,31 @@ class MyGameOrchestrator {
         this.gameSequence = new MyGameSequence();
         this.gameboard = new MyGameBoard(scene);
         this.currentPlayer = 0;
+        this.gameStarted = false;
         this.colorsWon = [-1, -1, -1];
+        this.moveDone = true;
+        this.bot1Diff = 1;
+        this.bot1Diffs = {"Easy":1, "Medium":2, "Hard":3};
+        this.bot2Diff = 1;
+        this.bot2Diffs = {"Easy":1, "Medium":2, "Hard":3};
+        this.gameMode = 1;
+        this.gameModes = { "Player vs Player":1, "Player vs AI":2, "AI vs Player":3, "AI vs AI":4};
     }
 
-    display() {
-        this.gameboard.display();
+    makeBotMove(){
+        this.moveDone = false;
+        var newBoard = this.createBoard();
+        var colorsWon = this.createColors();
+        var botDiff = this.getBotDiff();
+        var nPiecesLeft = this.getNPiecesLeft();
+        this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + botDiff + ")");
     }
 
-    undo()
-    {
-        if(this.gameSequence.moveSequence.length != 0){
-            this.gameSequence.undo(this.gameboard);
-            this.colorsWon = this.gameSequence.getLastColors();
-            this.selectedPiece = null;
-        }
+    parseBotMove(move){
+        var piece = this.getAvailablePiece(move[2]);
+        var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]]);
+        this.makeMove(newMove);
+        this.moveDone = true;
     }
 
     parsePicking(obj) {
@@ -41,16 +52,108 @@ class MyGameOrchestrator {
         }
         else if (obj instanceof MyTile && this.selectedPiece != null) {
             if (obj.piece == null) {
-
                 var newMove = new MyGameMove(this.selectedPiece, obj)
-                this.gameboard.movePiece(newMove);
-                this.gameSequence.addMove(newMove, this.colorsWon);
-                this.selectedPiece = null;
-                var newBoard = this.createBoard();
-                var colorsWon = this.createColors();
-                this.prologInterface.requestColorsWon("updateColorsWon([" + newBoard + "," + colorsWon + "]," + this.currentPlayer + ",0)"); //REMOVE 0 LATER AFTER AI IMPLEMENTED
-                this.currentPlayer = (this.currentPlayer + 1) % 2;
+                this.makeMove(newMove);
             }
+        }
+    }
+
+    makeMove(newMove){
+        console.log(newMove);
+        this.gameboard.movePiece(newMove);
+        this.gameSequence.addMove(newMove, this.colorsWon);
+        this.selectedPiece = null;
+        var newBoard = this.createBoard();
+        var colorsWon = this.createColors();
+        this.prologInterface.requestColorsWon("updateColorsWon([" + newBoard + "," + colorsWon + "]," + this.currentPlayer + ",0)"); //REMOVE 0 LATER AFTER AI IMPLEMENTED
+        this.currentPlayer = (this.currentPlayer + 1) % 2;
+    }
+
+    getAvailablePiece(color){
+        switch(color){
+            case "green":
+                for(let i = 0;i < this.gameboard.greenPieces.length;i++){
+                    if(this.gameboard.greenPieces[i].tile == null)
+                        return this.gameboard.greenPieces[i];
+                }
+                break;
+            case "purple":
+                for(let i = 0;i < this.gameboard.purplePieces.length;i++){
+                    if(this.gameboard.purplePieces[i].tile == null)
+                        return this.gameboard.purplePieces[i];
+                }
+                break;
+            case "orange":
+                for(let i = 0;i < this.gameboard.orangePieces.length;i++){
+                    if(this.gameboard.orangePieces[i].tile == null)
+                        return this.gameboard.orangePieces[i];
+                }
+                break;
+        }
+    }
+
+    getNPiecesLeft(){
+        var ret = "[";
+        var greenPieces = 0;
+        var orangePieces = 0;
+        var purplePieces = 0;
+        for(let i = 0; i < this.gameboard.greenPieces.length; i++){
+            if(this.gameboard.greenPieces[i].tile == null){
+                greenPieces++;
+            }
+            if(this.gameboard.orangePieces[i].tile == null){
+                orangePieces++;
+            }
+            if(this.gameboard.purplePieces[i].tile == null){
+                purplePieces++;
+            }
+        }
+        ret += orangePieces + "," + purplePieces + "," + greenPieces;
+        ret += "]";
+        return ret;
+    }
+
+    getBotDiff(){
+        var ret;
+        this.currentPlayer == 0 ? ret = this.bot1Diff : ret = this.bot2Diff;
+        return ret;
+    }
+
+    play(){
+        if(!this.gameStarted)
+            this.gameStarted = true;
+        if(this.botTurn() && this.moveDone){
+            this.makeBotMove();
+        }
+    }
+
+    botTurn(){
+        switch(this.gameMode){
+            case "1":
+                return false;
+            case "2":
+                return this.currentPlayer == 1;
+            case "3":
+                return this.currentPlayer == 0;
+            case "4":
+                return true;
+        }
+    }
+    
+    display() {
+        if(this.gameStarted){
+            this.play();
+        }
+
+        this.gameboard.display();
+    }
+
+    undo()
+    {
+        if(this.gameSequence.moveSequence.length != 0){
+            this.gameSequence.undo(this.gameboard);
+            this.colorsWon = this.gameSequence.getLastColors();
+            this.selectedPiece = null;
         }
     }
 
