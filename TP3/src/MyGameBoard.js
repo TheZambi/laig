@@ -115,37 +115,6 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
-    displayPieces() {
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/4,0,1,0);
-        for(let i = 0;i<this.greenPieces.length;i++){
-            this.row = (i%7);
-            this.column = (i%6);
-            if(!this.greenPieces[i].tile){
-                this.scene.pushMatrix();
-                this.scene.translate(-20+this.row,0,-12.5+this.column);
-                this.greenPieces[i].display();
-                this.scene.popMatrix();
-            }
-
-            if(!this.orangePieces[i].tile){
-                this.scene.pushMatrix();
-                this.scene.translate(-20+this.row,0,-2.5+this.column);
-                this.orangePieces[i].display();
-                this.scene.popMatrix();
-            }
-
-            if(!this.purplePieces[i].tile){
-                this.scene.pushMatrix();
-                this.scene.translate(-20+this.row,0,7.5+this.column);
-                this.purplePieces[i].display();
-                this.scene.popMatrix();
-            }
-        }
-
-        
-        this.scene.popMatrix();
-    }
 
     displayBoxes()
     {
@@ -197,7 +166,6 @@ class MyGameBoard extends CGFobject {
 
     display() {
         this.displayTiles();
-        // this.displayPieces();
         this.displayBoxes();
     }
 

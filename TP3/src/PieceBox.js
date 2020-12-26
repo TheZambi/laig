@@ -55,6 +55,26 @@ class PieceBox extends CGFobject {
 
         this.scene.popMatrix();
         this.scene.popMatrix();
+
+
+        this.displayPieces();
+    }
+
+    displayPieces() {
+        this.scene.pushMatrix();
+        for(let i = 0;i<this.pieces.length;i++){
+            this.row = (i%7);
+            this.column = (i%6);
+            if(!this.pieces[i].tile){
+                this.scene.pushMatrix();
+                this.scene.translate(-3 + this.row,0,-2.5 + this.column);
+                this.pieces[i].display();
+                this.scene.popMatrix();
+            }
+        }
+
+        
+        this.scene.popMatrix();
     }
 
     updateCoords() {}
