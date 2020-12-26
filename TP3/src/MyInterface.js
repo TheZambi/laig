@@ -24,6 +24,8 @@ class MyInterface extends CGFinterface {
 
         this.initKeys();
 
+        this.gui.add(this.scene,'undo').name("Undo");
+
         return true;
     }
 
@@ -47,4 +49,6 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
+
+   
 }

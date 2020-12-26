@@ -70,6 +70,11 @@ class XMLscene extends CGFscene {
         this.light8 = true;
     }
 
+    undo()
+    {
+        this.orchestrator.undo();
+    }
+
     logPicking() {
 		if (this.pickMode == false) {
 			if (this.pickResults != null && this.pickResults.length > 0) {
@@ -77,6 +82,7 @@ class XMLscene extends CGFscene {
 					var obj = this.pickResults[i][0];
 					if (obj) {
                         var customId = this.pickResults[i][1];
+                        console.log(obj);
                         console.log("Picked object: " + obj + ", with pick id " + customId);	
                         this.orchestrator.parsePicking(obj);
 

@@ -4,18 +4,25 @@
  */
 class MyGameSequence{
 	constructor() {
-        this.sequence = [];
+        this.moveSequence = [];
+        this.colorSequence = [];
 	}
 
-    addMove(move)
+    addMove(move, colors)
     {
-        this.sequence.push(move);
+        this.moveSequence.push(move);
+        this.colorSequence.push(colors);
     }
 
     undo(board)
     {
-        var lastMove = this.sequence.pop;
+        var lastMove = this.moveSequence.pop();
         board.undo(lastMove);
+    }
+
+    getLastColors()
+    {
+        return this.colorSequence.pop();
     }
 
 }

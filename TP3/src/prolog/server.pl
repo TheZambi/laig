@@ -107,7 +107,7 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
-parse_input(updateColorsWon([NewBoard,ColorsWon],Player,EvaluateAll), [NewColorsWon,L1,L2]) :- updateColorsWon([NewBoard,ColorsWon],NewColorsWon, Player, EvaluateAll, L1, L2).
+parse_input(updateColorsWon([NewBoard,ColorsWon],Player,EvaluateAll),NewColorsWon) :- updateColorsWon([NewBoard,ColorsWon],NewColorsWon, Player, EvaluateAll, _, _).
 parse_input(choose_move(GameState,Player,BotDiff),Move) :- choose_move(GameState,Player,BotDiff,Move).
 
 test(_,[],N) :- N =< 0.

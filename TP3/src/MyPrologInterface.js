@@ -2,7 +2,8 @@ class MyPrologInterface {
     /**
      * @method constructor
      */
-    constructor() {
+    constructor(orchestrator) {
+        this.orchestrator = orchestrator;
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -17,15 +18,15 @@ class MyPrologInterface {
         request.send();
     }
 
-    makeRequest(requestString) {
+    requestColorsWon(requestString) {
 
-        this.getPrologRequest(requestString, this.handleReply);
-        console.log(requestString);
+        this.getPrologRequest(requestString, this.updateColors.bind(this.orchestrator));
     }
 
     //Handle the Reply
-    handleReply(data) {
-        console.log(data.target.response);
+    updateColors(data) {
+        let returnVal = data.target.response;
+        this.colorsWon = returnVal.replace('[','').replace(']','').split(',');      
     }
 }
 

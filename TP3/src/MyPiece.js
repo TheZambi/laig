@@ -54,13 +54,7 @@ class MyPiece extends CGFobject {
 
     display()
     {
-        if(!this.tile){
-            this.scene.registerForPick(this.scene.currentPickIndex, this);
-            this.scene.currentPickIndex++;
-        }
-        else{
-            this.scene.clearPickRegistration();
-        }
+        
         
         //rotates piece to xz axis
         this.scene.pushMatrix();

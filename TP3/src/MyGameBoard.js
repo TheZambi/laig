@@ -12,6 +12,11 @@ class MyGameBoard extends CGFobject {
         this.greenPieces = [];
         this.orangePieces = [];
         this.purplePieces = [];
+
+        this.greenBox = new PieceBox(scene, "green", this.greenPieces);
+        this.orangeBox = new PieceBox(scene,"orange",this.orangePieces);
+        this.purpleBox = new PieceBox(scene,"purple",this.purplePieces);
+
         this.maxOdd = 7;
         this.maxEven = 6;
         this.initBuffers();
@@ -142,13 +147,62 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    displayBoxes()
+    {
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/4,0,1,0);
+        this.scene.pushMatrix();
+        this.scene.translate(0,0,-17);
+
+        if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null){
+            this.scene.registerForPick(this.scene.currentPickIndex, this.orangeBox);
+            this.scene.currentPickIndex++;
+        }
+        else
+        {
+            this.scene.clearPickRegistration();
+        }
+        this.orangeBox.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(10,0,-17);
+
+        if(this.greenBox.pieces[this.greenBox.pieces.length-1].tile == null){
+            this.scene.registerForPick(this.scene.currentPickIndex, this.greenBox);
+            this.scene.currentPickIndex++;
+        }
+        else
+        {
+            this.scene.clearPickRegistration();
+        }
+        this.greenBox.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-10,0,-17);
+
+        if(this.purpleBox.pieces[this.purpleBox.pieces.length-1].tile == null){
+            this.scene.registerForPick(this.scene.currentPickIndex, this.purpleBox);
+            this.scene.currentPickIndex++;
+        }
+        else
+        {
+            this.scene.clearPickRegistration();
+        }
+        this.purpleBox.display();
+        this.scene.popMatrix();
+        this.scene.popMatrix();
+    }
+
     display() {
         this.displayTiles();
-        this.displayPieces();
-
+        // this.displayPieces();
+        this.displayBoxes();
     }
 
     undo(undoMove) {
+        
         undoMove.tile.unsetPiece();
         undoMove.piece.unsetTile();
     }
