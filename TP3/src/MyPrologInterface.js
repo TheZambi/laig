@@ -35,7 +35,8 @@ class MyPrologInterface {
     //Handle the Reply
     updateColors(data) {
         let returnVal = data.target.response;
-        this.colorsWon = returnVal.replace('[','').replace(']','').split(',');      
+        this.colorsWon = returnVal.replace('[','').replace(']','').split(',');
+        this.checkFinish(); 
     }
 }
 

@@ -67,7 +67,7 @@ class PieceBox extends CGFobject {
             this.column = (i%6);
             if(!this.pieces[i].tile){
                 this.scene.pushMatrix();
-                this.scene.translate(-3 + this.row,0,-2.5 + this.column);
+                this.scene.translate(-3 + this.row,-1,-2.5 + this.column);
                 this.pieces[i].display();
                 this.scene.popMatrix();
             }

@@ -14,6 +14,7 @@ class MyGameOrchestrator {
         this.currentPlayer = 0;
         this.gameStarted = false;
         this.colorsWon = [-1, -1, -1];
+        this.winner = -1;
         this.moveDone = true;
         this.bot1Diff = 1;
         this.bot1Copy = this.bot1Diff;
@@ -25,6 +26,12 @@ class MyGameOrchestrator {
         this.gameModeCopy = this.gameMode;
         this.gameModes = { "Player vs Player":1, "Player vs AI":2, "AI vs Player":3, "AI vs AI":4};
         this.currentTime = 0;
+    }
+
+    resetBoard()
+    {
+        this.gameSequence = new MyGameSequence();
+        this.gameboard = new MyGameBoard(this.scene,this);
     }
 
     update(t){
@@ -79,6 +86,7 @@ class MyGameOrchestrator {
         var colorsWon = this.createColors();
         this.prologInterface.requestColorsWon("updateColorsWon([" + newBoard + "," + colorsWon + "]," + this.currentPlayer + ",0)"); //REMOVE 0 LATER AFTER AI IMPLEMENTED
         this.currentPlayer = (this.currentPlayer + 1) % 2;
+ 
     }
 
     getAvailablePiece(color){
@@ -131,12 +139,42 @@ class MyGameOrchestrator {
         return ret;
     }
 
+    checkFinish()
+    {
+        var playerColors = [0,0];
+        for(let i = 0; i<3; i++)
+        {
+            if(this.colorsWon[i]!=-1)
+                playerColors[this.colorsWon[i]]++;
+        }
+        if(playerColors[0]>=2)
+        {
+            this.winner=0;
+            this.gameStarted = false;
+            console.log("Player1");
+        }
+        else if(playerColors[1]>=2)
+        {
+            this.winner=1;
+            this.gameStarted = false;
+            console.log("Player2");
+        }
+    }
+
     play(){
-        if(!this.gameStarted){
+        if(!this.gameStarted && this.winner == -1){
             this.gameStarted = true;
             this.bot1Copy = this.bot1Diff;
             this.bot2Copy = this.bot2Diff;
             this.gameModeCopy = this.gameMode;
+        }
+        else if(!this.gameStarted && this.winner != -1)
+        {
+            this.gameStarted = true;
+            this.bot1Copy = this.bot1Diff;
+            this.bot2Copy = this.bot2Diff;
+            this.gameModeCopy = this.gameMode;
+            this.resetBoard();
         }
         if(this.botTurn() && this.moveDone){
             this.makeBotMove();

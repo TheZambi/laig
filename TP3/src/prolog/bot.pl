@@ -251,7 +251,7 @@ choose_move(GameState,Player,1,Move):-
     valid_moves(GameState,Player, ListOfMoves),
     length(ListOfMoves,Length),
     random(0,Length,RandomMove),
-    nth0(RandomMove,ListOfMoves,Move), sleep(1),
+    nth0(RandomMove,ListOfMoves,Move),
     [Row,Diagonal,Color] = Move,
     write('Putting piece of color '), write(Color), write(' at row '), write(Row), write(' and diagonal '), write(Diagonal), nl.
 
