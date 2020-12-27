@@ -28,10 +28,15 @@ class MyGameOrchestrator {
         this.currentTime = 0;
     }
 
-    resetBoard()
+    reset()
     {
         this.gameSequence = new MyGameSequence();
         this.gameboard = new MyGameBoard(this.scene,this);
+        this.gameStarted = false;
+        this.winner = -1;
+        this.currentPlayer = 0;
+        this.colorsWon = [-1, -1, -1];
+        this.moveDone = true;
     }
 
     update(t){
@@ -161,20 +166,22 @@ class MyGameOrchestrator {
         }
     }
 
+    startGame()
+    {
+        this.gameStarted = true;
+        this.bot1Copy = this.bot1Diff;
+        this.bot2Copy = this.bot2Diff;
+        this.gameModeCopy = this.gameMode;
+    }
+
     play(){
         if(!this.gameStarted && this.winner == -1){
-            this.gameStarted = true;
-            this.bot1Copy = this.bot1Diff;
-            this.bot2Copy = this.bot2Diff;
-            this.gameModeCopy = this.gameMode;
+            this.startGame();
         }
         else if(!this.gameStarted && this.winner != -1)
         {
-            this.gameStarted = true;
-            this.bot1Copy = this.bot1Diff;
-            this.bot2Copy = this.bot2Diff;
-            this.gameModeCopy = this.gameMode;
-            this.resetBoard();
+            this.reset();
+            this.startGame();
         }
         if(this.botTurn() && this.moveDone){
             this.makeBotMove();
@@ -204,11 +211,25 @@ class MyGameOrchestrator {
 
     undo()
     {
-        if(this.gameSequence.moveSequence.length != 0){
-            this.gameSequence.undo(this.gameboard);
-            this.colorsWon = this.gameSequence.getLastColors();
-            this.selectedPiece = null;
-        }
+        switch(this.gameModeCopy){
+            case "1":
+                if(this.gameSequence.moveSequence.length != 0){
+                    this.gameSequence.undo(this.gameboard);
+                    this.colorsWon = this.gameSequence.getLastColors();
+                    this.selectedPiece = null;
+                }
+                break;
+            case "4":
+                break;
+            default:
+                if(this.gameSequence.moveSequence.length >= 2){
+                    this.gameSequence.undo(this.gameboard);
+                    this.colorsWon = this.gameSequence.getLastColors();
+                    this.gameSequence.undo(this.gameboard);
+                    this.colorsWon = this.gameSequence.getLastColors();
+                    this.selectedPiece = null;
+                }
+            }
     }
 
     createBoard() {
