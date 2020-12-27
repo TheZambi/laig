@@ -3,10 +3,11 @@
  * @constructor
  */
 class MyPiece extends CGFobject {
-	constructor(scene, color) {
+	constructor(scene, color, translation) {
         super(scene);
         this.tile = null;
         this.color = color;
+        this.translation = translation;
         this.piece = new MyCylinder(scene,20,20,0.5,0.5,0.5);
         this.defaultAppearance = new CGFappearance(scene);
         if(color == "green"){

@@ -5,22 +5,29 @@
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
-        // this.animator = new MyAnimator(…);
+        this.animator = new MyAnimator(this);
         // this.theme = new MyScenegraph(…);
         this.prologInterface = new MyPrologInterface(this);
         this.selectedPiece = null;
         this.gameSequence = new MyGameSequence();
-        this.gameboard = new MyGameBoard(scene);
+        this.gameboard = new MyGameBoard(scene,this);
         this.currentPlayer = 0;
         this.gameStarted = false;
         this.colorsWon = [-1, -1, -1];
         this.moveDone = true;
         this.bot1Diff = 1;
+        this.bot1Copy = this.bot1Diff;
         this.bot1Diffs = {"Easy":1, "Medium":2, "Hard":3};
         this.bot2Diff = 1;
+        this.bot2Copy = this.bot2Diff;
         this.bot2Diffs = {"Easy":1, "Medium":2, "Hard":3};
         this.gameMode = 1;
+        this.gameModeCopy = this.gameMode;
         this.gameModes = { "Player vs Player":1, "Player vs AI":2, "AI vs Player":3, "AI vs AI":4};
+    }
+
+    playerTurn(){
+        return this.gameStarted && !this.botTurn();
     }
 
     makeBotMove(){
@@ -59,9 +66,9 @@ class MyGameOrchestrator {
     }
 
     makeMove(newMove){
-        console.log(newMove);
         this.gameboard.movePiece(newMove);
         this.gameSequence.addMove(newMove, this.colorsWon);
+        this.animator.addMoveToSequence(newMove);
         this.selectedPiece = null;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
@@ -115,20 +122,24 @@ class MyGameOrchestrator {
 
     getBotDiff(){
         var ret;
-        this.currentPlayer == 0 ? ret = this.bot1Diff : ret = this.bot2Diff;
+        this.currentPlayer == 0 ? ret = this.bot1Copy : ret = this.bot2Copy;
         return ret;
     }
 
     play(){
-        if(!this.gameStarted)
+        if(!this.gameStarted){
             this.gameStarted = true;
+            this.bot1Copy = this.bot1Diff;
+            this.bot2Copy = this.bot2Diff;
+            this.gameModeCopy = this.gameMode;
+        }
         if(this.botTurn() && this.moveDone){
             this.makeBotMove();
         }
     }
 
     botTurn(){
-        switch(this.gameMode){
+        switch(this.gameModeCopy){
             case "1":
                 return false;
             case "2":
@@ -144,7 +155,7 @@ class MyGameOrchestrator {
         if(this.gameStarted){
             this.play();
         }
-
+        this.animator.display();
         this.gameboard.display();
     }
 

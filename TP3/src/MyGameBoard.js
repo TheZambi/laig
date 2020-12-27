@@ -3,8 +3,9 @@
  * @constructor
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene) {
+    constructor(scene,orchestrator) {
         super(scene);
+        this.orchestrator = orchestrator;
         this.counter = true;
         this.board = [];
         this.boardLength = [2, 3, 4, 5, 6, 5, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 5, 6, 5, 4, 3, 2];
@@ -25,16 +26,29 @@ class MyGameBoard extends CGFobject {
     initBoard() {
         for (let i = 0; i < this.boardLength.length; i++) {
             let aux = this.startDiagonal[i];
-            for (let j = 0; j < this.boardLength[i]; j++)
-                this.board[[i, aux + j]] = new MyTile(this.scene,i, aux + j, this);
+
+            
+
+            for (let j = 0; j < this.boardLength[i]; j++){
+                if (i % 2 == 0) {
+                    var format = 1.5 + (this.maxEven - this.boardLength[i]) * 1.5;
+                }
+                else {
+                    var format = (this.maxOdd - this.boardLength[i]) * 1.5;
+                }
+                var offSet = (aux+j - this.startDiagonal[i]) * 3;
+                var translation = [offSet + format, -0.5+(i*0.865),0];
+
+                this.board[[i, aux + j]] = new MyTile(this.scene,i, aux + j, this, this.orchestrator, translation);
+            }
         }
     }
 
     initPieces() {
         for (let i = 0; i < 42; i++) {
-            this.greenPieces.push(new MyPiece(this.scene, "green"));
-            this.purplePieces.push(new MyPiece(this.scene, "purple"));
-            this.orangePieces.push(new MyPiece(this.scene, "orange"));
+            this.greenPieces.push(new MyPiece(this.scene, "green",[10,1,-17]));
+            this.purplePieces.push(new MyPiece(this.scene, "purple",[-10,1,-17]));
+            this.orangePieces.push(new MyPiece(this.scene, "orange",[0,1,-17]));
         }
     }
 
@@ -81,11 +95,8 @@ class MyGameBoard extends CGFobject {
     displayTiles() {
         this.scene.pushMatrix();
 
-        //rotates whole board 
-        this.scene.rotate(-Math.PI * 2.25 / 3, 0, 1, 0);
 
         //centers the board
-        this.scene.rotate(Math.PI, 0, 0, 1);
         this.scene.translate(-9, 0, 9.5);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
 
@@ -105,7 +116,6 @@ class MyGameBoard extends CGFobject {
             this.scene.pushMatrix();
 
             this.scene.translate(offSet + format, (row) * 0.865, 0);
-            this.scene.rotate(Math.PI / 2, 0, 0, 1);
 
             this.board[key].display();
             this.scene.popMatrix();
@@ -119,11 +129,11 @@ class MyGameBoard extends CGFobject {
     displayBoxes()
     {
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/4,0,1,0);
+        // this.scene.rotate(Math.PI/4,0,1,0);
         this.scene.pushMatrix();
         this.scene.translate(0,0,-17);
 
-        if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null){
+        if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
             this.scene.registerForPick(this.scene.currentPickIndex, this.orangeBox);
             this.scene.currentPickIndex++;
         }
@@ -137,7 +147,7 @@ class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(10,0,-17);
 
-        if(this.greenBox.pieces[this.greenBox.pieces.length-1].tile == null){
+        if(this.greenBox.pieces[this.greenBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
             this.scene.registerForPick(this.scene.currentPickIndex, this.greenBox);
             this.scene.currentPickIndex++;
         }
@@ -151,7 +161,7 @@ class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-10,0,-17);
 
-        if(this.purpleBox.pieces[this.purpleBox.pieces.length-1].tile == null){
+        if(this.purpleBox.pieces[this.purpleBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
             this.scene.registerForPick(this.scene.currentPickIndex, this.purpleBox);
             this.scene.currentPickIndex++;
         }

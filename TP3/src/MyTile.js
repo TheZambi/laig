@@ -3,9 +3,11 @@
  * @constructor
  */
 class MyTile extends CGFobject {
-	constructor(scene, row, diag, board) {
+	constructor(scene, row, diag, board, orchestrator, translation) {
         super(scene);
+        this.orchestrator = orchestrator;
         this.piece = null;
+        this.translation = translation;
         this.board = board;
         this.color = null;
         this.tile = new MyCylinder(scene,6,1,1,1,0.5);
@@ -51,7 +53,7 @@ class MyTile extends CGFobject {
     display()
     {
 
-        if(!this.piece){
+        if(!this.piece && this.orchestrator.playerTurn()){
             this.scene.registerForPick(this.scene.currentPickIndex, this);
             this.scene.currentPickIndex++;
         }
@@ -60,16 +62,17 @@ class MyTile extends CGFobject {
         }
         
         this.defaultAppearance.apply();
-        //Remove display and add clickable
+
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
         this.tile.display();
 
-        if(this.piece){
-            this.scene.pushMatrix();
-            this.scene.rotate(Math.PI/2,1,0,0);
-            this.scene.translate(0,-0.5,0);
-            this.piece.display();
-            this.scene.popMatrix();
-        }
+        // if(this.piece){
+        //     this.scene.pushMatrix();
+        //     this.scene.rotate(Math.PI/2,1,0,0);
+        //     this.scene.translate(0,-0.5,0);
+        //     this.piece.display();
+        //     this.scene.popMatrix();
+        // }
        
     }
 
