@@ -24,6 +24,12 @@ class MyGameOrchestrator {
         this.gameMode = 1;
         this.gameModeCopy = this.gameMode;
         this.gameModes = { "Player vs Player":1, "Player vs AI":2, "AI vs Player":3, "AI vs AI":4};
+        this.currentTime = 0;
+    }
+
+    update(t){
+        this.currentTime = t;
+        this.animator.update(t);
     }
 
     playerTurn(){
@@ -41,7 +47,7 @@ class MyGameOrchestrator {
 
     parseBotMove(move){
         var piece = this.getAvailablePiece(move[2]);
-        var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]]);
+        var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]],this.currentTime);
         this.makeMove(newMove);
         this.moveDone = true;
     }
@@ -59,7 +65,7 @@ class MyGameOrchestrator {
         }
         else if (obj instanceof MyTile && this.selectedPiece != null) {
             if (obj.piece == null) {
-                var newMove = new MyGameMove(this.selectedPiece, obj)
+                var newMove = new MyGameMove(this.selectedPiece, obj, this.currentTime);
                 this.makeMove(newMove);
             }
         }
@@ -68,7 +74,6 @@ class MyGameOrchestrator {
     makeMove(newMove){
         this.gameboard.movePiece(newMove);
         this.gameSequence.addMove(newMove, this.colorsWon);
-        this.animator.addMoveToSequence(newMove);
         this.selectedPiece = null;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();

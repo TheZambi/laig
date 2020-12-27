@@ -391,6 +391,7 @@ class XMLscene extends CGFscene {
         {
             this.spriteAnims[i].update(t);
         }
+        this.orchestrator.update(t);
     }
 
     /**

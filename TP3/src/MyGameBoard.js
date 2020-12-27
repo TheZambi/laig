@@ -37,7 +37,11 @@ class MyGameBoard extends CGFobject {
                     var format = (this.maxOdd - this.boardLength[i]) * 1.5;
                 }
                 var offSet = (aux+j - this.startDiagonal[i]) * 3;
-                var translation = [offSet + format, -0.5+(i*0.865),0];
+
+                // Takes into account board translation aswell with -9 x and 9.5 z
+                // Axis rotated to facilitate animation
+                var translation = [-9 + offSet + format, 0.5, 9.5-(i*0.865)];
+
 
                 this.board[[i, aux + j]] = new MyTile(this.scene,i, aux + j, this, this.orchestrator, translation);
             }
