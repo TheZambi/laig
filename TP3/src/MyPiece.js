@@ -47,7 +47,7 @@ class MyPiece extends CGFobject {
         this.tile = tile;
     }
 
-    unsetTile(tile)
+    unsetTile()
     {
         this.tile = null;
     }

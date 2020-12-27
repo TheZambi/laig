@@ -10,7 +10,7 @@ class MyGameOrchestrator {
         this.prologInterface = new MyPrologInterface(this);
         this.selectedPiece = null;
         this.gameSequence = new MyGameSequence();
-        this.gameboard = new MyGameBoard(scene,this);
+        this.gameboard = new MyGameBoard(scene, this);
         this.currentPlayer = 0;
         this.gameStarted = false;
         this.colorsWon = [-1, -1, -1];
@@ -18,37 +18,69 @@ class MyGameOrchestrator {
         this.moveDone = true;
         this.bot1Diff = 1;
         this.bot1Copy = this.bot1Diff;
-        this.bot1Diffs = {"Easy":1, "Medium":2, "Hard":3};
+        this.bot1Diffs = {
+            "Easy": 1,
+            "Medium": 2,
+            "Hard": 3
+        };
         this.bot2Diff = 1;
         this.bot2Copy = this.bot2Diff;
-        this.bot2Diffs = {"Easy":1, "Medium":2, "Hard":3};
+        this.bot2Diffs = {
+            "Easy": 1,
+            "Medium": 2,
+            "Hard": 3
+        };
         this.gameMode = 1;
         this.gameModeCopy = this.gameMode;
-        this.gameModes = { "Player vs Player":1, "Player vs AI":2, "AI vs Player":3, "AI vs AI":4};
+        this.gameModes = {
+            "Player vs Player": 1,
+            "Player vs AI": 2,
+            "AI vs Player": 3,
+            "AI vs AI": 4
+        };
         this.currentTime = 0;
+        this.replayMode = false;
     }
 
-    reset()
-    {
-        this.gameSequence = new MyGameSequence();
-        this.gameboard = new MyGameBoard(this.scene,this);
-        this.gameStarted = false;
-        this.winner = -1;
+    replay() {
+        if (this.winner != -1)
+            this.animator.replay();
+    }
+
+    endReplay() {
+        if (this.replayMode)
+            this.animator.endReplay();
+    }
+
+    prepareForMovie() {
+        this.gameboard.prepareForMovie();
         this.currentPlayer = 0;
-        this.colorsWon = [-1, -1, -1];
         this.moveDone = true;
+        this.replayMode = true;
     }
 
-    update(t){
+    reset() {
+        if (!this.replayMode) {
+            this.gameSequence = new MyGameSequence();
+            this.gameboard = new MyGameBoard(this.scene, this);
+            this.gameStarted = false;
+            this.winner = -1;
+            this.currentPlayer = 0;
+            this.colorsWon = [-1, -1, -1];
+            this.moveDone = true;
+        }
+    }
+
+    update(t) {
         this.currentTime = t;
         this.animator.update(t);
     }
 
-    playerTurn(){
+    playerTurn() {
         return this.gameStarted && !this.botTurn();
     }
 
-    makeBotMove(){
+    makeBotMove() {
         this.moveDone = false;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
@@ -57,25 +89,22 @@ class MyGameOrchestrator {
         this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + botDiff + ")");
     }
 
-    parseBotMove(move){
+    parseBotMove(move) {
         var piece = this.getAvailablePiece(move[2]);
-        var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]],this.currentTime);
+        var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]], this.currentTime);
         this.makeMove(newMove);
         this.moveDone = true;
     }
 
     parsePicking(obj) {
         if (obj instanceof PieceBox) {
-            for(var i = 0; i < obj.pieces.length; i++)
-            {
-                if(obj.pieces[i].tile == null)
-                    {
-                        this.selectedPiece = obj.pieces[i];
-                        break;
-                    }
-            } 
-        }
-        else if (obj instanceof MyTile && this.selectedPiece != null) {
+            for (var i = 0; i < obj.pieces.length; i++) {
+                if (obj.pieces[i].tile == null) {
+                    this.selectedPiece = obj.pieces[i];
+                    break;
+                }
+            }
+        } else if (obj instanceof MyTile && this.selectedPiece != null) {
             if (obj.piece == null) {
                 var newMove = new MyGameMove(this.selectedPiece, obj, this.currentTime);
                 this.makeMove(newMove);
@@ -83,53 +112,54 @@ class MyGameOrchestrator {
         }
     }
 
-    makeMove(newMove){
+    makeMove(newMove) {
         this.gameboard.movePiece(newMove);
         this.gameSequence.addMove(newMove, this.colorsWon);
         this.selectedPiece = null;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
-        this.prologInterface.requestColorsWon("updateColorsWon([" + newBoard + "," + colorsWon + "]," + this.currentPlayer + ",0)"); //REMOVE 0 LATER AFTER AI IMPLEMENTED
+        if(!this.replayMode)
+            this.prologInterface.requestColorsWon("updateColorsWon([" + newBoard + "," + colorsWon + "]," + this.currentPlayer + ",0)"); //REMOVE 0 LATER AFTER AI IMPLEMENTED
         this.currentPlayer = (this.currentPlayer + 1) % 2;
- 
+
     }
 
-    getAvailablePiece(color){
-        switch(color){
+    getAvailablePiece(color) {
+        switch (color) {
             case "green":
-                for(let i = 0;i < this.gameboard.greenPieces.length;i++){
-                    if(this.gameboard.greenPieces[i].tile == null)
+                for (let i = 0; i < this.gameboard.greenPieces.length; i++) {
+                    if (this.gameboard.greenPieces[i].tile == null)
                         return this.gameboard.greenPieces[i];
                 }
                 break;
             case "purple":
-                for(let i = 0;i < this.gameboard.purplePieces.length;i++){
-                    if(this.gameboard.purplePieces[i].tile == null)
+                for (let i = 0; i < this.gameboard.purplePieces.length; i++) {
+                    if (this.gameboard.purplePieces[i].tile == null)
                         return this.gameboard.purplePieces[i];
                 }
                 break;
             case "orange":
-                for(let i = 0;i < this.gameboard.orangePieces.length;i++){
-                    if(this.gameboard.orangePieces[i].tile == null)
+                for (let i = 0; i < this.gameboard.orangePieces.length; i++) {
+                    if (this.gameboard.orangePieces[i].tile == null)
                         return this.gameboard.orangePieces[i];
                 }
                 break;
         }
     }
 
-    getNPiecesLeft(){
+    getNPiecesLeft() {
         var ret = "[";
         var greenPieces = 0;
         var orangePieces = 0;
         var purplePieces = 0;
-        for(let i = 0; i < this.gameboard.greenPieces.length; i++){
-            if(this.gameboard.greenPieces[i].tile == null){
+        for (let i = 0; i < this.gameboard.greenPieces.length; i++) {
+            if (this.gameboard.greenPieces[i].tile == null) {
                 greenPieces++;
             }
-            if(this.gameboard.orangePieces[i].tile == null){
+            if (this.gameboard.orangePieces[i].tile == null) {
                 orangePieces++;
             }
-            if(this.gameboard.purplePieces[i].tile == null){
+            if (this.gameboard.purplePieces[i].tile == null) {
                 purplePieces++;
             }
         }
@@ -138,58 +168,50 @@ class MyGameOrchestrator {
         return ret;
     }
 
-    getBotDiff(){
+    getBotDiff() {
         var ret;
         this.currentPlayer == 0 ? ret = this.bot1Copy : ret = this.bot2Copy;
         return ret;
     }
 
-    checkFinish()
-    {
-        var playerColors = [0,0];
-        for(let i = 0; i<3; i++)
-        {
-            if(this.colorsWon[i]!=-1)
+    checkFinish() {
+        var playerColors = [0, 0];
+        for (let i = 0; i < 3; i++) {
+            if (this.colorsWon[i] != -1)
                 playerColors[this.colorsWon[i]]++;
         }
-        if(playerColors[0]>=2)
-        {
-            this.winner=0;
+        if (playerColors[0] >= 2) {
+            this.winner = 0;
             this.gameStarted = false;
             console.log("Player1");
-        }
-        else if(playerColors[1]>=2)
-        {
-            this.winner=1;
+        } else if (playerColors[1] >= 2) {
+            this.winner = 1;
             this.gameStarted = false;
             console.log("Player2");
         }
     }
 
-    startGame()
-    {
+    startGame() {
         this.gameStarted = true;
         this.bot1Copy = this.bot1Diff;
         this.bot2Copy = this.bot2Diff;
         this.gameModeCopy = this.gameMode;
     }
 
-    play(){
-        if(!this.gameStarted && this.winner == -1){
+    play() {
+        if (!this.gameStarted && this.winner == -1) {
             this.startGame();
-        }
-        else if(!this.gameStarted && this.winner != -1)
-        {
+        } else if (!this.gameStarted && this.winner != -1) {
             this.reset();
             this.startGame();
         }
-        if(this.botTurn() && this.moveDone){
+        if (this.botTurn() && this.moveDone) {
             this.makeBotMove();
         }
     }
 
-    botTurn(){
-        switch(this.gameModeCopy){
+    botTurn() {
+        switch (this.gameModeCopy) {
             case "1":
                 return false;
             case "2":
@@ -200,36 +222,37 @@ class MyGameOrchestrator {
                 return true;
         }
     }
-    
+
     display() {
-        if(this.gameStarted){
+        if (this.gameStarted && !this.replayMode) {
             this.play();
         }
         this.animator.display();
         this.gameboard.display();
     }
 
-    undo()
-    {
-        switch(this.gameModeCopy){
-            case "1":
-                if(this.gameSequence.moveSequence.length != 0){
-                    this.gameSequence.undo(this.gameboard);
-                    this.colorsWon = this.gameSequence.getLastColors();
-                    this.selectedPiece = null;
-                }
-                break;
-            case "4":
-                break;
-            default:
-                if(this.gameSequence.moveSequence.length >= 2){
-                    this.gameSequence.undo(this.gameboard);
-                    this.colorsWon = this.gameSequence.getLastColors();
-                    this.gameSequence.undo(this.gameboard);
-                    this.colorsWon = this.gameSequence.getLastColors();
-                    this.selectedPiece = null;
-                }
+    undo() {
+        if (!this.replayMode) {
+            switch (this.gameModeCopy) {
+                case "1":
+                    if (this.gameSequence.moveSequence.length != 0) {
+                        this.gameSequence.undo(this.gameboard);
+                        this.colorsWon = this.gameSequence.getLastColors();
+                        this.selectedPiece = null;
+                    }
+                    break;
+                case "4":
+                    break;
+                default:
+                    if (this.gameSequence.moveSequence.length >= 2) {
+                        this.gameSequence.undo(this.gameboard);
+                        this.colorsWon = this.gameSequence.getLastColors();
+                        this.gameSequence.undo(this.gameboard);
+                        this.colorsWon = this.gameSequence.getLastColors();
+                        this.selectedPiece = null;
+                    }
             }
+        }
     }
 
     createBoard() {
@@ -247,15 +270,13 @@ class MyGameOrchestrator {
                 else
                     ret += "empty";
                 nPieces++;
-                if (nPieces == this.gameboard.boardLength[currentRow] && currentRow < this.gameboard.boardLength.length-1) {
+                if (nPieces == this.gameboard.boardLength[currentRow] && currentRow < this.gameboard.boardLength.length - 1) {
                     ret += "],";
                     currentRow++;
                     nPieces = 0;
-                }
-                else if(nPieces == this.gameboard.boardLength[currentRow] && currentRow == this.gameboard.boardLength.length-1) {
+                } else if (nPieces == this.gameboard.boardLength[currentRow] && currentRow == this.gameboard.boardLength.length - 1) {
                     ret += "]";
-                }
-                else
+                } else
                     ret += ",";
             }
         }
@@ -271,4 +292,3 @@ class MyGameOrchestrator {
     }
 
 }
-

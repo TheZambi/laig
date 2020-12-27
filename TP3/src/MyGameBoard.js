@@ -23,6 +23,16 @@ class MyGameBoard extends CGFobject {
         this.initBuffers();
     }
 
+    prepareForMovie()
+    {
+        for (var key in this.board) {
+            if(this.board[key].piece != null){
+                this.board[key].piece.unsetTile();
+                this.board[key].unsetPiece();
+            }
+        }
+    }
+
     initBoard() {
         for (let i = 0; i < this.boardLength.length; i++) {
             let aux = this.startDiagonal[i];
@@ -137,7 +147,7 @@ class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0,0,-17);
 
-        if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
+        if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null && this.orchestrator.playerTurn() && !this.orchestrator.replayMode){
             this.scene.registerForPick(this.scene.currentPickIndex, this.orangeBox);
             this.scene.currentPickIndex++;
         }
@@ -151,7 +161,7 @@ class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(10,0,-17);
 
-        if(this.greenBox.pieces[this.greenBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
+        if(this.greenBox.pieces[this.greenBox.pieces.length-1].tile == null && this.orchestrator.playerTurn() && !this.orchestrator.replayMode){
             this.scene.registerForPick(this.scene.currentPickIndex, this.greenBox);
             this.scene.currentPickIndex++;
         }
@@ -165,7 +175,7 @@ class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-10,0,-17);
 
-        if(this.purpleBox.pieces[this.purpleBox.pieces.length-1].tile == null && this.orchestrator.playerTurn()){
+        if(this.purpleBox.pieces[this.purpleBox.pieces.length-1].tile == null && this.orchestrator.playerTurn() && !this.orchestrator.replayMode){
             this.scene.registerForPick(this.scene.currentPickIndex, this.purpleBox);
             this.scene.currentPickIndex++;
         }
@@ -184,7 +194,6 @@ class MyGameBoard extends CGFobject {
     }
 
     undo(undoMove) {
-        
         undoMove.tile.unsetPiece();
         undoMove.piece.unsetTile();
     }

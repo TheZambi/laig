@@ -27,6 +27,8 @@ class MyInterface extends CGFinterface {
         let gameFolder = this.gui.addFolder("Game Controls");
         gameFolder.add(this.scene.orchestrator,'play').name("Start");
         gameFolder.add(this.scene.orchestrator,'reset').name("Reset Game");
+        gameFolder.add(this.scene.orchestrator,'replay').name("Play Game Movie");
+        gameFolder.add(this.scene.orchestrator,'endReplay').name("Stop Game Movie");
         gameFolder.add(this.scene,'undo').name("Undo");
         gameFolder.add(this.scene.orchestrator, 'gameMode', this.scene.orchestrator.gameModes).name('Gamemode');
         gameFolder.add(this.scene.orchestrator, 'bot1Diff', this.scene.orchestrator.bot1Diffs).name('Bot 1 Difficulty');
