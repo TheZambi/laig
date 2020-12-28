@@ -168,29 +168,32 @@ class XMLscene extends CGFscene {
         var near = this.firstCamera.near * (1 - timePassed) + this.nextCamera.near * (timePassed);
         var position = [];
         var target = [];
+        var upAux = [];
         for (let i = 0; i < this.firstCamera.position.length - 1; i++) {
             var positionToPush = this.firstCamera.position[i] * (1 - timePassed) + this.nextCamera.position[i] * (timePassed);
             var targetToPush = this.firstCamera.target[i] * (1 - timePassed) + this.nextCamera.target[i] * (timePassed);
+            var upToPush = this.firstCamera._up[i] * (1 - timePassed) + this.nextCamera._up[i] * (timePassed);
             position.push(positionToPush);
             target.push(targetToPush);
+            upAux.push(upToPush);
         }
 
+        var up = vec4.create();
         
+        vec4.normalize(up, vec4.fromValues(upAux[0],upAux[1],upAux[2],0));
         
         //RESET CAMERAS WHEN FINISHED
         if (timePassed == 1) {
-            this.defaultCamera = new CGFcamera(fov,near,far,position,target);
             this.camera = this.defaultCamera;
             this.firstCamera = this.nextCamera;
             this.nextCamera = null;
         }
-        else{
-            this.camera.far = far;
-            this.camera.fov = fov;
-            this.camera.near = near;
-            this.camera.setPosition(position);
-            this.camera.setTarget(target);
-        }
+        this.camera.far = far;
+        this.camera.fov = fov;
+        this.camera.near = near;
+        this.camera._up=up;
+        this.camera.setPosition(position);
+        this.camera.setTarget(target);
         
         this.interface.setActiveCamera(this.camera);
     }
