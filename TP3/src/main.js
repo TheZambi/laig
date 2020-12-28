@@ -17,7 +17,7 @@ serialInclude(['../lib/CGF.js', './src/XMLscene.js', './src/MySceneGraph.js', '.
  './src/MySpriteSheet.js','./src/MySpriteText.js','./src/MySpriteAnimation.js',
  './src/Plane.js', './src/Patch.js','./src/Barrel.js','./src/MyGameBoard.js','./src/MyGameMove.js',
  './src/MyGameSequence.js','./src/MyPiece.js','./src/MyTile.js','./src/MyGameOrchestrator.js',
- './src/MyPrologInterface.js','./src/PieceBox.js', './src/MyAnimator.js',
+ './src/MyPrologInterface.js','./src/PieceBox.js', './src/MyAnimator.js','./src/MyColorIndicator.js','./src/MyOpenBox.js',
 
 
 main=function()

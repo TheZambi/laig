@@ -18,6 +18,10 @@ class MyGameBoard extends CGFobject {
         this.orangeBox = new PieceBox(scene,"orange",this.orangePieces);
         this.purpleBox = new PieceBox(scene,"purple",this.purplePieces);
 
+        this.orangeIndicator = new MyColorIndicator(scene, "orange");
+        this.greenIndicator = new MyColorIndicator(scene, "green");
+        this.purpleIndicator = new MyColorIndicator(scene, "purple");
+
         this.maxOdd = 7;
         this.maxEven = 6;
         this.initBuffers();
@@ -188,8 +192,52 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    displayIndicators()
+    {
+        this.scene.pushMatrix();
+        this.scene.scale(6.5,1,4.2);
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.8,0,-1.95);
+        this.orangeIndicator.display();
+
+        this.scene.translate(0,0,3.9);
+        this.purpleIndicator.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI,0,1,0);
+        this.scene.translate(0.8,0,-1.95);
+        this.orangeIndicator.display();
+
+        this.scene.translate(0,0,3.9);
+        this.purpleIndicator.display();
+
+        this.scene.popMatrix();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+
+        this.scene.translate(9.54,0,0);        
+        this.scene.rotate(Math.PI/4,0,1,0);
+        this.scene.scale(6,1,6);
+        this.greenIndicator.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-9.54,0,0);        
+        this.scene.rotate(Math.PI/4,0,1,0);
+        this.scene.scale(6,1,6);
+        this.greenIndicator.display();
+
+        this.scene.popMatrix();
+
+
+    }
+
     display() {
         this.displayTiles();
+        this.displayIndicators();
         this.displayBoxes();
     }
 
