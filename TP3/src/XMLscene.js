@@ -21,7 +21,8 @@ class XMLscene extends CGFscene {
 
         this.torus = new MyTorus(this, 20, 25, 2, 5)
 
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+        this.defaultCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+        this.camera = this.defaultCamera;
 
         this.sceneInited = false;
 
@@ -47,7 +48,7 @@ class XMLscene extends CGFscene {
 
         this.orchestrator = new MyGameOrchestrator(this);
 
-		this.setPickEnabled(true);
+        this.setPickEnabled(true);
 
         this.cameraList = [];
         this.cameraNames = [];
@@ -59,6 +60,10 @@ class XMLscene extends CGFscene {
         this.spriteAnims = [];
         this.selectedCamera = -1;
         this.lastCamera = -1;
+        this.animateCamera = false;
+        this.animationCameraTimeStart = 0;
+        this.firstCamera = null;
+        this.nextCamera = null;
         this.currentPickIndex = 1;
         this.light1 = true;
         this.light2 = true;
@@ -70,27 +75,26 @@ class XMLscene extends CGFscene {
         this.light8 = true;
     }
 
-    undo()
-    {
+    undo() {
         this.orchestrator.undo();
     }
 
     logPicking() {
-		if (this.pickMode == false) {
-			if (this.pickResults != null && this.pickResults.length > 0) {
-				for (var i = 0; i < this.pickResults.length; i++) {
-					var obj = this.pickResults[i][0];
-					if (obj) {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
                         var customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);	
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
                         this.orchestrator.parsePicking(obj);
 
-					}
-				}
-				this.pickResults.splice(0, this.pickResults.length);
-			}
-		}
-	}
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
+        }
+    }
 
     /**
      * Initializes the scene cameras.
@@ -111,7 +115,17 @@ class XMLscene extends CGFscene {
                     this.cameraNames.push(key);
                 }
                 if (key == this.graph.defaultCam) {
-                    this.camera = this.cameraList[this.cameraList.length - 1];
+                    var far = this.cameraList[this.cameraList.length - 1].far;
+                    var fov = this.cameraList[this.cameraList.length - 1].fov;
+                    var near = this.cameraList[this.cameraList.length - 1].near;
+                    var position = this.cameraList[this.cameraList.length - 1].position;
+                    var target = this.cameraList[this.cameraList.length - 1].target;
+                    this.camera.far = far;
+                    this.camera.fov = fov;
+                    this.camera.near = near;
+                    this.camera.setPosition(position);
+                    this.camera.setTarget(target);
+                    this.firstCamera = this.cameraList[this.cameraList.length - 1];
                     this.selectedCamera = key;
                     this.interface.setActiveCamera(this.camera);
                     this.lastCamera = this.cameraList.length - 1;
@@ -130,19 +144,56 @@ class XMLscene extends CGFscene {
      */
     updateCamera() {
         if (this.selectedCamera != -1 && this.selectedCamera != this.lastCamera) {
-            var index = -1;
+            this.firstCamera = this.camera;
             for (let i = 0; i < this.cameraNames.length; i++) {
                 if (this.selectedCamera == this.cameraNames[i]) {
-                    index = i;
+                    this.nextCamera = this.cameraList[i];
+                    this.animateCamera = true;
+                    this.animationCameraTimeStart = this.orchestrator.currentTime;
                     break;
                 }
             }
-            this.camera = this.cameraList[index];
-            this.interface.setActiveCamera(this.camera);
             this.lastCamera = this.selectedCamera;
         }
     }
 
+    interpolateCams(t) {
+        var timePassed = (t - this.animationCameraTimeStart) / 1000;
+        if (timePassed >= 1) {
+            this.animateCamera = false;
+            timePassed = 1;
+        }
+        var far = this.firstCamera.far * (1 - timePassed) + this.nextCamera.far * (timePassed);
+        var fov = this.firstCamera.fov * (1 - timePassed) + this.nextCamera.fov * (timePassed);
+        var near = this.firstCamera.near * (1 - timePassed) + this.nextCamera.near * (timePassed);
+        var position = [];
+        var target = [];
+        for (let i = 0; i < this.firstCamera.position.length - 1; i++) {
+            var positionToPush = this.firstCamera.position[i] * (1 - timePassed) + this.nextCamera.position[i] * (timePassed);
+            var targetToPush = this.firstCamera.target[i] * (1 - timePassed) + this.nextCamera.target[i] * (timePassed);
+            position.push(positionToPush);
+            target.push(targetToPush);
+        }
+
+        
+        
+        //RESET CAMERAS WHEN FINISHED
+        if (timePassed == 1) {
+            this.defaultCamera = new CGFcamera(fov,near,far,position,target);
+            this.camera = this.defaultCamera;
+            this.firstCamera = this.nextCamera;
+            this.nextCamera = null;
+        }
+        else{
+            this.camera.far = far;
+            this.camera.fov = fov;
+            this.camera.near = near;
+            this.camera.setPosition(position);
+            this.camera.setTarget(target);
+        }
+        
+        this.interface.setActiveCamera(this.camera);
+    }
     /**
      * Intiializes all nodes and fills their respective descendants node
      */
@@ -169,7 +220,7 @@ class XMLscene extends CGFscene {
         }
 
         for (let i = 0; i < this.nodesList.length; i++) {
-            for(let j = 0; j < this.nodesList[i].animSprites.length; j++) {
+            for (let j = 0; j < this.nodesList[i].animSprites.length; j++) {
                 this.nodesList[i].animSprites[j].spriteSheet = this.spriteSheetList[this.nodesList[i].animSprites[j].spriteSheetID];
             }
         }
@@ -181,8 +232,8 @@ class XMLscene extends CGFscene {
      * Initializes the animated sprites
      */
     initSpriteAnims() {
-        for(let i = 0; i < this.nodesList.length; i++)
-            for(let j = 0; j < this.nodesList[i].animSprites.length; j++) {
+        for (let i = 0; i < this.nodesList.length; i++)
+            for (let j = 0; j < this.nodesList[i].animSprites.length; j++) {
                 this.spriteAnims.push(this.nodesList[i].animSprites[j]);
                 this.nodesList[i].animSprites[j].updateNSteps();
             }
@@ -334,11 +385,11 @@ class XMLscene extends CGFscene {
         for (var key in this.graph.spriteSheets) {
             if (this.graph.spriteSheets.hasOwnProperty(key)) {
                 var auxSpriteSheet = this.graph.spriteSheets[key];
-                var spriteSheetsToPush = new MySpriteSheet(this,...auxSpriteSheet);
+                var spriteSheetsToPush = new MySpriteSheet(this, ...auxSpriteSheet);
                 this.spriteSheetList[key] = spriteSheetsToPush;
             }
         }
-        
+
     }
     /**
      * Fills texture field of node
@@ -359,11 +410,11 @@ class XMLscene extends CGFscene {
 
         this.setGlobalAmbientLight(...this.graph.ambient);
 
-        this.textSheet = new MySpriteSheet(this,new CGFtexture(this,'./src/textSheet.png'),16,16);
+        this.textSheet = new MySpriteSheet(this, new CGFtexture(this, './src/textSheet.png'), 16, 16);
 
         this.initLights();
         this.initCameras();
-        this.initSpriteSheets(); 
+        this.initSpriteSheets();
         this.initNodes();
         this.initMaterials();
         this.initTextures();
@@ -385,11 +436,13 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
+        if (this.animateCamera) {
+            this.interpolateCams(t);
+        }
         for (var key in this.animationsList) {
             this.animationsList[key].update(t);
         }
-        for(let i=0; i< this.spriteAnims.length;i++)
-        {
+        for (let i = 0; i < this.spriteAnims.length; i++) {
             this.spriteAnims[i].update(t);
         }
         this.orchestrator.update(t);
@@ -403,7 +456,7 @@ class XMLscene extends CGFscene {
 
         // Clear image and depth buffer everytime we update the scene
 
-		this.logPicking();
+        this.logPicking();
         this.clearPickRegistration();
         this.currentPickIndex = 1;
 
@@ -442,7 +495,7 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-        
+
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
