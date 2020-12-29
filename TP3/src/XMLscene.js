@@ -135,8 +135,8 @@ class XMLscene extends CGFscene {
             }
         }
 
-        var cameraFolder = this.interface.gui.addFolder("Cameras");
-        var controller = cameraFolder.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera');
+        this.interface.cameraFolder = this.interface.gui.addFolder("Cameras");
+        var controller = this.interface.cameraFolder.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera');
         controller.onChange(this.updateCamera.bind(this));
         return;
     }
@@ -203,6 +203,7 @@ class XMLscene extends CGFscene {
      * Intiializes all nodes and fills their respective descendants node
      */
     initNodes() {
+        this.nodesList = [];
         for (var key in this.graph.nodes) {
             if (this.graph.nodes.hasOwnProperty(key)) {
                 var auxNode = this.graph.nodes[key];
@@ -237,6 +238,7 @@ class XMLscene extends CGFscene {
      * Initializes the animated sprites
      */
     initSpriteAnims() {
+        this.spriteAnims = [];
         for (let i = 0; i < this.nodesList.length; i++)
             for (let j = 0; j < this.nodesList[i].animSprites.length; j++) {
                 this.spriteAnims.push(this.nodesList[i].animSprites[j]);
@@ -299,9 +301,9 @@ class XMLscene extends CGFscene {
 
         this.nLights = i;
         //Adds lights to the interface so we can turn them on and off
-        let lightsFolder = this.interface.gui.addFolder("Lights");
+        this.interface.lightsFolder = this.interface.gui.addFolder("Lights");
         for (let j = 1; j <= this.nLights; j++) {
-            lightsFolder.add(this, 'light' + j).name(lightName[j - 1]).onChange(this.updateLights.bind(this));
+            this.interface.lightsFolder.add(this, 'light' + j).name(lightName[j - 1]).onChange(this.updateLights.bind(this));
         }
 
     }
@@ -326,6 +328,7 @@ class XMLscene extends CGFscene {
      * Initializes the materials received from the parser
      */
     initMaterials() {
+        this.materialsList = [];
         for (var key in this.graph.materials) {
             if (this.graph.materials.hasOwnProperty(key)) {
                 var auxMaterial = this.graph.materials[key];
@@ -344,6 +347,7 @@ class XMLscene extends CGFscene {
      * Initializes the textures received from the parser
      */
     initTextures() {
+        this.texturesList = [];
         for (var key in this.graph.textures) {
             if (this.graph.textures.hasOwnProperty(key)) {
                 var auxTexture = this.graph.textures[key];
@@ -375,6 +379,7 @@ class XMLscene extends CGFscene {
     * Initializes the animations received from the parser
     */
     initAnimations() {
+        this.animationsList = [];
         for (var key in this.graph.animations) {
             if (this.graph.animations.hasOwnProperty(key)) {
                 var auxAnimation = this.graph.animations[key];
@@ -387,6 +392,7 @@ class XMLscene extends CGFscene {
     * Initializes the spriteSheets received from the parser
     */
     initSpriteSheets() {
+        this.spriteSheetList = [];
         for (var key in this.graph.spriteSheets) {
             if (this.graph.spriteSheets.hasOwnProperty(key)) {
                 var auxSpriteSheet = this.graph.spriteSheets[key];
@@ -408,16 +414,16 @@ class XMLscene extends CGFscene {
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
-    onGraphLoaded() {
+    onGraphLoaded(curGraph) {
         if (this.interface.scenes)
             this.interface.scenes.remove();
 
-        if (this.graph.firstScene) {
-            this.axis = new CGFaxis(this, this.graph.referenceLength);
+        if (curGraph.firstScene) {
+            this.axis = new CGFaxis(this, curGraph.referenceLength);
 
-            this.gl.clearColor(...this.graph.background);
+            this.gl.clearColor(...curGraph.background);
 
-            this.setGlobalAmbientLight(...this.graph.ambient);
+            this.setGlobalAmbientLight(...curGraph.ambient);
 
             this.initLights();
             this.initCameras();
@@ -439,7 +445,7 @@ class XMLscene extends CGFscene {
             if (this.nodesList[0] != null)
                 this.nodesList[0].updateCoords();
 
-            this.orchestrator.theme = this.graph.name;
+            this.orchestrator.theme = curGraph.name;
 
             this.sceneInited = true;
         }
@@ -448,6 +454,13 @@ class XMLscene extends CGFscene {
     }
 
     updateTheme() {
+        for(let i = 0;i< this.lights.length;i++){
+            this.lights[i].disable();
+            this.lights[i].update();
+        }
+
+        this.interface.gui.removeFolder(this.interface.cameraFolder);
+        this.interface.gui.removeFolder(this.interface.lightsFolder);
         var index = 0;
         for (let i = 0; i < this.graphNames.length; i++) {
             if (this.orchestrator.theme == this.graphNames[i]) {
@@ -483,7 +496,7 @@ class XMLscene extends CGFscene {
 
         this.orchestrator.theme = this.graph.name;
 
-        this.sceneInited = true;
+        // this.sceneInited = true;
     }
 
     update(t) {

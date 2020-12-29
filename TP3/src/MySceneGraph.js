@@ -27,9 +27,8 @@ class MySceneGraph {
 
         // Establish bidirectional references between scene and graph.
         this.scene = scene;
-        this.scene.graphs.push(this);
         if(this.firstScene)
-            scene.graph = this;
+            this.scene.graph = this;
 
         this.nodes = [];
 
@@ -56,6 +55,7 @@ class MySceneGraph {
      */
     onXMLReady() {
         this.log("XML Loading finished.");
+        
         var rootElement = this.reader.xmlDoc.documentElement;
 
         // Here should go the calls for different functions to parse the various blocks
@@ -69,7 +69,7 @@ class MySceneGraph {
         this.loadedOk = true;
 
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
-        this.scene.onGraphLoaded();
+        this.scene.onGraphLoaded(this);
     }
 
     /*
@@ -266,7 +266,7 @@ class MySceneGraph {
 
         this.name = name;
         this.scene.graphNames.push(name);
-        console.log(name);
+        this.scene.graphs.push(this);
 
         // Get axis length        
         if (referenceIndex == -1)

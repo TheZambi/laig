@@ -39,11 +39,13 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "LAIG_TP3_XML_T3_G10_v01.xml";
+    var file1=getUrlVars()['file'] || "LAIG_TP3_XML_T3_G10_v01.xml";
+    var file2= "pool.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene, firstScene);
+    var myGraph = new MySceneGraph(file1, myScene, firstScene);
+    var nextGraph = new MySceneGraph(file2, myScene, otherScene);
 	
 	// start
     app.run();
