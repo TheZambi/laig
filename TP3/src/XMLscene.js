@@ -102,38 +102,70 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.cameraNames = [];
-        this.cameraList = [];
-        var auxCamera;
-        for (var key in this.graph.cameras) {
-            if (this.graph.cameras.hasOwnProperty(key)) {
-                auxCamera = this.graph.cameras[key];
-                if (auxCamera[0] == 0) { // 0 for perspective cameras
-                    var cameraToPush = new CGFcamera(...auxCamera.slice(1)); // unpacks the array since 1st position because its reserved for an id
-                    this.cameraList.push(cameraToPush);
-                    this.cameraNames.push(key);
+        if(this.graph.loadedCameras == undefined){
+            this.cameraNames = [];
+            this.cameraList = [];
+            var auxCamera;
+            for (var key in this.graph.cameras) {
+                if (this.graph.cameras.hasOwnProperty(key)) {
+                    auxCamera = this.graph.cameras[key];
+                    if (auxCamera[0] == 0) { // 0 for perspective cameras
+                        var cameraToPush = new CGFcamera(...auxCamera.slice(1)); // unpacks the array since 1st position because its reserved for an id
+                        this.cameraList.push(cameraToPush);
+                        this.cameraNames.push(key);
+                    }
+                    else if (auxCamera[0] == 1) { // 1 for ortho cameras
+                        var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));// unpacks the array since 1st position because its reserved for an id
+                        this.cameraList.push(cameraToPush);
+                        this.cameraNames.push(key);
+                    }
+                    if (key == this.graph.defaultCam) {
+                        var far = this.cameraList[this.cameraList.length - 1].far;
+                        var fov = this.cameraList[this.cameraList.length - 1].fov;
+                        var near = this.cameraList[this.cameraList.length - 1].near;
+                        var position = this.cameraList[this.cameraList.length - 1].position;
+                        var target = this.cameraList[this.cameraList.length - 1].target;
+                        this.camera.far = far;
+                        this.camera.fov = fov;
+                        this.camera.near = near;
+                        this.camera.setPosition(position);
+                        this.camera.setTarget(target);
+                        this.firstCamera = this.cameraList[this.cameraList.length - 1];
+                        this.selectedCamera = key;
+                        this.interface.setActiveCamera(this.camera);
+                        this.lastCamera = this.cameraList.length - 1;
+                    }
                 }
-                else if (auxCamera[0] == 1) { // 1 for ortho cameras
-                    var cameraToPush = new CGFcameraOrtho(...auxCamera.slice(1));// unpacks the array since 1st position because its reserved for an id
-                    this.cameraList.push(cameraToPush);
-                    this.cameraNames.push(key);
+            }
+
+            this.graph.loadedCameras = this.cameraList;
+            this.graph.cameraNames = this.cameraNames;
+        }
+        else{
+            this.cameraList = this.graph.loadedCameras;
+            this.cameraNames = this.graph.cameraNames;
+            var i=0;
+            for (var key in this.graph.cameras) {
+                if (this.graph.cameras.hasOwnProperty(key)) {
+                    if (key == this.graph.defaultCam) {
+                        var far = this.cameraList[i].far;
+                        var fov = this.cameraList[i].fov;
+                        var near = this.cameraList[i].near;
+                        var position = this.cameraList[i].position;
+                        var target = this.cameraList[i].target;
+                        this.camera.far = far;
+                        this.camera.fov = fov;
+                        this.camera.near = near;
+                        this.camera.setPosition(position);
+                        this.camera.setTarget(target);
+                        this.firstCamera = this.cameraList[i];
+                        this.selectedCamera = key;
+                        this.interface.setActiveCamera(this.camera);
+                        this.lastCamera = i;
+                        break;
+                    }
                 }
-                if (key == this.graph.defaultCam) {
-                    var far = this.cameraList[this.cameraList.length - 1].far;
-                    var fov = this.cameraList[this.cameraList.length - 1].fov;
-                    var near = this.cameraList[this.cameraList.length - 1].near;
-                    var position = this.cameraList[this.cameraList.length - 1].position;
-                    var target = this.cameraList[this.cameraList.length - 1].target;
-                    this.camera.far = far;
-                    this.camera.fov = fov;
-                    this.camera.near = near;
-                    this.camera.setPosition(position);
-                    this.camera.setTarget(target);
-                    this.firstCamera = this.cameraList[this.cameraList.length - 1];
-                    this.selectedCamera = key;
-                    this.interface.setActiveCamera(this.camera);
-                    this.lastCamera = this.cameraList.length - 1;
-                }
+                i++;
             }
         }
 
