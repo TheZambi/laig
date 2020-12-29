@@ -54,7 +54,6 @@ class XMLscene extends CGFscene {
         this.cameraNames = [];
         this.materialsList = [];
         this.texturesList = [];
-        this.textDict = [];
         this.animationsList = [];
         this.graphs = [];
         this.graphNames = [];
@@ -331,26 +330,32 @@ class XMLscene extends CGFscene {
      * Initializes the materials received from the parser
      */
     initMaterials() {
-        this.materialsList = [];
-        for (var key in this.graph.materials) {
-            if (this.graph.materials.hasOwnProperty(key)) {
-                var auxMaterial = this.graph.materials[key];
-                var materialToPush = new CGFappearance(this);
-                materialToPush.setShininess(auxMaterial[0][1]);
-                materialToPush.setAmbient(...auxMaterial[1].slice(1));
-                materialToPush.setDiffuse(...auxMaterial[2].slice(1));
-                materialToPush.setSpecular(...auxMaterial[3].slice(1));
-                materialToPush.setEmission(...auxMaterial[4].slice(1));
-                this.materialsList[key] = materialToPush;
+        if(this.graph.loadedMats == undefined){
+            for (var key in this.graph.materials) {
+                if (this.graph.materials.hasOwnProperty(key)) {
+                    var auxMaterial = this.graph.materials[key];
+                    var materialToPush = new CGFappearance(this);
+                    materialToPush.setShininess(auxMaterial[0][1]);
+                    materialToPush.setAmbient(...auxMaterial[1].slice(1));
+                    materialToPush.setDiffuse(...auxMaterial[2].slice(1));
+                    materialToPush.setSpecular(...auxMaterial[3].slice(1));
+                    materialToPush.setEmission(...auxMaterial[4].slice(1));
+                    this.materialsList[key] = materialToPush;
+                }
             }
+            this.graph.loadedMats = this.materialsList;
+        }
+        else
+        {
+            this.materialsList = this.graph.loadedMats;
         }
     }
 
     /**
      * Initializes the textures received from the parser
      */
-    initTextures(index) {
-        if(this.textDict[index] == undefined){
+    initTextures() {
+        if(this.graph.loadedTextures == undefined){
             for (var key in this.graph.textures) {
                 if (this.graph.textures.hasOwnProperty(key)) {
                     var auxTexture = this.graph.textures[key];
@@ -358,10 +363,10 @@ class XMLscene extends CGFscene {
                     this.texturesList[key] = textureToPush;
                 }
             }
-            this.textDict[index] = this.texturesList;
+            this.graph.loadedTextures = this.texturesList;
         }
         else{
-            this.texturesList = this.textDict[index];
+            this.texturesList = this.graph.loadedTextures;
         }
     }
 
@@ -400,13 +405,18 @@ class XMLscene extends CGFscene {
     * Initializes the spriteSheets received from the parser
     */
     initSpriteSheets() {
-        this.spriteSheetList = [];
-        for (var key in this.graph.spriteSheets) {
-            if (this.graph.spriteSheets.hasOwnProperty(key)) {
-                var auxSpriteSheet = this.graph.spriteSheets[key];
-                var spriteSheetsToPush = new MySpriteSheet(this, ...auxSpriteSheet);
-                this.spriteSheetList[key] = spriteSheetsToPush;
+        if(this.graph.loadedSpritesheets == undefined){
+            for (var key in this.graph.spriteSheets) {
+                if (this.graph.spriteSheets.hasOwnProperty(key)) {
+                    var auxSpriteSheet = this.graph.spriteSheets[key];
+                    var spriteSheetsToPush = new MySpriteSheet(this, ...auxSpriteSheet);
+                    this.spriteSheetList[key] = spriteSheetsToPush;
+                }
             }
+            this.graph.loadedSpritesheets = this.spriteSheetList;
+        }
+        else{
+            this.spriteSheetList = this.graph.loadedSpritesheets;
         }
 
     }
@@ -438,14 +448,7 @@ class XMLscene extends CGFscene {
             this.initSpriteSheets();
             this.initNodes();
             this.initMaterials();
-            var index = 0;
-            for (let i = 0; i < this.graphNames.length; i++) {
-                if (curGraph.name == this.graphNames[i]) {
-                    index = i;
-                    break;
-                }
-            }
-            this.initTextures(index);
+            this.initTextures();
             this.initAnimations();
             this.addMaterialsToNodes();
             this.addTexturesToNodes();
@@ -497,7 +500,7 @@ class XMLscene extends CGFscene {
         this.initSpriteSheets();
         this.initNodes();
         this.initMaterials();
-        this.initTextures(index);
+        this.initTextures();
         this.initAnimations();
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
