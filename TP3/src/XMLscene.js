@@ -54,6 +54,7 @@ class XMLscene extends CGFscene {
         this.cameraNames = [];
         this.materialsList = [];
         this.texturesList = [];
+        this.textDict = [];
         this.animationsList = [];
         this.graphs = [];
         this.graphNames = [];
@@ -102,6 +103,8 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
+        this.cameraNames = [];
+        this.cameraList = [];
         var auxCamera;
         for (var key in this.graph.cameras) {
             if (this.graph.cameras.hasOwnProperty(key)) {
@@ -346,14 +349,19 @@ class XMLscene extends CGFscene {
     /**
      * Initializes the textures received from the parser
      */
-    initTextures() {
-        this.texturesList = [];
-        for (var key in this.graph.textures) {
-            if (this.graph.textures.hasOwnProperty(key)) {
-                var auxTexture = this.graph.textures[key];
-                var textureToPush = new CGFtexture(this, auxTexture);
-                this.texturesList[key] = textureToPush;
+    initTextures(index) {
+        if(this.textDict[index] == undefined){
+            for (var key in this.graph.textures) {
+                if (this.graph.textures.hasOwnProperty(key)) {
+                    var auxTexture = this.graph.textures[key];
+                    var textureToPush = new CGFtexture(this, auxTexture);
+                    this.texturesList[key] = textureToPush;
+                }
             }
+            this.textDict[index] = this.texturesList;
+        }
+        else{
+            this.texturesList = this.textDict[index];
         }
     }
 
@@ -430,7 +438,14 @@ class XMLscene extends CGFscene {
             this.initSpriteSheets();
             this.initNodes();
             this.initMaterials();
-            this.initTextures();
+            var index = 0;
+            for (let i = 0; i < this.graphNames.length; i++) {
+                if (curGraph.name == this.graphNames[i]) {
+                    index = i;
+                    break;
+                }
+            }
+            this.initTextures(index);
             this.initAnimations();
             this.addMaterialsToNodes();
             this.addTexturesToNodes();
@@ -482,7 +497,7 @@ class XMLscene extends CGFscene {
         this.initSpriteSheets();
         this.initNodes();
         this.initMaterials();
-        this.initTextures();
+        this.initTextures(index);
         this.initAnimations();
         this.addMaterialsToNodes();
         this.addTexturesToNodes();
