@@ -46,6 +46,8 @@ class XMLscene extends CGFscene {
         this.tileAppearence = new CGFappearance(this);
         this.tileAppearence.loadTexture('./scenes/images/tile.png');
 
+        
+
         this.orchestrator = new MyGameOrchestrator(this);
 
         this.setPickEnabled(true);

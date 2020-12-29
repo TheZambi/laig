@@ -14,6 +14,9 @@ class MyGameBoard extends CGFobject {
         this.orangePieces = [];
         this.purplePieces = [];
 
+        this.boxAppearence = new CGFappearance(this.scene);
+        this.boxAppearence.loadTexture('./scenes/images/cardboard.png');
+
         this.greenBox = new PieceBox(scene, "green", this.greenPieces);
         this.orangeBox = new PieceBox(scene,"orange",this.orangePieces);
         this.purpleBox = new PieceBox(scene,"purple",this.purplePieces);
@@ -146,10 +149,12 @@ class MyGameBoard extends CGFobject {
 
     displayBoxes()
     {
+        this.boxAppearence.apply();
         this.scene.pushMatrix();
         // this.scene.rotate(Math.PI/4,0,1,0);
         this.scene.pushMatrix();
         this.scene.translate(0,0,-17);
+
 
         if(this.orangeBox.pieces[this.orangeBox.pieces.length-1].tile == null && this.orchestrator.playerTurn() && !this.orchestrator.replayMode){
             this.scene.registerForPick(this.scene.currentPickIndex, this.orangeBox);
@@ -173,6 +178,8 @@ class MyGameBoard extends CGFobject {
         {
             this.scene.clearPickRegistration();
         }
+        this.boxAppearence.apply();
+
         this.greenBox.display();
         this.scene.popMatrix();
 
@@ -187,6 +194,8 @@ class MyGameBoard extends CGFobject {
         {
             this.scene.clearPickRegistration();
         }
+        this.boxAppearence.apply();
+
         this.purpleBox.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
