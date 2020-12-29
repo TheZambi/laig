@@ -243,6 +243,7 @@ class MyGameOrchestrator {
                         this.gameSequence.undo(this.gameboard);
                         this.colorsWon = this.gameSequence.getLastColors();
                         this.selectedPiece = null;
+                        this.currentPlayer = (this.currentPlayer + 1) % 2;
                     }
                     break;
                 case "4":
