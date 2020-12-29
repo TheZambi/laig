@@ -5,6 +5,7 @@
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
+        this.boardTranslation = [0,0,0];
         this.animator = new MyAnimator(this);
         this.theme = 0;
         this.prologInterface = new MyPrologInterface(this);
@@ -227,8 +228,11 @@ class MyGameOrchestrator {
         if (this.gameStarted && !this.replayMode) {
             this.play();
         }
+        this.scene.pushMatrix();
+        this.scene.translate(...this.boardTranslation);
         this.animator.display();
         this.gameboard.display();
+        this.scene.popMatrix();
     }
 
     undo() {

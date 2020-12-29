@@ -1177,6 +1177,10 @@ class MySceneGraph {
                             descendantsAux.push(this.reader.getInteger(descendants[i], "slices"));
                             descendantsAux.push(this.reader.getInteger(descendants[i], "stacks"));
                             break;
+                        case "board":
+                            this.boardTranslation = [this.reader.getFloat(descendants[i], "x"),
+                                                    this.reader.getFloat(descendants[i], "y"),
+                                                    this.reader.getFloat(descendants[i], "z")];
                     }
                 }
                 descendantsParsed.push(descendantsAux);

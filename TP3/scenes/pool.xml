@@ -160,6 +160,8 @@
         <noderef id="boia"/>
         <noderef id="table"/>
         <noderef id="icecream"/>
+        <leaf type="board" x="0" y="0" z="0"/>
+
       </descendants>
     </node>
     <node id="table">

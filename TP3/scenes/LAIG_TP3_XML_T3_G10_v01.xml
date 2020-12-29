@@ -396,6 +396,7 @@
                 <noderef id="Tree"/>
                 <noderef id="Barn"/>
                 <noderef id="House"/>
+                <leaf type="board" x="30" y="0" z="30"/>
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->

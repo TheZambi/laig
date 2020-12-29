@@ -125,9 +125,11 @@ class XMLscene extends CGFscene {
                         var near = this.cameraList[this.cameraList.length - 1].near;
                         var position = this.cameraList[this.cameraList.length - 1].position;
                         var target = this.cameraList[this.cameraList.length - 1].target;
+                        var up = this.cameraList[this.cameraList.length - 1]._up;
                         this.camera.far = far;
                         this.camera.fov = fov;
                         this.camera.near = near;
+                        this.camera._up = up;
                         this.camera.setPosition(position);
                         this.camera.setTarget(target);
                         this.firstCamera = this.cameraList[this.cameraList.length - 1];
@@ -153,9 +155,11 @@ class XMLscene extends CGFscene {
                         var near = this.cameraList[i].near;
                         var position = this.cameraList[i].position;
                         var target = this.cameraList[i].target;
+                        var up = this.cameraList[i]._up;
                         this.camera.far = far;
                         this.camera.fov = fov;
                         this.camera.near = near;
+                        this.camera._up = up;
                         this.camera.setPosition(position);
                         this.camera.setTarget(target);
                         this.firstCamera = this.cameraList[i];
@@ -497,6 +501,8 @@ class XMLscene extends CGFscene {
 
             this.orchestrator.theme = curGraph.name;
 
+            this.orchestrator.boardTranslation = curGraph.boardTranslation;
+
             this.sceneInited = true;
         }
 
@@ -545,6 +551,7 @@ class XMLscene extends CGFscene {
             this.nodesList[0].updateCoords();
 
         this.orchestrator.theme = this.graph.name;
+        this.orchestrator.boardTranslation = this.graph.boardTranslation;
 
         // this.sceneInited = true;
     }
