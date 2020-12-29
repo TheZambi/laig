@@ -30,7 +30,7 @@ class MyGameOrchestrator {
             "Medium": 2,
             "Hard": 3
         };
-        this.gameMode = 1;
+        this.gameMode = "1";
         this.gameModeCopy = this.gameMode;
         this.gameModes = {
             "Player vs Player": 1,
