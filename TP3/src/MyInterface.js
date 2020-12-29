@@ -24,6 +24,7 @@ class MyInterface extends CGFinterface {
 
         this.initKeys();
 
+        this.scenes = this.gui.add(this.scene.orchestrator, 'theme', this.scene.graphNames).name('Scenes');
         let gameFolder = this.gui.addFolder("Game Controls");
         gameFolder.add(this.scene.orchestrator,'play').name("Start");
         gameFolder.add(this.scene.orchestrator,'reset').name("Reset Game");

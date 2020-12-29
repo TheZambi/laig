@@ -26,6 +26,8 @@ main=function()
     var app = new CGFapplication(document.body);
     var myInterface = new MyInterface();
     var myScene = new XMLscene(myInterface);
+    var firstScene = 1;
+    var otherScene = 0;
 
     app.init();
 
@@ -37,11 +39,11 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "LAIG_TP2_XML_T3_G10_v01.xml";
+    var filename=getUrlVars()['file'] || "LAIG_TP3_XML_T3_G10_v01.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
+	var myGraph = new MySceneGraph(filename, myScene, firstScene);
 	
 	// start
     app.run();

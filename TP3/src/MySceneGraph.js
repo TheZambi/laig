@@ -21,12 +21,15 @@ class MySceneGraph {
      * @param {string} filename - File that defines the 3D scene
      * @param {XMLScene} scene
      */
-    constructor(filename, scene) {
+    constructor(filename, scene, firstScene) {
         this.loadedOk = null;
+        this.firstScene = firstScene;
 
         // Establish bidirectional references between scene and graph.
         this.scene = scene;
-        scene.graph = this;
+        this.scene.graphs.push(this);
+        if(this.firstScene)
+            scene.graph = this;
 
         this.nodes = [];
 
@@ -239,6 +242,7 @@ class MySceneGraph {
 
         var rootIndex = nodeNames.indexOf("root");
         var referenceIndex = nodeNames.indexOf("reference");
+        var nameIndex = nodeNames.indexOf("name");
 
         // Get root of the scene.
         if (rootIndex == -1)
@@ -250,6 +254,19 @@ class MySceneGraph {
             return "No root id defined for scene.";
 
         this.idRoot = id;
+
+        // Get root of the scene.
+        if (nameIndex == -1)
+            return "No name defined for scene.";
+
+        var nameNode = children[nameIndex];
+        var name = this.reader.getString(nameNode, 'name');
+        if (name == null)
+            return "No name defined for scene.";
+
+        this.name = name;
+        this.scene.graphNames.push(name);
+        console.log(name);
 
         // Get axis length        
         if (referenceIndex == -1)

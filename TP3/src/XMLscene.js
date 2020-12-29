@@ -44,7 +44,7 @@ class XMLscene extends CGFscene {
 
         //TO REMOVE LATER
         this.tileAppearence = new CGFappearance(this);
-        this.tileAppearence.loadTexture('./scenes/images/door.png');
+        this.tileAppearence.loadTexture('./scenes/images/tile.png');
 
         this.orchestrator = new MyGameOrchestrator(this);
 
@@ -55,6 +55,8 @@ class XMLscene extends CGFscene {
         this.materialsList = [];
         this.texturesList = [];
         this.animationsList = [];
+        this.graphs = [];
+        this.graphNames = [];
         this.spriteSheetList = [];
         this.nodesList = [];
         this.spriteAnims = [];
@@ -179,9 +181,9 @@ class XMLscene extends CGFscene {
         }
 
         var up = vec4.create();
-        
-        vec4.normalize(up, vec4.fromValues(upAux[0],upAux[1],upAux[2],0));
-        
+
+        vec4.normalize(up, vec4.fromValues(upAux[0], upAux[1], upAux[2], 0));
+
         //RESET CAMERAS WHEN FINISHED
         if (timePassed == 1) {
             this.camera = this.defaultCamera;
@@ -191,10 +193,10 @@ class XMLscene extends CGFscene {
         this.camera.far = far;
         this.camera.fov = fov;
         this.camera.near = near;
-        this.camera._up=up;
+        this.camera._up = up;
         this.camera.setPosition(position);
         this.camera.setTarget(target);
-        
+
         this.interface.setActiveCamera(this.camera);
     }
     /**
@@ -407,13 +409,60 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+        if (this.interface.scenes)
+            this.interface.scenes.remove();
+
+        if (this.graph.firstScene) {
+            this.axis = new CGFaxis(this, this.graph.referenceLength);
+
+            this.gl.clearColor(...this.graph.background);
+
+            this.setGlobalAmbientLight(...this.graph.ambient);
+
+            this.initLights();
+            this.initCameras();
+            this.initSpriteSheets();
+            this.initNodes();
+            this.initMaterials();
+            this.initTextures();
+            this.initAnimations();
+            this.addMaterialsToNodes();
+            this.addTexturesToNodes();
+            this.addAnimationsToNodes();
+
+            this.textSheet = new MySpriteSheet(this, new CGFtexture(this, './src/textSheet.png'), 16, 16);
+            this.setUpdatePeriod(100);
+
+            this.texStack = [];
+            this.matStack = [new CGFappearance(this)];
+
+            if (this.nodesList[0] != null)
+                this.nodesList[0].updateCoords();
+
+            this.orchestrator.theme = this.graph.name;
+
+            this.sceneInited = true;
+        }
+
+        this.interface.scenes = this.interface.gui.add(this.orchestrator, 'theme', this.graphNames).name('Scenes').onChange(this.updateTheme.bind(this));
+    }
+
+    updateTheme() {
+        var index = 0;
+        for (let i = 0; i < this.graphNames.length; i++) {
+            if (this.orchestrator.theme == this.graphNames[i]) {
+                index = i;
+                break;
+            }
+        }
+
+        this.graph = this.graphs[index];
+
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(...this.graph.background);
 
         this.setGlobalAmbientLight(...this.graph.ambient);
-
-        this.textSheet = new MySpriteSheet(this, new CGFtexture(this, './src/textSheet.png'), 16, 16);
 
         this.initLights();
         this.initCameras();
@@ -426,14 +475,13 @@ class XMLscene extends CGFscene {
         this.addTexturesToNodes();
         this.addAnimationsToNodes();
 
-        this.setUpdatePeriod(100);
-
         this.texStack = [];
         this.matStack = [new CGFappearance(this)];
 
         if (this.nodesList[0] != null)
             this.nodesList[0].updateCoords();
 
+        this.orchestrator.theme = this.graph.name;
 
         this.sceneInited = true;
     }
@@ -487,7 +535,7 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.orchestrator.display();
-            //this.graph.displayScene();
+            this.graph.displayScene();
         }
         else {
             // Show some "loading" visuals

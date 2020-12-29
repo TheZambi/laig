@@ -6,7 +6,7 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
         this.animator = new MyAnimator(this);
-        // this.theme = new MyScenegraph(…);
+        this.theme = 0;
         this.prologInterface = new MyPrologInterface(this);
         this.selectedPiece = null;
         this.gameSequence = new MyGameSequence();
