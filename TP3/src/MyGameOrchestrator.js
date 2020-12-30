@@ -68,8 +68,8 @@ class MyGameOrchestrator {
             this.winner = -1;
             this.currentPlayer = 0;
             this.colorsWon = [-1, -1, -1];
-            this.player0Score.colors = this.colorsWon;
-            this.player1Score.colors = this.colorsWon;
+            this.gameboard.player0Score.colors = this.colorsWon;
+            this.gameboard.player1Score.colors = this.colorsWon;
             this.moveDone = true;
         }
     }
