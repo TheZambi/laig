@@ -17,10 +17,6 @@ class MyTile extends CGFobject {
         this.diag = diag;
     }
 	
-	/**
-     * @method initBuffers
-     * Initializes the triangle buffers
-     */
 	initBuffers() {
 	
 	}

@@ -13,6 +13,8 @@ class MyGameBoard extends CGFobject {
         this.greenPieces = [];
         this.orangePieces = [];
         this.purplePieces = [];
+        this.player0Score = new MyGameScore(scene, 0, this.orchestrator.colorsWon);
+        this.player1Score = new MyGameScore(scene, 1, this.orchestrator.colorsWon);
 
         this.boxAppearence = new CGFappearance(this.scene);
         this.boxAppearence.loadTexture('./scenes/images/cardboard.png');
@@ -240,14 +242,29 @@ class MyGameBoard extends CGFobject {
         this.greenIndicator.display();
 
         this.scene.popMatrix();
+    }
 
-
+    displayScores()
+    {
+        this.scene.pushMatrix();
+        this.scene.translate(16,0,0);
+        this.player0Score.display();
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+        this.scene.translate(-16,0,0);
+        this.scene.rotate(Math.PI,0,1,0);
+        this.player1Score.display();
+        this.scene.popMatrix();
     }
 
     display() {
+        this.scene.pushMatrix();
+        // this.scene.scale(0.3,0.3,0.3);
         this.displayTiles();
         this.displayIndicators();
         this.displayBoxes();
+        this.displayScores();
+        this.scene.popMatrix();
     }
 
     undo(undoMove) {

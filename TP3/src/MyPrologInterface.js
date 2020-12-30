@@ -36,7 +36,8 @@ class MyPrologInterface {
     updateColors(data) {
         let returnVal = data.target.response;
         this.colorsWon = returnVal.replace('[','').replace(']','').split(',');
-        console.log(data);
+        this.gameboard.player0Score.updateColors(this.colorsWon);
+        this.gameboard.player1Score.updateColors(this.colorsWon);
         this.checkFinish(); 
     }
 }

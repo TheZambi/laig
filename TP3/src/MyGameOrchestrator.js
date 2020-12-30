@@ -8,13 +8,13 @@ class MyGameOrchestrator {
         this.boardTranslation = [0,0,0];
         this.animator = new MyAnimator(this);
         this.theme = 0;
+        this.colorsWon = [-1, -1, -1];
         this.prologInterface = new MyPrologInterface(this);
         this.selectedPiece = null;
         this.gameSequence = new MyGameSequence();
         this.gameboard = new MyGameBoard(scene, this);
         this.currentPlayer = 0;
         this.gameStarted = false;
-        this.colorsWon = [-1, -1, -1];
         this.winner = -1;
         this.moveDone = true;
         this.bot1Diff = 1;
@@ -236,7 +236,7 @@ class MyGameOrchestrator {
     }
 
     undo() {
-        if (!this.replayMode) {
+        if (!this.replayMode && this.gameStarted) {
             switch (this.gameModeCopy) {
                 case "1":
                     if (this.gameSequence.moveSequence.length != 0) {
@@ -257,6 +257,8 @@ class MyGameOrchestrator {
                         this.selectedPiece = null;
                     }
             }
+            this.gameboard.player0Score.updateColors(this.colorsWon);
+            this.gameboard.player1Score.updateColors(this.colorsWon);
         }
     }
 
