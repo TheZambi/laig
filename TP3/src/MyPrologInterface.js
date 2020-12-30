@@ -30,7 +30,6 @@ class MyPrologInterface {
 
     botMove(data){
         this.parseBotMove(data.target.response.replace('[','').replace(']','').split(','));
-        this.startTurnTimer = true;
     }
 
     //Handle the Reply

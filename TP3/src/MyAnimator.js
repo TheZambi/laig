@@ -21,11 +21,13 @@ class MyAnimator {
     }
 
     replayMove(t) {
-        var move = this.copySequence.pop();
-        move.startTime = t;
-        this.orchestrator.makeMove(move);
-        if (this.copySequence.length == 0)
-            this.orchestrator.replayMode = false;
+        if(this.copySequence.length > 0){
+            var move = this.copySequence.pop();
+            move.startTime = t;
+            this.orchestrator.makeMove(move);
+            if (this.copySequence.length == 0)
+                this.orchestrator.replayMode = false;
+        } else this.orchestrator.replayMode = false;
     }
 
     display() {

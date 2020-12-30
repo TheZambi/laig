@@ -14,6 +14,9 @@ class MyTurnTimer extends CGFobject {
         this.text.updateText(text);
     }
 
+    timeisValid(){
+        return parseInt(this.text.text) >= 0 && parseInt(this.text.text) <= 15;
+    }
 
     display()
     {
@@ -21,7 +24,7 @@ class MyTurnTimer extends CGFobject {
         this.scene.scale(10,10,10);
         this.timer.display();
         this.scene.popMatrix();
-        if(this.orchestrator.gameStarted && parseInt(this.text.text) >= 0 && parseInt(this.text.text) <= this.orchestrator.turnTimers[parseInt(this.orchestrator.gameMode-1)]){
+        if(this.orchestrator.gameStarted && this.timeisValid() && this.orchestrator.gameMode != "4" ){
             this.scene.pushMatrix();
             this.scene.scale(2.5,2.5,2.5);
             this.text.display();

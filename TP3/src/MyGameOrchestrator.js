@@ -21,7 +21,7 @@ class MyGameOrchestrator {
         this.bot1Copy = this.bot1Diff;
         this.currentTurnStart = 0;
         this.startTurnTimer = false;
-        this.turnTimers = [15,10,5];
+        this.turnTimers = [15,15,10,5];
         this.bot1Diffs = {
             "Easy": 1,
             "Medium": 2,
@@ -84,8 +84,26 @@ class MyGameOrchestrator {
             this.startTurnTimer = false;
         }
         this.currentTurnTimer = Math.floor((t - this.currentTurnStart)/1000);
-        this.turnTimeGamemode = this.turnTimers[this.gameMode-1];
-        this.newText = this.turnTimeGamemode - this.currentTurnTimer
+        switch (this.gameMode){
+            case "1":
+                var turnTimeGamemode = this.turnTimers[this.gameMode-1];
+                break;
+            case "2":
+                var turnTimeGamemode = this.turnTimers[this.bot1Diff];
+                break;
+            case "3":
+                var turnTimeGamemode = this.turnTimers[this.bot1Diff];
+                break;
+            
+        }
+        
+        this.newText = turnTimeGamemode - this.currentTurnTimer;
+        console.log(this.newText);
+        if(this.gameStarted && this.newText < 0){
+            this.winner = (this.currentPlayer + 1) % 2;
+            this.gameStarted = false;
+            this.newText = "";
+        }
         this.gameboard.timer.updateText(this.newText.toString());
         this.animator.update(t);
     }
@@ -130,6 +148,7 @@ class MyGameOrchestrator {
         this.gameboard.movePiece(newMove);
         this.gameSequence.addMove(newMove, this.colorsWon);
         this.selectedPiece = null;
+        this.startTurnTimer = true;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
         if(!this.replayMode)
