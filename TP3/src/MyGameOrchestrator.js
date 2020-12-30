@@ -44,8 +44,7 @@ class MyGameOrchestrator {
     }
 
     replay() {
-        if (this.winner != -1)
-            this.animator.replay();
+        this.animator.replay();
     }
 
     endReplay() {
@@ -64,10 +63,13 @@ class MyGameOrchestrator {
         if (!this.replayMode) {
             this.gameSequence = new MyGameSequence();
             this.gameboard = new MyGameBoard(this.scene, this);
+            this.animator = new MyAnimator(this);
             this.gameStarted = false;
             this.winner = -1;
             this.currentPlayer = 0;
             this.colorsWon = [-1, -1, -1];
+            this.player0Score.color = this.colorsWon;
+            this.player1Score.color = this.colorsWon;
             this.moveDone = true;
         }
     }
