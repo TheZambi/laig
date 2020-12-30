@@ -27,6 +27,8 @@ class MyGameBoard extends CGFobject {
         this.greenIndicator = new MyColorIndicator(scene, "green");
         this.purpleIndicator = new MyColorIndicator(scene, "purple");
 
+        this.timer = new MyTurnTimer(scene,orchestrator);
+
         this.maxOdd = 7;
         this.maxEven = 6;
         this.initBuffers();
@@ -257,6 +259,13 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    displayTimer(){
+        this.scene.pushMatrix();
+        this.scene.translate(0,10,-20);
+        this.timer.display();
+        this.scene.popMatrix();
+    }
+
     display() {
         this.scene.pushMatrix();
         // this.scene.scale(0.3,0.3,0.3);
@@ -264,6 +273,7 @@ class MyGameBoard extends CGFobject {
         this.displayIndicators();
         this.displayBoxes();
         this.displayScores();
+        this.displayTimer();
         this.scene.popMatrix();
     }
 

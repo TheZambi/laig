@@ -19,6 +19,9 @@ class MyGameOrchestrator {
         this.moveDone = true;
         this.bot1Diff = 1;
         this.bot1Copy = this.bot1Diff;
+        this.currentTurnStart = 0;
+        this.startTurnTimer = false;
+        this.turnTimers = [15,10,5];
         this.bot1Diffs = {
             "Easy": 1,
             "Medium": 2,
@@ -76,6 +79,14 @@ class MyGameOrchestrator {
 
     update(t) {
         this.currentTime = t;
+        if(this.startTurnTimer){
+            this.currentTurnStart = t;
+            this.startTurnTimer = false;
+        }
+        this.currentTurnTimer = Math.floor((t - this.currentTurnStart)/1000);
+        this.turnTimeGamemode = this.turnTimers[this.gameMode-1];
+        this.newText = this.turnTimeGamemode - this.currentTurnTimer
+        this.gameboard.timer.updateText(this.newText.toString());
         this.animator.update(t);
     }
 
@@ -204,6 +215,7 @@ class MyGameOrchestrator {
     play() {
         if (!this.gameStarted && this.winner == -1) {
             this.startGame();
+            this.startTurnTimer = true;
         } else if (!this.gameStarted && this.winner != -1) {
             this.reset();
             this.startGame();

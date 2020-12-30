@@ -15,6 +15,14 @@ class MySpriteText {
         }
     }
 
+    updateText(text){
+        this.text = text;
+        this.textBox = [];
+        for(let i = 0;i< text.length;i++){
+            this.textBox.push(new MyRectangle(this.scene, 0+i, 0, 1+i, 1));
+        }
+    }
+
     getCharacterPosition(character){
         return character.charCodeAt(0);
     }
