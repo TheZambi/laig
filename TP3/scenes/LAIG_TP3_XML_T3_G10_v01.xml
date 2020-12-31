@@ -7,8 +7,20 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="TopView">
+    <views default="Pillow1">
         <!-- at least one of the following type of cameras must be declared -->
+        <perspective id="Pillow1" near="0.1" far="500" angle="45">
+            <from x="17" y="-1" z="40" />
+            <to x="30" y="-10" z="40" />
+        </perspective>
+        <perspective id="Pillow2" near="0.1" far="500" angle="45">
+            <from x="47" y="-1" z="40" />
+            <to x="30" y="-10" z="40" />
+        </perspective>
+        <perspective id="Gameboard" near="0.1" far="500" angle="45">
+            <from x="30" y="-1" z="50" />
+            <to x="30" y="-10" z="37" />
+        </perspective>
         <perspective id="FullView" near="0.1" far="500" angle="45">
             <from x="60" y="40" z="60" />
             <to x="0" y="0" z="0" />
@@ -45,6 +57,14 @@
             <enable value="true" />
             <!-- enable/disable -->
             <position x="12" y="9" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
+        <light id="GameLight">            <!-- light identifier -->
+            <enable value="true" />
+            <!-- enable/disable -->
+            <position x="25" y="-2" z="45" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -110,6 +130,8 @@
         <texture id="barnRoof" path="./scenes/images/barnRoof.png"/>
         <texture id="barrel" path="./scenes/images/barrel.png"/>
         <texture id="hay" path="./scenes/images/hay.png"/>
+        <texture id="towel" path="./scenes/images/towel.png"/>
+        <texture id="pillow" path="./scenes/images/pillow.png"/>
     </textures>
 
     <spritesheets>
@@ -176,49 +198,49 @@
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="3">
-                <translation x="0" y="0" z="15" />
+                <translation x="0" y="0" z="10" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="3.5">
-                <translation x="1.15" y="0" z="20,74" />
+                <translation x="1.15" y="0" z="15,74" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="22.5" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="4">
-                <translation x="4.4" y="0" z="25.6" />
+                <translation x="4.4" y="0" z="20.6" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="45" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="5">
-                <translation x="15" y="0" z="30" />
+                <translation x="15" y="0" z="25" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="90" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="6">
-                <translation x="25.6" y="0" z="25.6" />
+                <translation x="25.6" y="0" z="20.6" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="135" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="6.5">
-                <translation x="26.75" y="0" z="20,74" />
+                <translation x="26.75" y="0" z="15,74" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="157.5" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="7">
-                <translation x="30" y="0" z="15" />
+                <translation x="30" y="0" z="10" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="180" />
                 <rotation axis="z" angle="0" />
@@ -396,12 +418,113 @@
                 <noderef id="Tree"/>
                 <noderef id="Barn"/>
                 <noderef id="House"/>
-                <leaf type="board" x="30" y="0" z="30"/>
+                <noderef id="Game"/>
+                <leaf type="board" x="30" y="-9.9" z="40"/>
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
                 <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
+            </descendants>
+        </node>
+
+        <node id="pillow">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type='patch' npointsU='3' npointsV='3' npartsU='15' npartsV='10' >
+                    <controlpoint x='-3' y='0' z='-3'/> 
+                    <controlpoint x='0' y='0' z='-3'/> 
+                    <controlpoint x='3' y='0' z='-3'/> 
+ 
+                    <controlpoint x='-3' y='0' z='0'/> 
+                    <controlpoint x='0' y='4' z='0'/> 
+                    <controlpoint x='3' y='0' z='0'/> 
+
+                    <controlpoint x='-3' y='0' z='3'/> 
+                    <controlpoint x='0' y='0' z='3'/> 
+                    <controlpoint x='3' y='0' z='3'/>
+                    
+                </leaf>
+            </descendants>
+        </node>
+
+        <node id="pillow1">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="pillow">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-10" y="0" z="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="pillow"/>
+            </descendants>
+        </node>
+
+        <node id="pillow2">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="pillow">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="10" y="0" z="1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="pillow"/>
+            </descendants>
+        </node>
+
+        <node id="towel">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="towel">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="30" sy="0" sz = "15" />
+            </transformations>
+
+            <descendants>
+                <leaf type="plane" npartsU='10' npartsV='10'/>
+            </descendants>
+        </node>
+
+
+        <node id="Game">           
+           
+            <material id="whiteMaterial"/>
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="30" y="0.1" z="38.5"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="pillow1"/>
+                <noderef id="pillow2"/>
+                <noderef id="towel"/>
             </descendants>
         </node>
         <node id="frontBarn">           
@@ -746,7 +869,7 @@
             </texture>
 
             <transformations>
-                <scale sx="100" sy="0" sz = "80" />
+                <scale sx="100" sy="0" sz = "100" />
             </transformations>
 
             <descendants>

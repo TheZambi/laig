@@ -268,10 +268,13 @@ class MyGameBoard extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        // this.scene.scale(0.3,0.3,0.3);
+        this.scene.scale(0.3,0.3,0.3);
         this.displayTiles();
         this.displayIndicators();
+        this.scene.pushMatrix();
+        this.scene.translate(0,1.51,0);
         this.displayBoxes();
+        this.scene.popMatrix();
         this.displayScores();
         this.displayTimer();
         this.scene.popMatrix();

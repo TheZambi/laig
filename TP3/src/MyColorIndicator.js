@@ -22,7 +22,7 @@ class MyColorIndicator extends CGFobject {
         else{
             this.defaultAppearance.setAmbient(0.47,0.32,0.66,1);
             this.defaultAppearance.setDiffuse(0.47,0.32,0.66,1);
-            this.defaultAppearance.setSpecular(0.47,0.32,0.66,1);
+            this.defaultAppearance.setSpecular(0,0,0,1);
         }
 	}
 	
