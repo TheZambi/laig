@@ -1028,6 +1028,8 @@ class MySceneGraph {
 
                 textureAux.push(this.reader.getString(grandChildren[textureIndex], "id"));
 
+                console.log(nodeID);
+
                 textureAux.push(this.reader.getFloat(textAmplification[0], "afs"));
                 textureAux.push(this.reader.getFloat(textAmplification[0], "aft"));
                 aux.push(textureAux);

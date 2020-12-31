@@ -45,8 +45,8 @@ main=function()
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-    var myGraph = new MySceneGraph(file1, myScene, firstScene);
-    var nextGraph = new MySceneGraph(file2, myScene, otherScene);
+    var myGraph = new MySceneGraph(file1, myScene, otherScene);
+    var nextGraph = new MySceneGraph(file2, myScene, firstScene);
 	
 	// start
     app.run();
