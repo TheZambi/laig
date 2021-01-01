@@ -21,7 +21,7 @@ class MyGameOrchestrator {
         this.bot1Copy = this.bot1Diff;
         this.currentTurnStart = 0;
         this.startTurnTimer = false;
-        this.turnTimers = [15,15,10,5];
+        this.turnTimers = [30,30,20,10];
         this.bot1Diffs = {
             "Easy": 1,
             "Medium": 2,
@@ -47,7 +47,8 @@ class MyGameOrchestrator {
     }
 
     replay() {
-        this.animator.replay();
+        if(this.playerTurn() || this.winner != -1)
+            this.animator.replay();
     }
 
     endReplay() {

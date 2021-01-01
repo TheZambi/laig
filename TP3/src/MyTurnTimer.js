@@ -24,7 +24,10 @@ class MyTurnTimer extends CGFobject {
     }
 
     timeisValid(){
-        return parseInt(this.text.text) >= 0 && parseInt(this.text.text) <= 15;
+        var max = this.orchestrator.turnTimers.reduce(function(a,b){
+            return Math.max(a,b);
+        })
+        return parseInt(this.text.text) >= 0 && parseInt(this.text.text) <= max;
     }
 
     display()

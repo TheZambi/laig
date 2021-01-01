@@ -33,7 +33,6 @@ class MyInterface extends CGFinterface {
         gameFolder.add(this.scene,'undo').name("Undo");
         gameFolder.add(this.scene.orchestrator, 'gameMode', this.scene.orchestrator.gameModes).name('Gamemode');
         gameFolder.add(this.scene.orchestrator, 'bot1Diff', this.scene.orchestrator.bot1Diffs).name('Bot 1 Difficulty');
-        gameFolder.add(this.scene.orchestrator, 'bot2Diff', this.scene.orchestrator.bot2Diffs).name('Bot 2 Difficulty');
 
         return true;
     }
