@@ -11,8 +11,20 @@
   <views default="cam1">
     <!-- at least one of the following type of cameras must be declared -->
     <perspective id="cam1" near="0.1" far="500" angle="45">
-      <from x="-20" y="0" z="0"/>
-      <to x="-10" y="-5" z="0"/>
+      <from x="-15" y="0" z="0"/>
+      <to x="-5" y="-5" z="0"/>
+    </perspective>
+    <perspective id="cam2" near="0.1" far="500" angle="45">
+      <from x="15" y="0" z="0"/>
+      <to x="5" y="-5" z="0"/>
+    </perspective>
+    <perspective id="side" near="0.1" far="500" angle="45">
+      <from x="0" y="0" z="10"/>
+      <to x="0" y="-7" z="0"/>
+    </perspective>
+    <perspective id="fullView" near="0.1" far="500" angle="45">
+      <from x="20" y="10" z="20"/>
+      <to x="-20" y="-20" z="-20"/>
     </perspective>
   </views>
   <illumination>
@@ -29,13 +41,20 @@
       <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
       <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
     </light>
-     <light id="backLight">
-      <enable value="1"/>
-      <position x="0" y="15" z="-15" w="1.0"/>
-      <ambient r="0" g="0" b="0" a="1.0"/>
-      <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
-      <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
-    </light>
+    <light id="backLight">
+    <enable value="1"/>
+    <position x="0" y="15" z="-15" w="1.0"/>
+    <ambient r="0" g="0" b="0" a="1.0"/>
+    <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+    <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
+  </light>
+  <light id="lamp">
+    <enable value="0"/>
+    <position x="0" y="2.3" z="0" w="1.0"/>
+    <ambient r="0" g="0" b="0" a="1.0"/>
+    <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+    <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
+  </light>
     
   </lights>
   <textures>
@@ -47,6 +66,9 @@
     <texture id="room_front" path="./scenes/images/room/frontView.png"/>
     <texture id="room_floor" path="./scenes/images/room/floor.png"/>
     <texture id="table" path="./scenes/images/table.png"/>
+    <texture id="lamp" path="./scenes/images/lamp.png"/>
+    <texture id="bulb" path="./scenes/images/bulb.png"/>
+    <texture id="string" path="./scenes/images/string.png"/>
   </textures>
   <spritesheets>
   </spritesheets>
@@ -79,121 +101,93 @@
       <descendants>
         <noderef id="skybox"/>
         <noderef id="Table"/>
+        <noderef id="Lamp"/>
         <leaf type="board" x="0" y="-9" z="0"/>
       </descendants>
     </node>
-    <!-- SKYBOX -->
-    <node id="skybox">
-      <material id="null"/>
-      <texture id="clear">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxBack"/>
-        <noderef id="skyboxFront"/> 
-        <noderef id="skyboxBottom"/>
-        <noderef id="skyboxLeft"/>
-        <noderef id="skyboxRight"/>
-        <noderef id="skyboxTop"/>
-      </descendants>
+
+    <node id="Lamp">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="0" y="3" z="0" />
+            <rotation axis="x" angle="-90" />
+        </transformations>
+
+        <descendants>
+          <noderef id="String"/>
+          <noderef id="LampHead"/>        
+        </descendants>
     </node>
-    <node id="skyboxFront">
-      <material id="null"/>
-      <texture id="room_front">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="0.0" z="-20.0"/>
-        <rotation axis="z" angle="180"/>
-        <rotation axis="x" angle="90"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
+
+    <node id="String">
+        <material id="null"/> 
+
+        <texture id="string">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="2.5" />
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="14.5" topRadius="0.1" bottomRadius="0.1" stacks="5" slices="15"/>
+        </descendants>
     </node>
-    <node id="skyboxBack">
-      <material id="null"/>
-      <texture id="room_back">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="0.0" z="20.0"/>
-        <rotation axis="z" angle="180"/>
-        <rotation axis="y" angle="180"/>
-        <rotation axis="x" angle="90"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
+
+    <node id="LampHead">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+
+        </transformations>
+
+        <descendants>
+            <noderef id="LampCone"/>
+            <noderef id="Bulb"/>
+        </descendants>
     </node>
-    <node id="skyboxTop">
-      <material id="null"/>
-      <texture id="room_ceiling">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="20.0" z="0.0"/>
-        <rotation axis="z" angle="180"/>
-        <rotation axis="y" angle="180"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
+
+    <node id="Bulb">
+        <material id="null"/> 
+
+        <texture id="bulb">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="0.2" />
+        </transformations>
+
+        <descendants>
+            <leaf type="sphere" slices="20" stacks="10" radius="1"/>
+        </descendants>
     </node>
-    <node id="skyboxBottom">
-      <material id="null"/>
-      <texture id="room_floor">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="-20.0" z="0.0"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
+
+    <node id="LampCone">
+        <material id="null"/> 
+
+        <texture id="lamp">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="3" topRadius="0" bottomRadius="3" stacks="5" slices="15"/>
+        </descendants>
     </node>
-    <node id="skyboxRight">
-      <material id="null"/>
-      <texture id="room_right">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="20.0" y="0.0" z="0.0"/>
-        <rotation axis="x" angle="-90"/>
-        <rotation axis="z" angle="90"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
-    </node>
-    <node id="skyboxLeft">
-      <material id="null"/>
-      <texture id="room_left">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <translation x="-20.0" y="0.0" z="0.0"/>
-        <rotation axis="x" angle="-90"/>
-        <rotation axis="z" angle="-90"/>
-      </transformations>
-      <descendants>
-        <noderef id="skyboxPlane"/>
-      </descendants>
-    </node> 
-    <node id="skyboxPlane">
-      <material id="null"/>
-      <texture id="null">
-        <amplification afs="1.0" aft="1.0"/>
-      </texture>
-      <transformations>
-        <scale sx="40" sy="1" sz="40"/>
-      </transformations>
-      <descendants>
-        <leaf type="plane" npartsU="5" npartsV="5"/>
-      </descendants>
-    </node> 
 
     <node id="Table">
         <material id="null"/> 
@@ -208,6 +202,91 @@
 
         <descendants>
             <noderef id="TableTop"/>
+            <noderef id="TableLegs"/>
+        </descendants>
+    </node>
+
+     <node id="TableLegs">
+        <material id="null"/> 
+
+        <texture id="table">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+        </transformations>
+
+        <descendants>
+            <noderef id="TableLegBackLeft"/>
+            <noderef id="TableLegBackRight"/>
+            <noderef id="TableLegFrontLeft"/>
+            <noderef id="TableLegFrontRight"/>
+        </descendants>
+    </node>
+
+    <node id="TableLegBackLeft">
+        <material id="null"/> 
+
+        <texture id="table">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="-7" y="-10.1" z="-7" />
+            <rotation axis="x" angle="90"/>
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="10" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/>
+        </descendants>
+    </node>
+    <node id="TableLegBackRight">
+        <material id="null"/> 
+
+        <texture id="table">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="-7" y="-10.1" z="7" />
+            <rotation axis="x" angle="90"/>
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="10" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/>
+        </descendants>
+    </node>
+
+    <node id="TableLegFrontLeft">
+        <material id="null"/> 
+
+        <texture id="table">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="7" y="-10.1" z="-7" />
+            <rotation axis="x" angle="90"/>
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="10" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/>
+        </descendants>
+    </node>
+    <node id="TableLegFrontRight">
+        <material id="null"/> 
+
+        <texture id="table">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="7" y="-10.1" z="7" />
+            <rotation axis="x" angle="90"/>
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="10" topRadius="0.5" bottomRadius="0.5" stacks="20" slices="20"/>
         </descendants>
     </node>
 
@@ -345,5 +424,119 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1"/>
             </descendants>
         </node>
+
+    <!-- SKYBOX -->
+    <node id="skybox">
+      <material id="null"/>
+      <texture id="clear">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxBack"/>
+        <noderef id="skyboxFront"/> 
+        <noderef id="skyboxBottom"/>
+        <noderef id="skyboxLeft"/>
+        <noderef id="skyboxRight"/>
+        <noderef id="skyboxTop"/>
+      </descendants>
+    </node>
+    <node id="skyboxFront">
+      <material id="null"/>
+      <texture id="room_front">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="-20.0"/>
+        <rotation axis="z" angle="180"/>
+        <rotation axis="x" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node>
+    <node id="skyboxBack">
+      <material id="null"/>
+      <texture id="room_back">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="20.0"/>
+        <rotation axis="z" angle="180"/>
+        <rotation axis="y" angle="180"/>
+        <rotation axis="x" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node>
+    <node id="skyboxTop">
+      <material id="null"/>
+      <texture id="room_ceiling">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="20.0" z="0.0"/>
+        <rotation axis="z" angle="180"/>
+        <rotation axis="y" angle="180"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node>
+    <node id="skyboxBottom">
+      <material id="null"/>
+      <texture id="room_floor">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="-20.0" z="0.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node>
+    <node id="skyboxRight">
+      <material id="null"/>
+      <texture id="room_right">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="20.0" y="0.0" z="0.0"/>
+        <rotation axis="x" angle="-90"/>
+        <rotation axis="z" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node>
+    <node id="skyboxLeft">
+      <material id="null"/>
+      <texture id="room_left">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="-20.0" y="0.0" z="0.0"/>
+        <rotation axis="x" angle="-90"/>
+        <rotation axis="z" angle="-90"/>
+      </transformations>
+      <descendants>
+        <noderef id="skyboxPlane"/>
+      </descendants>
+    </node> 
+    <node id="skyboxPlane">
+      <material id="null"/>
+      <texture id="null">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <scale sx="40" sy="1" sz="40"/>
+      </transformations>
+      <descendants>
+        <leaf type="plane" npartsU="5" npartsV="5"/>
+      </descendants>
+    </node> 
+
   </nodes>
 </lsf>

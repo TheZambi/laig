@@ -24,6 +24,7 @@ class MyTurnTimer extends CGFobject {
     display()
     {
         this.scene.pushMatrix();
+        this.scene.translate(0.2,0,0);
         this.scene.scale(10,10,10);
         this.screen.apply();
         this.timer.display();
