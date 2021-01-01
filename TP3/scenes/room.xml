@@ -4,7 +4,7 @@
     <reference length="2"/>
     <!-- axis length; "0" means no axis displayed -->
     <root id="root"/>
-    <name name="room"/>
+    <name name="Room"/>
     <!-- identifier of root node of the scene graph; this node -->
     <!-- must be defined in one of the following NODE declarations -->
   </initials>

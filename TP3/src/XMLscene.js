@@ -562,6 +562,8 @@ class XMLscene extends CGFscene {
 
         this.initLights();
         this.initCameras();
+        this.interface.gui.remove(this.interface.scenes);
+        this.interface.scenes = this.interface.gui.add(this.orchestrator, 'theme', this.graphNames).name('Scenes').onChange(this.updateTheme.bind(this));
         this.initSpriteSheets();
         this.initNodes();
         this.initMaterials();

@@ -8,10 +8,15 @@ class MyTurnTimer extends CGFobject {
         this.orchestrator = orchestrator;
         this.timer = new MyRectangle(scene,-0.5,-0.5,0.5,0.5);
         this.text = new MySpriteText(scene,"");
+        this.box = new MyOpenBox(scene);
+        this.tvCylinder = new MyCylinder(scene,20,10,1,1,8);
         this.helperText = new MySpriteText(scene,"Winner:");
 
         this.screen = new CGFappearance(this.scene);
         this.screen.loadTexture('./scenes/images/messageScreen.png');
+
+        this.blackSides = new CGFappearance(this.scene);
+        this.blackSides.loadTexture('./scenes/images/cabinRoof.png');
     }
     
     updateText(text){
@@ -24,9 +29,20 @@ class MyTurnTimer extends CGFobject {
 
     display()
     {
+        this.blackSides.apply();
+        this.scene.pushMatrix();
+        this.scene.translate(0,-3,-5);
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.tvCylinder.display();
+        this.scene.popMatrix();
         this.scene.pushMatrix();
         this.scene.translate(0.2,0,0);
         this.scene.scale(10,10,10);
+        this.scene.pushMatrix();
+        this.scene.translate(0,0,-0.5);
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.box.display();
+        this.scene.popMatrix();
         this.screen.apply();
         this.timer.display();
         this.scene.popMatrix();
