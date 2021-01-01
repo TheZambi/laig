@@ -41,7 +41,7 @@ main=function()
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
     var file1=getUrlVars()['file'] || "LAIG_TP3_XML_T3_G10_v01.xml";
-    var file2= "pool.xml";
+    var file2= "room.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors

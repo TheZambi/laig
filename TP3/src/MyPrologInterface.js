@@ -24,7 +24,6 @@ class MyPrologInterface {
 
     requestBotMove(requestString){
         this.getPrologRequest(requestString, this.botMove.bind(this.orchestrator));
-        console.log(requestString);
     }
 
 

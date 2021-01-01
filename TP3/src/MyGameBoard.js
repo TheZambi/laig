@@ -267,8 +267,7 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
-        this.scene.pushMatrix();
-        this.scene.scale(0.3,0.3,0.3);
+        
         this.displayTiles();
         this.displayIndicators();
         this.scene.pushMatrix();
@@ -277,7 +276,7 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
         this.displayScores();
         this.displayTimer();
-        this.scene.popMatrix();
+
     }
 
     undo(undoMove) {

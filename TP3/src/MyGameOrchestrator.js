@@ -98,7 +98,6 @@ class MyGameOrchestrator {
         }
         
         this.newText = turnTimeGamemode - this.currentTurnTimer;
-        console.log(this.newText);
         if(this.gameStarted && this.newText < 0){
             this.winner = (this.currentPlayer + 1) % 2;
             this.gameStarted = false;
@@ -263,6 +262,7 @@ class MyGameOrchestrator {
         }
         this.scene.pushMatrix();
         this.scene.translate(...this.boardTranslation);
+        this.scene.scale(0.3,0.3,0.3);
         this.animator.display();
         this.gameboard.display();
         this.scene.popMatrix();
