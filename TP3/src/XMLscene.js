@@ -152,14 +152,23 @@ class XMLscene extends CGFscene {
             for (var key in this.graph.cameras) {
                 if (this.graph.cameras.hasOwnProperty(key)) {
                     if (key == this.graph.defaultCam) {
+                        var orthoCam = false;
+                        if(this.cameraList[i] instanceof CGFcameraOrtho){
+                            orthoCam = true;
+                        }
                         var far = this.cameraList[i].far;
-                        var fov = this.cameraList[i].fov;
+                        if(!orthoCam)
+                            var fov = this.cameraList[i].fov;
                         var near = this.cameraList[i].near;
                         var position = this.cameraList[i].position;
                         var target = this.cameraList[i].target;
                         var up = this.cameraList[i]._up;
+                        if(orthoCam){
+                            this.camera = new CGFcameraOrtho(-50,50,-50,50,0.1,500,vec3.fromValues(50,20,60),vec3.fromValues(5,0,0),vec3.fromValues(0,1,0));
+                        }
                         this.camera.far = far;
-                        this.camera.fov = fov;
+                        if(!orthoCam)
+                            this.camera.fov = fov;
                         this.camera.near = near;
                         this.camera._up = up;
                         this.camera.setPosition(position);
@@ -200,13 +209,23 @@ class XMLscene extends CGFscene {
     }
 
     interpolateCams(t) {
+        var nextIsOrtho = false;
+        if(this.nextCamera instanceof CGFcameraOrtho){
+            nextIsOrtho = true;
+        }
+        var firstIsOrtho = false;
+        if(this.firstCamera instanceof CGFcameraOrtho){
+            firstIsOrtho = true;
+        }
+        
         var timePassed = (t - this.animationCameraTimeStart) / 1000;
         if (timePassed >= 1) {
             this.animateCamera = false;
             timePassed = 1;
         }
         var far = this.firstCamera.far * (1 - timePassed) + this.nextCamera.far * (timePassed);
-        var fov = this.firstCamera.fov * (1 - timePassed) + this.nextCamera.fov * (timePassed);
+        if(!firstIsOrtho && !nextIsOrtho)
+            var fov = this.firstCamera.fov * (1 - timePassed) + this.nextCamera.fov * (timePassed);
         var near = this.firstCamera.near * (1 - timePassed) + this.nextCamera.near * (timePassed);
         var position = [];
         var target = [];
@@ -226,12 +245,18 @@ class XMLscene extends CGFscene {
 
         //RESET CAMERAS WHEN FINISHED
         if (timePassed == 1) {
-            this.camera = this.defaultCamera;
-            this.firstCamera = this.nextCamera;
-            this.nextCamera = null;
+            if(!nextIsOrtho){
+                this.camera = this.defaultCamera;
+                this.firstCamera = this.nextCamera;
+                this.nextCamera = null;
+            }
+            else{
+                this.camera = new CGFcameraOrtho(-50,50,-50,50,0.1,500,vec3.fromValues(50,20,60),vec3.fromValues(5,0,0),vec3.fromValues(0,1,0));
+            }
         }
         this.camera.far = far;
-        this.camera.fov = fov;
+        if(!firstIsOrtho && !nextIsOrtho)
+            this.camera.fov = fov;
         this.camera.near = near;
         this.camera._up = up;
         this.camera.setPosition(position);

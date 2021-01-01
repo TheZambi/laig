@@ -102,8 +102,15 @@ class MyGameOrchestrator {
             this.winner = (this.currentPlayer + 1) % 2;
             this.gameStarted = false;
             this.newText = "";
+            this.gameboard.timer.updateText(this.newText.toString());
         }
-        this.gameboard.timer.updateText(this.newText.toString());
+        if(this.winner == -1){
+            this.gameboard.timer.updateText(this.newText.toString());
+        }
+        else if(this.winner != -1){
+            this.newText = "Player " + (this.winner+1);
+            this.gameboard.timer.updateText(this.newText.toString());
+        }
         this.animator.update(t);
     }
 
@@ -115,9 +122,8 @@ class MyGameOrchestrator {
         this.moveDone = false;
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
-        var botDiff = this.getBotDiff();
         var nPiecesLeft = this.getNPiecesLeft();
-        this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + botDiff + ")");
+        this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + 1 + ")");
     }
 
     parseBotMove(move) {
