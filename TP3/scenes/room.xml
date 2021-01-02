@@ -24,7 +24,7 @@
     </perspective>
     <perspective id="fullView" near="0.1" far="500" angle="45">
       <from x="20" y="10" z="20"/>
-      <to x="-20" y="-20" z="-20"/>
+      <to x="0" y="0" z="0"/>
     </perspective>
   </views>
   <illumination>
@@ -69,6 +69,7 @@
     <texture id="lamp" path="./scenes/images/lamp.png"/>
     <texture id="bulb" path="./scenes/images/bulb.png"/>
     <texture id="string" path="./scenes/images/string.png"/>
+    <texture id="polishedWood" path="./scenes/images/polishedWood.png"/>
   </textures>
   <spritesheets>
   </spritesheets>
@@ -102,8 +103,236 @@
         <noderef id="skybox"/>
         <noderef id="Table"/>
         <noderef id="Lamp"/>
+        <noderef id="Chair1"/>
+        <noderef id="Chair2"/>
         <leaf type="board" x="0" y="-9" z="0"/>
       </descendants>
+    </node>
+
+    <node id="Chair1">
+        <material id="null"/> 
+
+        <texture id="polishedWood">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="12" y="-14" z="-2.5"/> 
+        </transformations>
+
+        <descendants>
+          <noderef id="Seat"/>
+          <noderef id="ChairLegs"/>
+          <noderef id="BackRest"/>
+        </descendants>
+    </node>
+
+    <node id="Chair2">
+        <material id="null"/> 
+
+        <texture id="polishedWood">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="-12" y="-14" z="2.5"/> 
+            <rotation axis="y" angle="180"/>
+        </transformations>
+
+        <descendants>
+          <noderef id="Seat"/>
+          <noderef id="ChairLegs"/>
+          <noderef id="BackRest"/>
+        </descendants>
+    </node>
+
+    <node id="BackRest">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+
+        </transformations>
+
+        <descendants>
+            <noderef id="Support"/>
+            <noderef id="BackSupport"/>
+        </descendants>
+    </node>
+
+    <node id="BackSupport">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="4" y="6" z="0"/>
+            <scale sx="1" sy="1" sz="5"/>
+        </transformations>
+
+        <descendants>
+            <noderef id="Cube"/>
+        </descendants>
+    </node>
+
+    <node id="Support">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+
+        </transformations>
+
+        <descendants>
+            <noderef id="SupportRight"/>
+            <noderef id="SupportLeft"/>
+
+        </descendants>
+    </node>
+
+    <node id="SupportRight">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="4.5" y="6.5" z="4.5"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type='defbarrel' base='0.1' middle='0.3' height='6' slices='10' stacks='10'/>
+        </descendants>
+    </node>
+
+    <node id="SupportLeft">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="4.5" y="6.5" z="0.5"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type='defbarrel' base='0.1' middle='0.3' height='6' slices='10' stacks='10'/>
+        </descendants>
+    </node>
+
+    <node id="ChairLegs">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+
+        </transformations>
+
+        <descendants>
+            <noderef id="ChairLegBackLeft"/>
+            <noderef id="ChairLegBackRight"/>
+            <noderef id="ChairLegFrontLeft"/>
+            <noderef id="ChairLegFrontRight"/>
+        </descendants>
+    </node>
+
+    <node id="ChairLegBackLeft">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="4.7" y="0" z="4.7"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="6" topRadius="0.3" bottomRadius="0.3" stacks="5" slices="15"/>
+        </descendants>
+    </node>
+
+    <node id="ChairLegBackRight">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="4.7" y="0" z="0.3"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="6" topRadius="0.3" bottomRadius="0.3" stacks="5" slices="15"/>
+        </descendants>
+    </node>
+
+    <node id="ChairLegFrontLeft">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="1" y="0" z="4"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="6" topRadius="0.3" bottomRadius="0.3" stacks="5" slices="15"/>
+        </descendants>
+    </node>
+
+    <node id="ChairLegFrontRight">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="1" y="0" z="1"/>
+            <rotation axis="x" angle="90"/> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="6" topRadius="0.3" bottomRadius="0.3" stacks="5" slices="15"/>
+        </descendants>
+    </node>
+
+    <node id="Seat">
+        <material id="null"/> 
+
+        <texture id="null">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <scale sx="5" sy="0.5" sz="5" />
+        </transformations>
+
+        <descendants>
+          <noderef id="Cube"/>
+        </descendants>
     </node>
 
     <node id="Lamp">
