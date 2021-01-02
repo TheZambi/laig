@@ -15,6 +15,12 @@ class MyTile extends CGFobject {
         this.defaultAppearance = scene.tileAppearence;
         this.row = row;
         this.diag = diag;
+
+        this.highlighter = new MyTorus(scene, 6, 3, 0.1, 0.8);
+        this.highlightAppearence = new CGFappearance(scene);
+        this.highlightAppearence.setAmbient(0,1,0,1);
+        this.highlightAppearence.setDiffuse(0,1,0,1);
+        this.highlightAppearence.setSpecular(0,1,0,1);
     }
 	
 	initBuffers() {
@@ -49,7 +55,7 @@ class MyTile extends CGFobject {
 
     display()
     {
-
+        
         if(!this.piece && this.orchestrator.playerTurn()){
             this.scene.registerForPick(this.scene.currentPickIndex, this);
             this.scene.currentPickIndex++;
@@ -62,6 +68,14 @@ class MyTile extends CGFobject {
 
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
         this.tile.display();
+        if(this.orchestrator.selectedPiece != null && this.piece == null){
+            this.highlightAppearence.apply();
+            this.scene.pushMatrix();
+            this.scene.rotate(Math.PI / 2, 0, 0, 1);
+            this.scene.translate(0,0,0.5);
+            this.highlighter.display();
+            this.scene.popMatrix();
+        }
     }
 
 	/**

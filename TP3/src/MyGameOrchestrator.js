@@ -76,6 +76,7 @@ class MyGameOrchestrator {
             this.gameboard.player0Score.colors = this.colorsWon;
             this.gameboard.player1Score.colors = this.colorsWon;
             this.moveDone = true;
+            this.selectedPiece = null
         }
     }
 
@@ -265,10 +266,15 @@ class MyGameOrchestrator {
         }
     }
 
-    display() {
+    orchestrate()
+    {
         if (this.gameStarted && !this.replayMode) {
             this.play();
         }
+        this.display();
+    }
+
+    display() {
         this.scene.pushMatrix();
         this.scene.translate(...this.boardTranslation);
         this.scene.scale(0.3,0.3,0.3);

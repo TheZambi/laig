@@ -268,14 +268,14 @@ class MyGameBoard extends CGFobject {
 
     display() {
         
-        this.displayTiles();
         this.displayIndicators();
+        this.displayScores();
+        this.displayTimer();
+        this.displayTiles();
         this.scene.pushMatrix();
         this.scene.translate(0,1.51,0);
         this.displayBoxes();
         this.scene.popMatrix();
-        this.displayScores();
-        this.displayTimer();
 
     }
 

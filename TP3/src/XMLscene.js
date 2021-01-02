@@ -633,8 +633,8 @@ class XMLscene extends CGFscene {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
-            this.orchestrator.display();
             this.graph.displayScene();
+            this.orchestrator.orchestrate();
         }
         else {
             // Show some "loading" visuals
