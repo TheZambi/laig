@@ -39,7 +39,7 @@ class MyTurnTimer extends CGFobject {
         this.tvCylinder.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();
-        this.scene.translate(0.2,0,0);
+        this.scene.translate(0.5,0,0);
         this.scene.scale(10,10,10);
         this.scene.pushMatrix();
         this.scene.translate(0,0,-0.5);

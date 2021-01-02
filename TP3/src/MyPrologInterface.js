@@ -4,6 +4,7 @@ class MyPrologInterface {
      */
     constructor(orchestrator) {
         this.orchestrator = orchestrator;
+        this.currentGame = 0;
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -22,13 +23,15 @@ class MyPrologInterface {
         this.getPrologRequest(requestString, this.updateColors.bind(this.orchestrator));
     }
 
-    requestBotMove(requestString){
+    requestBotMove(requestString, game){
+        this.currentGame = game;
         this.getPrologRequest(requestString, this.botMove.bind(this.orchestrator));
     }
 
 
     botMove(data){
-        this.parseBotMove(data.target.response.replace('[','').replace(']','').split(','));
+        if(this.currentGame == this.prologInterface.currentGame && this.gameStarted)
+            this.parseBotMove(data.target.response.replace('[','').replace(']','').split(','));
     }
 
     //Handle the Reply

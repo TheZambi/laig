@@ -5,6 +5,7 @@
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
+        this.currentGame = 0;
         this.boardTranslation = [0,0,0];
         this.animator = new MyAnimator(this);
         this.theme = 0;
@@ -124,7 +125,7 @@ class MyGameOrchestrator {
         var newBoard = this.createBoard();
         var colorsWon = this.createColors();
         var nPiecesLeft = this.getNPiecesLeft();
-        this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + 1 + ")");
+        this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + 1 + ")", this.currentGame);
     }
 
     parseBotMove(move) {
@@ -231,6 +232,7 @@ class MyGameOrchestrator {
     }
 
     startGame() {
+        this.currentGame++;
         this.gameStarted = true;
         this.bot1Copy = this.bot1Diff;
         this.bot2Copy = this.bot2Diff;
