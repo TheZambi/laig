@@ -10,6 +10,8 @@ class MyPiece extends CGFobject {
         this.translation = translation;
         this.piece = new MyCylinder(scene,20,20,0.5,0.5,0.5);
         this.defaultAppearance = new CGFappearance(scene);
+
+        // creates different materials according to the piece's color
         if(color == "green"){
             this.defaultAppearance.setAmbient(0,0.5,0,1);
             this.defaultAppearance.setDiffuse(0,0.5,0,1);
@@ -33,7 +35,6 @@ class MyPiece extends CGFobject {
      * Initializes the triangle buffers
      */
 	initBuffers() {
-	
 		this.initGLBuffers();
 	}
 

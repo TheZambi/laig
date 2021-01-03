@@ -15,14 +15,14 @@ class MyOpenBox extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0,0,0.5);
 
-        this.quad.display(); //Base
-        this.quadRev.display(); //Base
-
+        this.quad.display(); // front
+        this.quadRev.display(); // front
 
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI,0,0,1);
         this.scene.rotate(Math.PI,1,0,0);
         this.scene.translate(0,0,1);
+        // back
         this.quad.display();
         this.quadRev.display();
         this.scene.popMatrix();
@@ -33,16 +33,19 @@ class MyOpenBox extends CGFobject {
         this.scene.translate(0.5,0,0);
         this.scene.rotate(Math.PI/2, 0,1,0);
         
+        // right side
         this.quad.display();
         this.quadRev.display();
         
         this.scene.rotate(Math.PI,0,1,0);
         this.scene.translate(0,0,1);
+
+        // left side
         this.quad.display();
         this.quadRev.display();
         this.scene.popMatrix();
         
-
+        // base
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
         this.scene.rotate(Math.PI/2,1,0,0);

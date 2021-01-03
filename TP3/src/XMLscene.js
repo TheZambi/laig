@@ -41,12 +41,8 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
-
-        //TO REMOVE LATER
         this.tileAppearence = new CGFappearance(this);
         this.tileAppearence.loadTexture('./scenes/images/tile.png');
-
-        
 
         this.orchestrator = new MyGameOrchestrator(this);
 
@@ -122,6 +118,7 @@ class XMLscene extends CGFscene {
                         this.cameraNames.push(key);
                     }
                     if (key == this.graph.defaultCam) {
+                        // copies the default camera to a seperate variable
                         var far = this.cameraList[this.cameraList.length - 1].far;
                         var fov = this.cameraList[this.cameraList.length - 1].fov;
                         var near = this.cameraList[this.cameraList.length - 1].near;
@@ -141,17 +138,19 @@ class XMLscene extends CGFscene {
                     }
                 }
             }
-
+            // saves the cameras for the scene in order to not load them again when changing back to the scene
             this.graph.loadedCameras = this.cameraList;
             this.graph.cameraNames = this.cameraNames;
         }
         else{
+            // loads the saved cameras for the correct scene
             this.cameraList = this.graph.loadedCameras;
             this.cameraNames = this.graph.cameraNames;
             var i=0;
             for (var key in this.graph.cameras) {
                 if (this.graph.cameras.hasOwnProperty(key)) {
                     if (key == this.graph.defaultCam) {
+                        // copies the default camera to a seperate variable
                         var orthoCam = false;
                         if(this.cameraList[i] instanceof CGFcameraOrtho){
                             orthoCam = true;
@@ -209,7 +208,8 @@ class XMLscene extends CGFscene {
     }
 
     interpolateCams(t) {
-        var nextIsOrtho = false;
+        //if the next cam is ortho proper mesures need to be taken. For example, if the current camera isn't ortho we need to create a new one to take its place
+        var nextIsOrtho = false; 
         if(this.nextCamera instanceof CGFcameraOrtho){
             nextIsOrtho = true;
         }
@@ -223,8 +223,10 @@ class XMLscene extends CGFscene {
             this.animateCamera = false;
             timePassed = 1;
         }
+
+        // series of operations to interpolate the cameras to create an animation of a camera sliding between two positions
         var far = this.firstCamera.far * (1 - timePassed) + this.nextCamera.far * (timePassed);
-        if(!firstIsOrtho && !nextIsOrtho)
+        if(!firstIsOrtho && !nextIsOrtho) //since ortho cams don't have a fov, these bools indicate whether to interpolate it or not
             var fov = this.firstCamera.fov * (1 - timePassed) + this.nextCamera.fov * (timePassed);
         var near = this.firstCamera.near * (1 - timePassed) + this.nextCamera.near * (timePassed);
         var position = [];
@@ -241,7 +243,7 @@ class XMLscene extends CGFscene {
 
         var up = vec4.create();
 
-        vec4.normalize(up, vec4.fromValues(upAux[0], upAux[1], upAux[2], 0));
+        vec4.normalize(up, vec4.fromValues(upAux[0], upAux[1], upAux[2], 0)); // the _up argument must be normalized
 
         //RESET CAMERAS WHEN FINISHED
         if (timePassed == 1) {
@@ -251,6 +253,7 @@ class XMLscene extends CGFscene {
                 this.nextCamera = null;
             }
             else{
+                //in order to create a proper ortho camera the current camera must be overwritten
                 this.camera = new CGFcameraOrtho(-50,50,-50,50,0.1,500,vec3.fromValues(50,20,60),vec3.fromValues(5,0,0),vec3.fromValues(0,1,0));
             }
         }
@@ -406,10 +409,12 @@ class XMLscene extends CGFscene {
                     this.materialsList[key] = materialToPush;
                 }
             }
+            // saves scene's materials so they are not created again later
             this.graph.loadedMats = this.materialsList;
         }
         else
         {
+            // loads scene's materials
             this.materialsList = this.graph.loadedMats;
         }
     }
@@ -426,9 +431,11 @@ class XMLscene extends CGFscene {
                     this.texturesList[key] = textureToPush;
                 }
             }
+            // saves scene's textures so they are not loaded again later
             this.graph.loadedTextures = this.texturesList;
         }
         else{
+            // loads scene's textures
             this.texturesList = this.graph.loadedTextures;
         }
     }

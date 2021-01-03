@@ -23,7 +23,7 @@ class MySceneGraph {
      */
     constructor(filename, scene, firstScene) {
         this.loadedOk = null;
-        this.firstScene = firstScene;
+        this.firstScene = firstScene; // indicates if the graph is the default graph or not (to start displayed)
 
         // Establish bidirectional references between scene and graph.
         this.scene = scene;

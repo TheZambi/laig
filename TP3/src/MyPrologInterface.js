@@ -19,16 +19,18 @@ class MyPrologInterface {
         request.send();
     }
 
+    // requests an update to the colors won
     requestColorsWon(requestString) {
         this.getPrologRequest(requestString, this.updateColors.bind(this.orchestrator));
     }
 
+    // requests bot move
     requestBotMove(requestString, game){
         this.currentGame = game;
         this.getPrologRequest(requestString, this.botMove.bind(this.orchestrator));
     }
 
-
+    // receives bot move
     botMove(data){
         if(this.currentGame == this.prologInterface.currentGame && this.gameStarted)
             this.parseBotMove(data.target.response.replace('[','').replace(']','').split(','));

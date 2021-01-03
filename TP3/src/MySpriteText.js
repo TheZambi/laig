@@ -15,6 +15,7 @@ class MySpriteText {
         }
     }
 
+    // updates the text and creates new rectangles to display the text
     updateText(text){
         this.text = text;
         this.textBox = [];

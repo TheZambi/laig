@@ -19,6 +19,7 @@ class PieceBox extends CGFobject {
         this.displayPieces();
     }
 
+    //displays the unused pieces
     displayPieces() {
         this.scene.pushMatrix();
         for(let i = 0;i<this.pieces.length;i++){
@@ -31,10 +32,6 @@ class PieceBox extends CGFobject {
                 this.scene.popMatrix();
             }
         }
-
-        
         this.scene.popMatrix();
     }
-
-    updateCoords() {}
 }

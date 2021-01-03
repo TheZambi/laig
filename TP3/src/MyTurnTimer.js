@@ -7,11 +7,11 @@ class MyTurnTimer extends CGFobject {
         super(scene);
         this.orchestrator = orchestrator;
         this.timer = new MyRectangle(scene,-0.5,-0.5,0.5,0.5);
-        this.text = new MySpriteText(scene,"");
+        this.text = new MySpriteText(scene,""); //used to display time left
         this.box = new MyOpenBox(scene);
         this.tvCylinder = new MyCylinder(scene,20,10,1,1,8);
-        this.helperText = new MySpriteText(scene,"Winner:");
-        this.turnPlayer = new MySpriteText(scene,"");
+        this.helperText = new MySpriteText(scene,"Winner:"); // to use when displaying winner
+        this.turnPlayer = new MySpriteText(scene,"");// to use when displaying turn's player
 
         this.screen = new CGFappearance(this.scene);
         this.screen.loadTexture('./scenes/images/messageScreen.png');
@@ -20,7 +20,7 @@ class MyTurnTimer extends CGFobject {
         this.blackSides.loadTexture('./scenes/images/cabinRoof.png');
     }
     
-    updateText(text){
+    updateText(text){ //updates text's text
         this.text.updateText(text);
     }
 
@@ -32,25 +32,31 @@ class MyTurnTimer extends CGFobject {
     }
 
     display()
-    {
+    {   
+        // displays box to serve as a display screen
         this.blackSides.apply();
+
         this.scene.pushMatrix();
         this.scene.translate(0,-3,-5);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.tvCylinder.display();
         this.scene.popMatrix();
+
         this.scene.pushMatrix();
         this.scene.translate(0.5,0,0);
         this.scene.scale(10,10,10);
+
         this.scene.pushMatrix();
         this.scene.translate(0,0,-0.5);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.box.display();
         this.scene.popMatrix();
+        
         this.screen.apply();
         this.timer.display();
         this.scene.popMatrix();
-        if(this.orchestrator.gameStarted && this.timeisValid() && this.orchestrator.gameMode != "4" ){
+
+        if(this.orchestrator.gameStarted && this.timeisValid() && this.orchestrator.gameMode != "4" ){ //displays turn's player and time left
             this.scene.pushMatrix();
             this.scene.translate(0.5,0.1,0.1);
             this.turnPlayer.updateText("Player:" + (this.orchestrator.currentPlayer+1));
@@ -62,7 +68,7 @@ class MyTurnTimer extends CGFobject {
             this.text.display();
             this.scene.popMatrix();
         }
-        else if(!this.orchestrator.gameStarted && this.orchestrator.winner != -1){
+        else if(!this.orchestrator.gameStarted && this.orchestrator.winner != -1){ //displays winner
             this.scene.pushMatrix();
             this.scene.translate(0.2,0,0.1);
             this.scene.pushMatrix();

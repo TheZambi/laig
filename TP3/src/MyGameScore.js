@@ -8,28 +8,33 @@ class MyGameScore extends CGFobject {
         this.player = player;
         this.colors = colors;
         this.rectangle = new MyRectangle(scene,0.5,-0.5,-0.5,0.5);
-        this.marker = new MyCylinder(scene,20,20,0.5,0.5,0.5);
+        this.marker = new MyCylinder(scene,20,20,0.5,0.5,0.5); // marker for the colors won
 
+        // appearance for green marker
         this.greenAppearance = new CGFappearance(scene);
         this.greenAppearance.setAmbient(0,0.5,0,1);
         this.greenAppearance.setDiffuse(0,0.5,0,1);
         this.greenAppearance.setSpecular(0,0.5,0,1);
 
+        // appearance for orange marker
         this.orangeAppearance = new CGFappearance(scene);
         this.orangeAppearance.setAmbient(1,0.31,0,1);
         this.orangeAppearance.setDiffuse(1,0.31,0,1);
         this.orangeAppearance.setSpecular(1,0.31,0,1);
 
+        // appearance for purple marker
         this.purpleAppearance = new CGFappearance(scene);
         this.purpleAppearance.setAmbient(0.47,0.32,0.66,1);
         this.purpleAppearance.setDiffuse(0.47,0.32,0.66,1);
         this.purpleAppearance.setSpecular(0.47,0.32,0.66,1);
 
+        // appearance for grey marker
         this.greyAppearance = new CGFappearance(scene);
         this.greyAppearance.setAmbient(0.50,0.50,0.50,1);
         this.greyAppearance.setDiffuse(0.50,0.50,0.50,1);
         this.greyAppearance.setSpecular(0.50,0.50,0.50,1);
 
+        // loads the correct texture depending on the player
         if(player == 0)
         {
             this.alliances = new CGFappearance(this.scene);
@@ -43,6 +48,7 @@ class MyGameScore extends CGFobject {
         this.bottomBox = new MyOpenBox(scene);
     }
 
+    // display's the game score's base (where the markers are placed)
     displayBase()
     {
         this.scene.pushMatrix();
@@ -64,8 +70,11 @@ class MyGameScore extends CGFobject {
     {
         this.colors = colors;
     }
-
-    displayColorsWon()
+    
+    // displays the correct markers according to the color's won
+    // a color that was won is represented with a marker with the same color
+    // a color lost is displayed with a grey marker
+    displayColorsWon() 
     {
         var opponent = (this.player + 1) % 2;
         for(let i = 0; i < this.colors.length; i++)
@@ -76,7 +85,7 @@ class MyGameScore extends CGFobject {
 
             if(this.colors[i] == this.player)
             {
-                switch(i)
+                switch(i) // applies the correct appearance acording to the color won
                 {
                     case 0:
                         this.orangeAppearance.apply();
@@ -91,7 +100,7 @@ class MyGameScore extends CGFobject {
                 
                 this.marker.display();
             }
-            else if (this.colors[i] == opponent){
+            else if (this.colors[i] == opponent){ // applies a grey appearance
                 this.greyAppearance.apply();
                 this.marker.display();
             }
