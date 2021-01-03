@@ -1,6 +1,5 @@
 /**
  * MyAnimator
- * @constructor
  */
 class MyAnimator {
     constructor(orchestrator) {
@@ -12,6 +11,10 @@ class MyAnimator {
         this.currentTime = 0;
     }
 
+    /**
+     * @method replay
+     * prepares the sequence of moves for replay
+     */
     replay() {
         this.copySequence = [];
         this.copySequence = this.orchestrator.gameSequence.moveSequence;
@@ -20,6 +23,11 @@ class MyAnimator {
         this.orchestrator.prepareForMovie();
     }
 
+    /**
+     * @method replayMove
+     * @param {Int} t - time of last update
+     * replays the last move on the sequence
+     */
     replayMove(t) {
         if(this.copySequence.length > 0){
             var move = this.copySequence.pop();
@@ -30,6 +38,10 @@ class MyAnimator {
         } else this.orchestrator.replayMode = false;
     }
 
+    /**
+     * @method display
+     * displays all animations for currentMoves, also displays pieces after the animation ends
+     */
     display() {
         let sequence = this.orchestrator.gameSequence.moveSequence;
         for (let i = 0; i < sequence.length; i++) {
@@ -44,6 +56,10 @@ class MyAnimator {
         }
     }
 
+    /**
+     * @method endReplay
+     * Replays moves for movie until there are none left
+     */
     endReplay()
     {
         while(this.copySequence.length != 0)
@@ -52,6 +68,11 @@ class MyAnimator {
         }
     }
 
+    /**
+     * @method timeForNextPiece
+     * @param {Float} t - time of last update
+     * Makes a move for the movie if 1 second has passed
+     */
     timeForNextPiece(t)
     {
         if(t - this.timeOfLastPiece > 1000)
@@ -62,6 +83,11 @@ class MyAnimator {
         return false;
     }
 
+    /**
+     * @method update
+     * @param {Float} t - time of last update
+     * updates all animations for every move
+     */
     update(t) {
         this.currentTime = t;
         if(this.orchestrator.replayMode && this.timeForNextPiece(t)) {

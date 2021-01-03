@@ -184,6 +184,7 @@ class XMLscene extends CGFscene {
         }
 
         this.interface.cameraFolder = this.interface.gui.addFolder("Cameras");
+        this.interface.cameraFolder.closed = false;
         var controller = this.interface.cameraFolder.add(this, 'selectedCamera', this.cameraNames).name('Selected Camera');
         controller.onChange(this.updateCamera.bind(this));
         return;
@@ -370,6 +371,7 @@ class XMLscene extends CGFscene {
         this.nLights = i;
         //Adds lights to the interface so we can turn them on and off
         this.interface.lightsFolder = this.interface.gui.addFolder("Lights");
+        this.interface.lightsFolder.closed = false;
         for (let j = 1; j <= this.nLights; j++) {
             this.interface.lightsFolder.add(this, 'light' + j).name(lightName[j - 1]).onChange(this.updateLights.bind(this));
         }

@@ -28,13 +28,17 @@ class MyColorIndicator extends CGFobject {
 	
 	/**
      * @method initBuffers
-     * Initializes the triangle buffers
+     * Initializes the object's buffers
      */
 	initBuffers() {
 	
 		this.initGLBuffers();
 	}
 
+    /**
+     * @method display
+     * Displays color indicators on board
+     */
     display()
     {
         this.defaultAppearance.apply();
@@ -48,10 +52,6 @@ class MyColorIndicator extends CGFobject {
         this.scene.popMatrix();
         this.box.display();
         this.scene.popMatrix();
-    }
-
-    updateCoords(afs, aft)
-    {
     }
 }
 

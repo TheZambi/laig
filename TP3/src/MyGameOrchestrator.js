@@ -41,16 +41,28 @@ class MyGameOrchestrator {
         this.replayMode = false;
     }
 
+    /**
+     * @method replay
+     * Starts the move replay
+     */
     replay() {
         if(this.playerTurn() || this.winner != -1)
             this.animator.replay();
     }
 
+    /**
+     * @method endReplay
+     * Ends the move replay
+     */
     endReplay() {
         if (this.replayMode)
             this.animator.endReplay();
     }
 
+    /**
+     * @method prepareForMovie
+     * Prepares the game for replayMode
+     */
     prepareForMovie() {
         this.gameboard.prepareForMovie();
         this.currentPlayer = 0;
@@ -58,6 +70,10 @@ class MyGameOrchestrator {
         this.replayMode = true;
     }
 
+    /**
+     * @method reset
+     * Resets the game to its initial state
+     */
     reset() {
         if (!this.replayMode) {
             this.gameSequence = new MyGameSequence();
@@ -74,6 +90,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method update
+     * updates the game according to timePassed
+     */
     update(t) {
         this.currentTime = t;
         if(this.startTurnTimer){
@@ -111,10 +131,18 @@ class MyGameOrchestrator {
         this.animator.update(t);
     }
 
+    /**
+     * @method playerTurn
+     * Returns true if it is the player turn
+     */
     playerTurn() {
         return this.gameStarted && !this.botTurn();
     }
 
+    /**
+     * @method makeBotMove
+     * requests a bot move to prologInterface
+     */
     makeBotMove() {
         this.moveDone = false;
         var newBoard = this.createBoard();
@@ -123,6 +151,10 @@ class MyGameOrchestrator {
         this.prologInterface.requestBotMove("choose_move([" + newBoard + "," + colorsWon + "," + nPiecesLeft + "]," + this.currentPlayer + "," + 1 + ")", this.currentGame);
     }
 
+    /**
+     * @method parseBotMove
+     * Parses the move received from prolog interface
+     */
     parseBotMove(move) {
         var piece = this.getAvailablePiece(move[2]);
         var newMove = new MyGameMove(piece, this.gameboard.board[[move[0], move[1]]], this.currentTime);
@@ -130,6 +162,10 @@ class MyGameOrchestrator {
         this.moveDone = true;
     }
 
+    /**
+     * @method parsePicking
+     * Parses picking for a player move
+     */
     parsePicking(obj) {
         if (obj instanceof PieceBox) {
             for (var i = 0; i < obj.pieces.length; i++) {
@@ -146,6 +182,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method makeMove
+     * Makes a move and checks if someone has won
+     */
     makeMove(newMove) {
         this.gameboard.movePiece(newMove);
         this.gameSequence.addMove(newMove, this.colorsWon);
@@ -159,6 +199,10 @@ class MyGameOrchestrator {
 
     }
 
+    /**
+     * @method getAvailablePiece
+     * Gets the next available piece for color received
+     */
     getAvailablePiece(color) {
         switch (color) {
             case "green":
@@ -182,6 +226,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method getNPiecesLeft
+     * Returns number of available pieces for each color
+     */
     getNPiecesLeft() {
         var ret = "[";
         var greenPieces = 0;
@@ -203,12 +251,20 @@ class MyGameOrchestrator {
         return ret;
     }
 
+    /**
+     * @method getBotDiff
+     * Returns bot difficulty for prolog requesr
+     */
     getBotDiff() {
         var ret;
         this.currentPlayer == 0 ? ret = this.bot1Copy : ret = this.bot2Copy;
         return ret;
     }
 
+    /**
+     * @method checkFinish
+     * Checks if game has finished
+     */
     checkFinish() {
         var playerColors = [0, 0];
         for (let i = 0; i < 3; i++) {
@@ -218,14 +274,16 @@ class MyGameOrchestrator {
         if (playerColors[0] >= 2) {
             this.winner = 0;
             this.gameStarted = false;
-            console.log("Player1");
         } else if (playerColors[1] >= 2) {
             this.winner = 1;
             this.gameStarted = false;
-            console.log("Player2");
         }
     }
 
+    /**
+     * @method startGame
+     * Starts the game
+     */
     startGame() {
         this.currentGame++;
         this.gameStarted = true;
@@ -234,6 +292,10 @@ class MyGameOrchestrator {
         this.gameModeCopy = this.gameMode;
     }
 
+    /**
+     * @method play
+     * Called during update loop, manages turns or starts game
+     */
     play() {
         if (!this.gameStarted && this.winner == -1) {
             this.startGame();
@@ -247,6 +309,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method botTurn
+     * Checks if it's a bot turn
+     */
     botTurn() {
         switch (this.gameModeCopy) {
             case "1":
@@ -260,6 +326,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method orchestrate
+     * Orchestrates the game
+     */
     orchestrate()
     {
         if (this.gameStarted && !this.replayMode) {
@@ -268,6 +338,10 @@ class MyGameOrchestrator {
         this.display();
     }
 
+    /**
+     * @method display
+     * Displays the gameboard and other objects
+     */
     display() {
         this.scene.pushMatrix();
         this.scene.translate(...this.boardTranslation);
@@ -277,6 +351,10 @@ class MyGameOrchestrator {
         this.scene.popMatrix();
     }
 
+    /**
+     * @method undo
+     * Undoes a move
+     */
     undo() {
         if (!this.replayMode && this.gameStarted) {
             switch (this.gameModeCopy) {
@@ -304,6 +382,10 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * @method createBoard
+     * creates a board in a prolog friendly format
+     */
     createBoard() {
         let currentRow = 0;
         let nPieces = 0;
@@ -333,6 +415,10 @@ class MyGameOrchestrator {
         return ret;
     }
 
+    /**
+     * @method createColors
+     * creates colorsWon in a prolog friendly format
+     */
     createColors() {
         let ret = "[";
         ret += this.colorsWon.join();
