@@ -356,7 +356,7 @@ class MyGameOrchestrator {
      * Undoes a move
      */
     undo() {
-        if (!this.replayMode && this.gameStarted) {
+        if (!this.replayMode && this.gameStarted && this.playerTurn()) {
             switch (this.gameModeCopy) {
                 case "1":
                     if (this.gameSequence.moveSequence.length != 0) {

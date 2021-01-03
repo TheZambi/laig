@@ -1,9 +1,9 @@
 # User's Manual
 ## How to run
-1) Open sicstus prolog and consult the file server.pl inside TP3/src/prolog.
-2) Invoke the predicate 'server.'.
-3) Create a local server in the folder TP3.
-4) Open the localhost in a browser that supports webGL.
+1) Open sicstus prolog and consult the file server.pl inside TP3/src/prolog.  
+2) Invoke the predicate 'server.'.  
+3) Create a local server in the folder TP3.  
+4) Open the localhost in a browser that supports webGL.  
 
 ## Game's rules
 The ultimate goal of the game is to win 2 of the 3 available colors.  
