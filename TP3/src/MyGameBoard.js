@@ -34,6 +34,10 @@ class MyGameBoard extends CGFobject {
         this.initBuffers();
     }
 
+    /**
+     * @method prepareForMovie
+     * prepares the board for the movie by unsetting all pieces from its tiles
+     */
     prepareForMovie()
     {
         for (var key in this.board) {
@@ -44,6 +48,10 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * @method initBoard
+     * Initializes the Board by placing its tiles
+     */
     initBoard() {
         for (let i = 0; i < this.boardLength.length; i++) {
             let aux = this.startDiagonal[i];
@@ -69,6 +77,10 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * @method initPieces
+     * Initializes the pieces available
+     */
     initPieces() {
         for (let i = 0; i < 42; i++) {
             this.greenPieces.push(new MyPiece(this.scene, "green",[10,1,-17]));
@@ -77,28 +89,48 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * @method initBuffers
+     * Initializes the object's buffers
+     */
     initBuffers() {
         this.initBoard();
         this.initPieces();
     }
 
+    /**
+     * @method addPiece
+     * Sets the piece on [x,y] coords
+     */
     addPiece(x, y, piece) {
         this.board[[x, y]].setPiece(piece);
     }
 
+    /**
+     * @method removePiece
+     * Removes the piece on [x,y] coords
+     */
     removePiece(x, y) {
         this.board[[x, y]].unsetPiece();
     }
 
+    /**
+     * @method getTileByPiece
+     * Returns the tile that has the corresponding piece received
+     */
     getTileByPiece(piece) {
         for (let i = 0; i < 42; i++) {
-            if (this.greenPieces[i] == piece) return this.greenPieces[i];
-            if (this.purplePieces[i] == piece) return this.purplePieces[i];
-            if (this.orangePieces[i] == piece) return this.orangePieces[i];
+            if (this.greenPieces[i] == piece) return this.greenPieces[i].tile;
+            if (this.purplePieces[i] == piece) return this.purplePieces[i].tile;
+            if (this.orangePieces[i] == piece) return this.orangePieces[i].tile;
         }
         return null;
     }
 
+     /**
+     * @method getPieceByTile
+     * Returns the piece that has the corresponding tile received
+     */
     getPieceByTile(tile) {
         for (var key in this.board) {
             if (this.board[key] == tile) {
@@ -108,15 +140,27 @@ class MyGameBoard extends CGFobject {
         return null;
     }
 
+     /**
+     * @method getTilePieceByCoords
+     * Returns the piece on the [x,y] tile
+     */
     getTilePieceByCoords(x, y) {
         return this.board[[x, y]].getPiece();
     }
 
+    /**
+     * @method movePiece
+     * moves the piece to its tile
+     */
     movePiece(gamemove) {
         gamemove.getTile().setPiece(gamemove.getPiece());
     }
 
 
+    /**
+     * @method displayTiles
+     * Displays the tiles
+     */
     displayTiles() {
         this.scene.pushMatrix();
 
@@ -151,6 +195,10 @@ class MyGameBoard extends CGFobject {
     }
 
 
+    /**
+     * @method displayBoxed
+     * Displays the piece boxes
+     */
     displayBoxes()
     {
         this.boxAppearence.apply();
@@ -205,6 +253,10 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    /**
+     * @method displayIndicators
+     * Displays the color indicators on the borders of the board
+     */
     displayIndicators()
     {
         this.scene.pushMatrix();
@@ -246,6 +298,10 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    /**
+     * @method displayScores
+     * Displays the score markers
+     */
     displayScores()
     {
         this.scene.pushMatrix();
@@ -259,6 +315,10 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    /**
+     * @method displayTimer
+     * Displays the timer
+     */
     displayTimer(){
         this.scene.pushMatrix();
         this.scene.translate(0,10,-20);
@@ -266,6 +326,10 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    /**
+     * @method display
+     * Displays all objects
+     */
     display() {
         
         this.displayIndicators();
@@ -279,6 +343,10 @@ class MyGameBoard extends CGFobject {
 
     }
 
+    /**
+     * @method undo
+     * undoes a move
+     */
     undo(undoMove) {
         undoMove.tile.unsetPiece();
         undoMove.piece.unsetTile();
