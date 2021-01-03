@@ -35,7 +35,7 @@
 
 ----
 
-### [TP3 - ...](TP3)
+### [TP3 - BoardGame](TP3)
 - All requested functionalities are working.
 - Two scenes: A farm with a picnic towel and gameboard on top of it and a room with a lamp and the gameboard on top of a table.
 - Animations between all cameras.
