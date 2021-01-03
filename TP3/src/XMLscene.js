@@ -125,10 +125,11 @@ class XMLscene extends CGFscene {
                         var position = this.cameraList[this.cameraList.length - 1].position;
                         var target = this.cameraList[this.cameraList.length - 1].target;
                         var up = this.cameraList[this.cameraList.length - 1]._up;
+                        
                         this.camera.far = far;
                         this.camera.fov = fov;
                         this.camera.near = near;
-                        this.camera._up = up;
+                        this.camera._up = vec3.fromValues(...up);
                         this.camera.setPosition(position);
                         this.camera.setTarget(target);
                         this.firstCamera = this.cameraList[this.cameraList.length - 1];
@@ -169,7 +170,7 @@ class XMLscene extends CGFscene {
                         if(!orthoCam)
                             this.camera.fov = fov;
                         this.camera.near = near;
-                        this.camera._up = up;
+                        this.camera._up = vec3.fromValues(...up);;
                         this.camera.setPosition(position);
                         this.camera.setTarget(target);
                         this.firstCamera = this.cameraList[i];
