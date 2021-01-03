@@ -28,13 +28,7 @@ class MyGameOrchestrator {
             "Medium": 2,
             "Hard": 3
         };
-        this.bot2Diff = 1;
-        this.bot2Copy = this.bot2Diff;
-        this.bot2Diffs = {
-            "Easy": 1,
-            "Medium": 2,
-            "Hard": 3
-        };
+        
         this.gameMode = "1";
         this.gameModeCopy = this.gameMode;
         this.gameModes = {

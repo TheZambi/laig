@@ -55,8 +55,6 @@ class MyPiece extends CGFobject {
 
     display()
     {
-        
-        
         //rotates piece to xz axis
         this.scene.pushMatrix();
         this.defaultAppearance.apply();
@@ -65,20 +63,5 @@ class MyPiece extends CGFobject {
         this.scene.popMatrix();
     }
 
-    animate()
-    {
-
-    }
-
-	/**
-     * @method updateCoords
-     * Updates the list of texture coordinates of the triangle
-	 * @param {integer} afs - Amplification on s axis
-	 * @param {integer} aft - Amplification on t axis
-     */
-    updateCoords(afs, aft)
-    {
-		
-    }
 }
 

@@ -11,6 +11,7 @@ class MyTurnTimer extends CGFobject {
         this.box = new MyOpenBox(scene);
         this.tvCylinder = new MyCylinder(scene,20,10,1,1,8);
         this.helperText = new MySpriteText(scene,"Winner:");
+        this.turnPlayer = new MySpriteText(scene,"");
 
         this.screen = new CGFappearance(this.scene);
         this.screen.loadTexture('./scenes/images/messageScreen.png');
@@ -51,15 +52,21 @@ class MyTurnTimer extends CGFobject {
         this.scene.popMatrix();
         if(this.orchestrator.gameStarted && this.timeisValid() && this.orchestrator.gameMode != "4" ){
             this.scene.pushMatrix();
+            this.scene.translate(0.5,0.1,0.1);
+            this.turnPlayer.updateText("Player:" + (this.orchestrator.currentPlayer+1));
+            this.scene.pushMatrix();
+            this.scene.translate(0.1,2.5,0.1);
+            this.turnPlayer.display();
+            this.scene.popMatrix();
             this.scene.scale(2.5,2.5,2.5);
             this.text.display();
             this.scene.popMatrix();
         }
         else if(!this.orchestrator.gameStarted && this.orchestrator.winner != -1){
             this.scene.pushMatrix();
-            this.scene.translate(0.2,0,0);
+            this.scene.translate(0.2,0,0.1);
             this.scene.pushMatrix();
-            this.scene.translate(0,2.5,0);
+            this.scene.translate(0.1,2.5,0.1);
             this.helperText.display();
             this.scene.popMatrix();
             this.text.display();
